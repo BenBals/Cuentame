@@ -73,12 +73,20 @@ module.exports =
         loaders: [
             // Compile es6 to js.
             {
-                test: /app\/.*\.jsx?$/,
+                test: /src\/.*\.jsx?$/,
                 loaders: [
-                    'react-hot',
                     'babel-loader'
                 ]
             },
+
+            {
+                //tell webpack to use jsx-loader for all *.jsx files
+                test: /\.jsx$/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015', 'react']
+                }
+            }
 
             ///app\/.*\.json$/
             // { test:  /\.json$/, loader: 'json-loader' },

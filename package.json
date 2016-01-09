@@ -1,11 +1,11 @@
 {
-  "name": "react-server-experiment",
+  "name": "adivinar",
   "version": "0.1.0",
   "description": "just me trying to get this up and running using webpack",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack --watch",
+    "build": "webpack --config webpack.config.server.js & webpack --config webpack.config.client.js",
+    "dev": "webpack --config webpack.config.server.js --watch & webpack --config webpack.config.client.js --watch",
     "lint": "eslint . --ext .js --ext .jsx",
     "test": "jest"
   },
@@ -15,7 +15,8 @@
     "express": "^4.10.2",
     "react": "^0.14.5",
     "react-dom": "^0.14.5",
-    "redux": "^3.0.5"
+    "redux": "^3.0.5",
+    "socket.io": "^1.4.3"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0-beta6",

@@ -1,17 +1,21 @@
-var express = require('express')
-var http = require('http')
+var app = require('express')();
+var http = require('http').Server(app);
+var path = require('path')
+var io = require('socket.io')(http)
 
-// setup vars
 SERVER_PORT = 3000
 
+app.get('/', (req, res) => {
+  var filePath = path.resolve('build/client/index.html')
+  res.sendFile(filePath);
+});
 
-var app = express()
-var server = http.Server(app)
-
-app.get('/', () => {
-  res.send('<h1>Hello World</h1>')
+io.on('connection', function(socket) {
+  console.log('a user connected')
 })
 
-server.listen(SERVER_PORT, () => {
-  console.log('listening on ' + SERVER_PORT)
-})
+http.listen(SERVER_PORT, function(){
+  console.log('listening on *: ', SERVER_PORT);
+});
+
+// NOTE: must be run from porject root due to not working __dirname

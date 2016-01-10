@@ -19765,12 +19765,12 @@
 	      var newNameIsntEmpty = action.newName !== '';
 
 	      var newNameIsntTaken = !(0, _lodash.reduce)(store.getState().players, function (found, item) {
-	        found ? found : action.newName === item.name;
+	        return found ? found : action.newName === item.name;
 	      }, false);
 
-	      if (action.newName !== '' && !(0, _lodash.reduce)(store.getState().players, function (found, item) {
-	        found ? found : action.newName === item.name;
-	      })) {
+	      var isValid = newNameIsntEmpty && newNameIsntTaken;
+
+	      if (isValid) {
 	        socket.emit('add player', action.newName);
 
 	        return (0, _lodash.assign)(state, {

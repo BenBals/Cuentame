@@ -21,11 +21,15 @@ const reducer = (state = defaultState, action) => {
 
       const newNameIsntTaken = !reduce(
         store.getState().players,
-        (found, item) => {found ? found : action.newName === item.name},
+        (found, item) => {
+          return found ? found : action.newName === item.name
+        },
         false
       )
 
-      if ((action.newName !== '') && (!reduce(store.getState().players, (found, item) => {found ? found : action.newName === item.name}))) {
+      const isValid = newNameIsntEmpty && newNameIsntTaken
+
+      if (isValid) {
         socket.emit('add player', action.newName)
 
         return assign(state, {

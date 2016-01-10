@@ -5,14 +5,14 @@ import renderMap from '../renderMap.jsx'
 
 export default class Write extends React.Component {
   componentDidMount() {
-    const lngLat = {lat: this.props.location.lat, lng: this.props.location.lng}
+    const latLng = {lat: this.props.location.lat, lng: this.props.location.lng}
     const zoom = 8
     renderMap(
-      lngLat,
+      latLng,
       zoom,
       false,
       document.getElementById('writeMap'),
-      [{lngLat: lngLat}]
+      [{latLng: latLng}]
     )
   }
 
@@ -32,7 +32,7 @@ export default class Write extends React.Component {
         {this.props.location.vocHelp}
 
         <h3>{lang.locationOnMap}</h3>
-        <div id="writeMap" style={{height: '200px'}}>
+        <div id="writeMap" style={{height: '25vh'}}>
         </div>
 
         <br />

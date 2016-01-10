@@ -33,4 +33,12 @@ export default (socket, store) => {
     })
   })
 
+  socket.on('and the round winner is...', (roundWinner) => {
+    console.log('i know who won')
+    store.dispatch({
+      type: 'SET_ROUND_WINNER',
+      roundWinner: roundWinner
+    })
+  })
+
 }

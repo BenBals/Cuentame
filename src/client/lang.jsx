@@ -14,6 +14,10 @@ export default {
   vocHelp: 'Vocabulray Help',
   submit: 'submit',
   locationOnMap: 'The location on map',
-  waitForAnswer: 'Waiting for answer',
-  whereIsTheFollowingPlace: 'Where is the following place?'
+  waitForAnswer: 'Waiting for other players to answer',
+  whereIsTheFollowingPlace: 'Where is the following place?',
+  winsThisRound: 'wins this round',
+  theirDistaceWas: 'Their distace was',
+  meters: 'meters',
+  yourScore: 'Your score'
 }

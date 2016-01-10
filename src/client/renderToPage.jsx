@@ -15,10 +15,6 @@ export default (socket) => {
       // all the stuff that needs to be injected
       state={store.getState()}
 
-      sendAMessage={(msg)=>{
-        socket.emit('message', msg)
-      }}
-
       goToNameScreen={() => {
         store.dispatch({
           type: 'CHANGE_SCREEN',
@@ -45,6 +41,10 @@ export default (socket) => {
 
       submitDescription={(description) => {
         store.dispatch({type: 'SET_USER_DESCRIPTION', description: description})
+      }}
+
+      submitGuess={() => {
+        store.dispatch({type: 'SUBMIT_GUESS'})
       }}
 
 

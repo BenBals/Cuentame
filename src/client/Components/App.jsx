@@ -9,6 +9,7 @@ import WaitForWriter from './WaitForWriter.jsx'
 import Write from './Write.jsx'
 import Answer from './Answer.jsx'
 import WaitForAnswer from './WaitForAnswer.jsx'
+import ShowRoundWinner from './ShowRoundWinner.jsx'
 
 export default class App extends React.Component {
   render() {
@@ -26,16 +27,24 @@ export default class App extends React.Component {
         case 'WRITE':
           return <Write location={this.props.state.location} submitDescription={this.props.submitDescription}/>
         case 'ANSWER':
-          return <Answer description={this.props.state.userDescription}/>
+          return <Answer description={this.props.state.userDescription} submitGuess={this.props.submitGuess}/>
         case 'WAIT_FOR_ANSWER':
           return <WaitForAnswer />
+        case 'SHOW_ROUND_WINNER':
+          return <ShowRoundWinner winner={this.props.state.winner}/>
         default:
           return <div>{lang.randomError}</div>
       }
     }
 
+    const getScoreHeader = () => {
+      return this.props.state.status === 'PLAYING' ? (<div>{lang.yourScore}: {this.props.state.score}</div>) : null
+    }
+
     return (
       <div>
+
+        {getScoreHeader()}
 
         {getChild()}
 

@@ -5,7 +5,7 @@ import renderMap from '../renderMap.jsx'
 
 export default class Answer extends React.Component  {
     componentDidMount() {
-        const lngLat = {
+        const latLng = {
             lng: -74.075833,
             lat: 4.598056
         }
@@ -13,7 +13,7 @@ export default class Answer extends React.Component  {
         const zoom = 4
 
         renderMap(
-            lngLat,
+            latLng,
             zoom,
             true,
             document.getElementById('answerMap')
@@ -25,7 +25,9 @@ export default class Answer extends React.Component  {
         <div>
           <h2>{lang.whereIsTheFollowingPlace}</h2>
           <div>{this.props.description}</div>
-          <div id='answerMap' style={{height: '200px'}}></div>
+          <div id='answerMap' style={{height: '50vh'}}></div>
+
+          <button onClick={this.props.submitGuess}>{lang.submit}</button>
         </div>
       )
     }

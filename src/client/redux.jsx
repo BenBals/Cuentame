@@ -6,7 +6,8 @@ const socket = io() // being injected through the script tag
 const defaultState = {
   screen: 'HELLO',
   players: [],
-  name: ''
+  name: '',
+  status: 'NOT_STARTED'
 }
 
 // the redux reducer
@@ -39,19 +40,24 @@ const reducer = (state = defaultState, action) => {
         return state
       }
     case 'UPDATE_PLAYERS':
+      const thisPlayer = action.newPlayers.reduce((acc, player) => {
+        return player.name === state.name ? player : acc
+      }, null)
       return assign(state, {
-        players: action.newPlayers
+        players: action.newPlayers,
+        score: thisPlayer.score ? thisPlayer.score : 0
       })
     case 'SET_INITIAL_DATA':
       return assign(state, action.data)
     case 'START_NEW_ROUND':
       const nextScreen = action.data.writer === state.name ? 'WRITE' : 'WAIT_FOR_WRITER'
       return assign(state, action.data, {
-        screen: nextScreen
+        screen: nextScreen,
+        status: 'PLAYING'
       })
     case 'SET_USER_DESCRIPTION':
       socket.emit('submit description', action.description)
-      
+
       return assign(state, {
         userDescription: action.description
       })
@@ -62,6 +68,29 @@ const reducer = (state = defaultState, action) => {
         userDescription: action.description
       }, {
         screen: nextScreen2
+      })
+    case 'PLACE_MARKER':
+      console.log(action.latLng)
+      return assign(state, {
+        marker: {
+          latLng: {
+            lat: action.latLng.lat(),
+            lng: action.latLng.lng()
+          }
+        }
+      })
+    case 'SUBMIT_GUESS':
+      socket.emit('submit guess', {
+        latLng: state.marker.latLng,
+        name: state.name
+      })
+      return assign(state, {
+        screen: 'WAIT_FOR_ANSWER'
+      })
+    case 'SET_ROUND_WINNER':
+      return assign(state, {
+        winner: action.roundWinner,
+        screen: 'SHOW_ROUND_WINNER'
       })
     default:
       return state

@@ -1,9 +1,11 @@
-export default (lngLat, zoom, addNewMarkers, renderTarget, markers) => {
+import { store } from './redux.jsx'
+
+export default (latLng, zoom, addNewMarkers, renderTarget, markers) => {
   var allMarkers = []
 
-  const placeMakerAndPanTo = (lngLat, map) => {
+  const placeMakerAndPanTo = (latLng, map) => {
     const newMarker = new google.maps.Marker({
-      position: lngLat,
+      position: latLng,
       map: map
     })
 
@@ -14,23 +16,28 @@ export default (lngLat, zoom, addNewMarkers, renderTarget, markers) => {
 
     allMarkers.push(newMarker)
 
-    map.panTo(lngLat)
+    map.panTo(latLng)
   }
 
   const map = new google.maps.Map(renderTarget, {
-    center: lngLat,
+    center: latLng,
     zoom: zoom
   })
 
   if (addNewMarkers) {
     map.addListener('click', (e) => {
       console.log(e)
+      store.dispatch({
+        type: 'PLACE_MARKER',
+        latLng: e.latLng
+      })
+      placeMakerAndPanTo(store.getState().marker.latLng, map)
     })
   }
 
   markers.map((marker) => {
     const thisMarker = new google.maps.Marker({
-      position: marker.lngLat,
+      position: marker.latLng,
       title: "Hello World!"
     })
 

@@ -92,7 +92,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _eventListeners = __webpack_require__(183);
+	var _eventListeners = __webpack_require__(184);
 
 	var _eventListeners2 = _interopRequireDefault(_eventListeners);
 
@@ -110,10 +110,6 @@
 	    _reactDom2.default.render(_react2.default.createElement(_App2.default
 	    // all the stuff that needs to be injected
 	    , { state: _redux.store.getState(),
-
-	      sendAMessage: function sendAMessage(msg) {
-	        socket.emit('message', msg);
-	      },
 
 	      goToNameScreen: function goToNameScreen() {
 	        _redux.store.dispatch({
@@ -141,6 +137,10 @@
 
 	      submitDescription: function submitDescription(description) {
 	        _redux.store.dispatch({ type: 'SET_USER_DESCRIPTION', description: description });
+	      },
+
+	      submitGuess: function submitGuess() {
+	        _redux.store.dispatch({ type: 'SUBMIT_GUESS' });
 	      }
 
 	    }), document.getElementById('mount'));
@@ -19762,7 +19762,8 @@
 	var defaultState = {
 	  screen: 'HELLO',
 	  players: [],
-	  name: ''
+	  name: '',
+	  status: 'NOT_STARTED'
 	};
 
 	// the redux reducer
@@ -19794,15 +19795,20 @@
 	        return state;
 	      }
 	    case 'UPDATE_PLAYERS':
+	      var thisPlayer = action.newPlayers.reduce(function (acc, player) {
+	        return player.name === state.name ? player : acc;
+	      }, null);
 	      return (0, _lodash.assign)(state, {
-	        players: action.newPlayers
+	        players: action.newPlayers,
+	        score: thisPlayer.score ? thisPlayer.score : 0
 	      });
 	    case 'SET_INITIAL_DATA':
 	      return (0, _lodash.assign)(state, action.data);
 	    case 'START_NEW_ROUND':
 	      var nextScreen = action.data.writer === state.name ? 'WRITE' : 'WAIT_FOR_WRITER';
 	      return (0, _lodash.assign)(state, action.data, {
-	        screen: nextScreen
+	        screen: nextScreen,
+	        status: 'PLAYING'
 	      });
 	    case 'SET_USER_DESCRIPTION':
 	      socket.emit('submit description', action.description);
@@ -19817,6 +19823,29 @@
 	        userDescription: action.description
 	      }, {
 	        screen: nextScreen2
+	      });
+	    case 'PLACE_MARKER':
+	      console.log(action.latLng);
+	      return (0, _lodash.assign)(state, {
+	        marker: {
+	          latLng: {
+	            lat: action.latLng.lat(),
+	            lng: action.latLng.lng()
+	          }
+	        }
+	      });
+	    case 'SUBMIT_GUESS':
+	      socket.emit('submit guess', {
+	        latLng: state.marker.latLng,
+	        name: state.name
+	      });
+	      return (0, _lodash.assign)(state, {
+	        screen: 'WAIT_FOR_ANSWER'
+	      });
+	    case 'SET_ROUND_WINNER':
+	      return (0, _lodash.assign)(state, {
+	        winner: action.roundWinner,
+	        screen: 'SHOW_ROUND_WINNER'
 	      });
 	    default:
 	      return state;
@@ -32847,6 +32876,10 @@
 
 	var _WaitForAnswer2 = _interopRequireDefault(_WaitForAnswer);
 
+	var _ShowRoundWinner = __webpack_require__(183);
+
+	var _ShowRoundWinner2 = _interopRequireDefault(_ShowRoundWinner);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -32896,15 +32929,21 @@
 	          case 'WRITE':
 	            return _react2.default.createElement(_Write2.default, { location: _this2.props.state.location, submitDescription: _this2.props.submitDescription });
 	          case 'ANSWER':
-	            return _react2.default.createElement(_Answer2.default, { description: _this2.props.state.userDescription });
+	            return _react2.default.createElement(_Answer2.default, { description: _this2.props.state.userDescription, submitGuess: _this2.props.submitGuess });
 	          case 'WAIT_FOR_ANSWER':
 	            return _react2.default.createElement(_WaitForAnswer2.default, null);
+	          case 'SHOW_ROUND_WINNER':
+	            return _react2.default.createElement(_ShowRoundWinner2.default, { winner: _this2.props.state.winner });
 	          default:
 	            return _react2.default.createElement('div', null, _lang2.default.randomError);
 	        }
 	      };
 
-	      return _react2.default.createElement('div', null, getChild(), _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state, null, 2)));
+	      var getScoreHeader = function getScoreHeader() {
+	        return _this2.props.state.status === 'PLAYING' ? _react2.default.createElement('div', null, _lang2.default.yourScore, ': ', _this2.props.state.score) : null;
+	      };
+
+	      return _react2.default.createElement('div', null, getScoreHeader(), getChild(), _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state, null, 2)));
 	    }
 	  }]);
 
@@ -32938,8 +32977,12 @@
 	  vocHelp: 'Vocabulray Help',
 	  submit: 'submit',
 	  locationOnMap: 'The location on map',
-	  waitForAnswer: 'Waiting for answer',
-	  whereIsTheFollowingPlace: 'Where is the following place?'
+	  waitForAnswer: 'Waiting for other players to answer',
+	  whereIsTheFollowingPlace: 'Where is the following place?',
+	  winsThisRound: 'wins this round',
+	  theirDistaceWas: 'Their distace was',
+	  meters: 'meters',
+	  yourScore: 'Your score'
 	};
 
 /***/ },
@@ -33171,9 +33214,9 @@
 	  _createClass(Write, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var lngLat = { lat: this.props.location.lat, lng: this.props.location.lng };
+	      var latLng = { lat: this.props.location.lat, lng: this.props.location.lng };
 	      var zoom = 8;
-	      (0, _renderMap2.default)(lngLat, zoom, false, document.getElementById('writeMap'), [{ lngLat: lngLat }]);
+	      (0, _renderMap2.default)(latLng, zoom, false, document.getElementById('writeMap'), [{ latLng: latLng }]);
 	    }
 	  }, {
 	    key: 'render',
@@ -33187,7 +33230,7 @@
 
 	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.youAreTheWriter), _react2.default.createElement('textarea', { defaultValue: _lang2.default.yourDescriptionHere, ref: function ref(_ref) {
 	          return _this2.text = _ref;
-	        } }), _react2.default.createElement('h3', null, _lang2.default.youDescribe, ': ', this.props.location.name), this.props.location.description, _react2.default.createElement('h3', null, _lang2.default.vocHelp), this.props.location.vocHelp, _react2.default.createElement('h3', null, _lang2.default.locationOnMap), _react2.default.createElement('div', { id: 'writeMap', style: { height: '200px' } }), _react2.default.createElement('br', null), _react2.default.createElement('button', { onClick: handleSubmit }, _lang2.default.submit));
+	        } }), _react2.default.createElement('h3', null, _lang2.default.youDescribe, ': ', this.props.location.name), this.props.location.description, _react2.default.createElement('h3', null, _lang2.default.vocHelp), this.props.location.vocHelp, _react2.default.createElement('h3', null, _lang2.default.locationOnMap), _react2.default.createElement('div', { id: 'writeMap', style: { height: '25vh' } }), _react2.default.createElement('br', null), _react2.default.createElement('button', { onClick: handleSubmit }, _lang2.default.submit));
 	    }
 	  }]);
 
@@ -33198,20 +33241,22 @@
 
 /***/ },
 /* 180 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	exports.default = function (lngLat, zoom, addNewMarkers, renderTarget, markers) {
+	var _redux = __webpack_require__(161);
+
+	exports.default = function (latLng, zoom, addNewMarkers, renderTarget, markers) {
 	  var allMarkers = [];
 
-	  var placeMakerAndPanTo = function placeMakerAndPanTo(lngLat, map) {
+	  var placeMakerAndPanTo = function placeMakerAndPanTo(latLng, map) {
 	    var newMarker = new google.maps.Marker({
-	      position: lngLat,
+	      position: latLng,
 	      map: map
 	    });
 
@@ -33222,23 +33267,28 @@
 
 	    allMarkers.push(newMarker);
 
-	    map.panTo(lngLat);
+	    map.panTo(latLng);
 	  };
 
 	  var map = new google.maps.Map(renderTarget, {
-	    center: lngLat,
+	    center: latLng,
 	    zoom: zoom
 	  });
 
 	  if (addNewMarkers) {
 	    map.addListener('click', function (e) {
 	      console.log(e);
+	      _redux.store.dispatch({
+	        type: 'PLACE_MARKER',
+	        latLng: e.latLng
+	      });
+	      placeMakerAndPanTo(_redux.store.getState().marker.latLng, map);
 	    });
 	  }
 
 	  markers.map(function (marker) {
 	    var thisMarker = new google.maps.Marker({
-	      position: marker.lngLat,
+	      position: marker.latLng,
 	      title: "Hello World!"
 	    });
 
@@ -33316,19 +33366,19 @@
 	    _createClass(Answer, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var lngLat = {
+	            var latLng = {
 	                lng: -74.075833,
 	                lat: 4.598056
 	            };
 
 	            var zoom = 4;
 
-	            (0, _renderMap2.default)(lngLat, zoom, true, document.getElementById('answerMap'));
+	            (0, _renderMap2.default)(latLng, zoom, true, document.getElementById('answerMap'));
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whereIsTheFollowingPlace), _react2.default.createElement('div', null, this.props.description), _react2.default.createElement('div', { id: 'answerMap', style: { height: '200px' } }));
+	            return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whereIsTheFollowingPlace), _react2.default.createElement('div', null, this.props.description), _react2.default.createElement('div', { id: 'answerMap', style: { height: '50vh' } }), _react2.default.createElement('button', { onClick: this.props.submitGuess }, _lang2.default.submit));
 	        }
 	    }]);
 
@@ -33365,6 +33415,32 @@
 
 /***/ },
 /* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = function (props) {
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, props.winner.name, ' ', _lang2.default.winsThisRound), _react2.default.createElement('span', null, _lang2.default.theirDistaceWas, ' ', props.winner.distance, ' ', _lang2.default.meters));
+	};
+
+/***/ },
+/* 184 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33405,6 +33481,14 @@
 	    store.dispatch({
 	      type: 'SUBMITTED_USER_DESCRIPTION',
 	      description: description
+	    });
+	  });
+
+	  socket.on('and the round winner is...', function (roundWinner) {
+	    console.log('i know who won');
+	    store.dispatch({
+	      type: 'SET_ROUND_WINNER',
+	      roundWinner: roundWinner
 	    });
 	  });
 	};

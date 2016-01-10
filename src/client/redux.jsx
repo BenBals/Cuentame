@@ -13,10 +13,10 @@ const defaultState = {
 // the redux reducer
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
-    case 'INCREMENT':
-      return state + 1
-    case 'DECREMENT':
-      return state -1
+    case 'CHANGE_SCREEN':
+      return Object().assign(state, {
+        screen: action.target
+      })
     default:
       return state
   }
@@ -34,9 +34,19 @@ const renderToPage = (socket) => {
     reactDOM.render(<App
       // all the stuff that needs to be injected
       state={store.getState()}
+
       sendAMessage={(msg)=>{
         socket.emit('message', msg)
       }}
+
+      goToNameScreen={() => {
+        store.dispatch({
+          type: 'CHANGE_SCREEN',
+          target: 'NAME'
+        })
+      }}
+
+
     />, document.getElementById('mount'))
   }
   // rerender on data change

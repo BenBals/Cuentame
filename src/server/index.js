@@ -214,7 +214,7 @@ io.on('connection', function(socket) {
 })
 
 // start the server on port SERVER_PORT
-http.listen(SERVER_PORT, function(){
+http.listen(process.env.PORT || SERVER_PORT, function(){
   console.log('listening on *: ', process.env.PORT || SERVER_PORT);
 });
 

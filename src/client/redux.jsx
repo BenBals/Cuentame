@@ -6,7 +6,7 @@ import { createStore } from 'redux'
 import setUpListeners from './eventListeners.jsx'
 import App from './Components/App.jsx'
 
-defaultState = {
+const defaultState = {
   screen: 'HELLO'
 }
 

@@ -95,7 +95,7 @@
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	defaultState = {
+	var defaultState = {
 	  screen: 'HELLO'
 	};
 
@@ -20361,6 +20361,10 @@
 
 	var _lang2 = _interopRequireDefault(_lang);
 
+	var _Hello = __webpack_require__(173);
+
+	var _Hello2 = _interopRequireDefault(_Hello);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -20383,8 +20387,6 @@
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
-	// import Hello from '.Hello.jsx'
-
 	var App = (function (_React$Component) {
 	  _inherits(App, _React$Component);
 
@@ -20398,14 +20400,14 @@
 	    key: 'render',
 	    value: function render() {
 
-	      child = _react2.default.createElement('div', null, _lang2.default.randomError);
+	      var child = _react2.default.createElement('div', null, _lang2.default.randomError);
 
 	      switch (this.props.state.screen) {
 	        case 'HELLO':
-	          child = _react2.default.createElement(Hello, null);
+	          child = _react2.default.createElement(_Hello2.default, null);
 	      }
 
-	      return _react2.default.createElement('div', null, child, _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', this.props.state));
+	      return _react2.default.createElement('div', null, child, _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state)));
 	    }
 	  }]);
 
@@ -20424,7 +20426,34 @@
 	  value: true
 	});
 	exports.default = {
-	  randomError: 'something went wrong'
+	  randomError: 'something went wrong',
+	  name: 'Adivinar'
+	};
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(172);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = function () {
+	  return _react2.default.createElement('h1', null, _lang2.default.name);
 	};
 
 /***/ }

@@ -1,3 +1,4 @@
 export default {
-  randomError: 'something went wrong'
+  randomError: 'something went wrong',
+  name: 'Adivinar'
 }

@@ -3,6 +3,20 @@ var http = require('http').Server(app);
 var path = require('path')
 var io = require('socket.io')(http)
 
+state = {
+  status: 'NOT_STARTED',
+  players: [],
+  locations: [
+    {
+      name: 'Bogota',
+      description: 'Haoeu',
+      long: '12E',
+      lat: '12N'
+    }
+  ],
+  round: 0
+}
+
 // the port on which the server runs
 SERVER_PORT = 3000
 

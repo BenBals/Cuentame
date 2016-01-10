@@ -95,9 +95,13 @@
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 
+	defaultState = {
+	  screen: 'HELLO'
+	};
+
 	// the redux reducer
 	var reducer = function reducer() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? defaultState : arguments[0];
 	  var action = arguments[1];
 
 	  switch (action.type) {
@@ -20353,6 +20357,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _lang = __webpack_require__(172);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -20375,6 +20383,8 @@
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
+	// import Hello from '.Hello.jsx'
+
 	var App = (function (_React$Component) {
 	  _inherits(App, _React$Component);
 
@@ -20387,11 +20397,15 @@
 	  _createClass(App, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
 
-	      return _react2.default.createElement('div', null, _react2.default.createElement('button', { onClick: function onClick() {
-	          _this2.props.sendAMessage('hello');
-	        } }, 'send a message'), _react2.default.createElement('div', null, 'state:', this.props.state));
+	      child = _react2.default.createElement('div', null, _lang2.default.randomError);
+
+	      switch (this.props.state.screen) {
+	        case 'HELLO':
+	          child = _react2.default.createElement(Hello, null);
+	      }
+
+	      return _react2.default.createElement('div', null, child, _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', this.props.state));
 	    }
 	  }]);
 
@@ -20399,6 +20413,19 @@
 	})(_react2.default.Component);
 
 	exports.default = App;
+
+/***/ },
+/* 172 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  randomError: 'something went wrong'
+	};
 
 /***/ }
 /******/ ]);

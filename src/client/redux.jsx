@@ -6,8 +6,12 @@ import { createStore } from 'redux'
 import setUpListeners from './eventListeners.jsx'
 import App from './Components/App.jsx'
 
+defaultState = {
+  screen: 'HELLO'
+}
+
 // the redux reducer
-const reducer = (state = 0, action) => {
+const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'INCREMENT':
       return state + 1

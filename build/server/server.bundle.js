@@ -49,6 +49,18 @@
 	var path = __webpack_require__(3);
 	var io = __webpack_require__(4)(http);
 
+	state = {
+	  status: 'NOT_STARTED',
+	  players: [],
+	  locations: [{
+	    name: 'Bogota',
+	    description: 'Haoeu',
+	    long: '12E',
+	    lat: '12N'
+	  }],
+	  round: 0
+	};
+
 	// the port on which the server runs
 	SERVER_PORT = 3000;
 

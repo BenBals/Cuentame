@@ -40,6 +40,10 @@ io.on('connection', function(socket) {
     console.log('user disconnected')
   })
 
+  socket.emit('initial data', {
+    players: state.players
+  })
+
   socket.on('message', (msg) => {
     console.log(msg)
     io.emit('INCREMENT')
@@ -50,6 +54,8 @@ io.on('connection', function(socket) {
       name: name,
       score: 0
     })
+
+    console.log(state)
 
     io.emit('update players', state.players)
   })

@@ -38,6 +38,8 @@ const reducer = (state = defaultState, action) => {
       return assign(state, {
         players: action.newPlayers
       })
+    case 'SET_INITIAL_DATA':
+      return assign(state, action.data)
     default:
       return state
   }

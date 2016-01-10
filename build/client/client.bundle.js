@@ -19783,6 +19783,8 @@
 	      return (0, _lodash.assign)(state, {
 	        players: action.newPlayers
 	      });
+	    case 'SET_INITIAL_DATA':
+	      return (0, _lodash.assign)(state, action.data);
 	    default:
 	      return state;
 	  }
@@ -32993,6 +32995,13 @@
 	    store.dispatch({
 	      type: 'UPDATE_PLAYERS',
 	      newPlayers: newPlayers
+	    });
+	  });
+
+	  socket.on('initial data', function (initialData) {
+	    store.dispatch({
+	      type: 'SET_INITIAL_DATA',
+	      data: initialData
 	    });
 	  });
 	};

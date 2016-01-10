@@ -11,4 +11,11 @@ export default (socket, store) => {
     })
   })
 
+  socket.on('initial data', (initialData) => {
+    store.dispatch({
+      type: 'SET_INITIAL_DATA',
+      data: initialData
+    })
+  })
+
 }

@@ -84,6 +84,10 @@
 	    console.log('user disconnected');
 	  });
 
+	  socket.emit('initial data', {
+	    players: state.players
+	  });
+
 	  socket.on('message', msg => {
 	    console.log(msg);
 	    io.emit('INCREMENT');
@@ -94,6 +98,8 @@
 	      name: name,
 	      score: 0
 	    });
+
+	    console.log(state);
 
 	    io.emit('update players', state.players);
 	  });

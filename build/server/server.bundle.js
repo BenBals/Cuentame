@@ -71,6 +71,11 @@
 	  socket.on('disconnect', () => {
 	    console.log('user disconnected');
 	  });
+
+	  socket.on('message', msg => {
+	    console.log(msg);
+	    io.emit('INCREMENT');
+	  });
 	});
 
 	// start the server on port SERVER_PORT

@@ -4,4 +4,4 @@ import { renderToPage } from './redux.jsx'
 // import App from './components/App'
 
 // setup the rendering
-renderToPage()
+renderToPage(socket)

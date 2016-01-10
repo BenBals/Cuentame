@@ -2,6 +2,8 @@ import React from 'react'
 import reactDOM from 'react-dom'
 import { createStore } from 'redux'
 
+
+import setUpListeners from './eventListeners.jsx'
 import App from './Components/App.jsx'
 
 // the redux reducer
@@ -20,10 +22,18 @@ const reducer = (state = 0, action) => {
 const store = createStore(reducer)
 
 // the function that does the heavy lifting for rendering
-const renderToPage = () => {
+const renderToPage = (socket) => {
+  setUpListeners(socket, store)
+
   // the render it self
   const renderIt = () => {
-    reactDOM.render(<App state={store.getState()} />, document.getElementById('mount'))
+    reactDOM.render(<App
+      // all the stuff that needs to be injected
+      state={store.getState()}
+      sendAMessage={(msg)=>{
+        socket.emit('message', msg)
+      }}
+    />, document.getElementById('mount'))
   }
   // rerender on data change
   store.subscribe(() => {renderIt()})
@@ -31,4 +41,5 @@ const renderToPage = () => {
   renderIt()
 }
 
+// exporting all of that
 export { store, renderToPage }

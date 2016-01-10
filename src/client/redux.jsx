@@ -49,6 +49,20 @@ const reducer = (state = defaultState, action) => {
       return assign(state, action.data, {
         screen: nextScreen
       })
+    case 'SET_USER_DESCRIPTION':
+      socket.emit('submit description', action.description)
+      
+      return assign(state, {
+        userDescription: action.description
+      })
+    case 'SUBMITTED_USER_DESCRIPTION':
+      const nextScreen2 = state.writer === state.name ? 'WAIT_FOR_ANSWER' : 'ANSWER'
+
+      return assign(state, {
+        userDescription: action.description
+      }, {
+        screen: nextScreen2
+      })
     default:
       return state
   }

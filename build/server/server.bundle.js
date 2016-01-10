@@ -129,6 +129,11 @@
 
 	    startNewRound();
 	  });
+
+	  socket.on('submit description', description => {
+	    state.userDescription = description;
+	    io.emit('user description', description);
+	  });
 	});
 
 	// start the server on port SERVER_PORT

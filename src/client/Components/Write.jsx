@@ -14,10 +14,15 @@ export default class Write extends React.Component {
   }
 
   render () {
+    const handleSubmit = () => {
+      console.log('submitDescription')
+      this.props.submitDescription(this.text.value)
+    }
+
     return (
       <div>
         <h2>{lang.youAreTheWriter}</h2>
-        <textarea defaultValue={lang.yourDescriptionHere}></textarea>
+        <textarea defaultValue={lang.yourDescriptionHere} ref={(ref) => this.text = ref}></textarea>
         <h3>{lang.youDescribe}: {this.props.location.name}</h3>
         {this.props.location.description}
         <h3>{lang.vocHelp}</h3>
@@ -28,7 +33,7 @@ export default class Write extends React.Component {
         </div>
 
         <br />
-        <button>{lang.submit}</button>
+        <button onClick={handleSubmit}>{lang.submit}</button>
       </div>
     )
   }

@@ -43,6 +43,10 @@ export default (socket) => {
         socket.emit('start game')
       }}
 
+      submitDescription={(description) => {
+        store.dispatch({type: 'SET_USER_DESCRIPTION', description: description})
+      }}
+
 
     />, document.getElementById('mount'))
   }

@@ -92,7 +92,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _eventListeners = __webpack_require__(180);
+	var _eventListeners = __webpack_require__(183);
 
 	var _eventListeners2 = _interopRequireDefault(_eventListeners);
 
@@ -137,6 +137,10 @@
 	      startGame: function startGame() {
 	        console.log('starting game');
 	        socket.emit('start game');
+	      },
+
+	      submitDescription: function submitDescription(description) {
+	        _redux.store.dispatch({ type: 'SET_USER_DESCRIPTION', description: description });
 	      }
 
 	    }), document.getElementById('mount'));
@@ -19800,6 +19804,20 @@
 	      return (0, _lodash.assign)(state, action.data, {
 	        screen: nextScreen
 	      });
+	    case 'SET_USER_DESCRIPTION':
+	      socket.emit('submit description', action.description);
+
+	      return (0, _lodash.assign)(state, {
+	        userDescription: action.description
+	      });
+	    case 'SUBMITTED_USER_DESCRIPTION':
+	      var nextScreen2 = state.writer === state.name ? 'WAIT_FOR_ANSWER' : 'ANSWER';
+
+	      return (0, _lodash.assign)(state, {
+	        userDescription: action.description
+	      }, {
+	        screen: nextScreen2
+	      });
 	    default:
 	      return state;
 	  }
@@ -32821,6 +32839,14 @@
 
 	var _Write2 = _interopRequireDefault(_Write);
 
+	var _Answer = __webpack_require__(181);
+
+	var _Answer2 = _interopRequireDefault(_Answer);
+
+	var _WaitForAnswer = __webpack_require__(182);
+
+	var _WaitForAnswer2 = _interopRequireDefault(_WaitForAnswer);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -32868,7 +32894,11 @@
 	          case 'WAIT_FOR_WRITER':
 	            return _react2.default.createElement(_WaitForWriter2.default, null);
 	          case 'WRITE':
-	            return _react2.default.createElement(_Write2.default, { location: _this2.props.state.location });
+	            return _react2.default.createElement(_Write2.default, { location: _this2.props.state.location, submitDescription: _this2.props.submitDescription });
+	          case 'ANSWER':
+	            return _react2.default.createElement(_Answer2.default, { description: _this2.props.state.userDescription });
+	          case 'WAIT_FOR_ANSWER':
+	            return _react2.default.createElement(_WaitForAnswer2.default, null);
 	          default:
 	            return _react2.default.createElement('div', null, _lang2.default.randomError);
 	        }
@@ -32907,7 +32937,9 @@
 	  youDescribe: 'You describe',
 	  vocHelp: 'Vocabulray Help',
 	  submit: 'submit',
-	  locationOnMap: 'The location on map'
+	  locationOnMap: 'The location on map',
+	  waitForAnswer: 'Waiting for answer',
+	  whereIsTheFollowingPlace: 'Where is the following place?'
 	};
 
 /***/ },
@@ -33101,7 +33133,7 @@
 
 	var _lang2 = _interopRequireDefault(_lang);
 
-	var _renderMap = __webpack_require__(181);
+	var _renderMap = __webpack_require__(180);
 
 	var _renderMap2 = _interopRequireDefault(_renderMap);
 
@@ -33149,7 +33181,16 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.youAreTheWriter), _react2.default.createElement('textarea', { defaultValue: _lang2.default.yourDescriptionHere }), _react2.default.createElement('h3', null, _lang2.default.youDescribe, ': ', this.props.location.name), this.props.location.description, _react2.default.createElement('h3', null, _lang2.default.vocHelp), this.props.location.vocHelp, _react2.default.createElement('h3', null, _lang2.default.locationOnMap), _react2.default.createElement('div', { id: 'writeMap', style: { height: '200px' } }), _react2.default.createElement('br', null), _react2.default.createElement('button', null, _lang2.default.submit));
+	      var _this2 = this;
+
+	      var handleSubmit = function handleSubmit() {
+	        console.log('submitDescription');
+	        _this2.props.submitDescription(_this2.text.value);
+	      };
+
+	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.youAreTheWriter), _react2.default.createElement('textarea', { defaultValue: _lang2.default.yourDescriptionHere, ref: function ref(_ref) {
+	          return _this2.text = _ref;
+	        } }), _react2.default.createElement('h3', null, _lang2.default.youDescribe, ': ', this.props.location.name), this.props.location.description, _react2.default.createElement('h3', null, _lang2.default.vocHelp), this.props.location.vocHelp, _react2.default.createElement('h3', null, _lang2.default.locationOnMap), _react2.default.createElement('div', { id: 'writeMap', style: { height: '200px' } }), _react2.default.createElement('br', null), _react2.default.createElement('button', { onClick: handleSubmit }, _lang2.default.submit));
 	    }
 	  }]);
 
@@ -33160,6 +33201,141 @@
 
 /***/ },
 /* 180 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function (latLng, markers) {
+	  var map = new google.maps.Map(document.getElementById('writeMap'), {
+	    center: latLng,
+	    zoom: 8
+	  });
+
+	  markers.map(function (marker) {
+	    var thisMarker = new google.maps.Marker({
+	      position: marker.latLng,
+	      title: "Hello World!"
+	    });
+
+	    thisMarker.setMap(map);
+	  });
+
+	  window.currentMap = map;
+	};
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+
+	var Answer = (function (_React$Component) {
+	  _inherits(Answer, _React$Component);
+
+	  function Answer() {
+	    _classCallCheck(this, Answer);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Answer).apply(this, arguments));
+	  }
+
+	  _createClass(Answer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.log('the component did mount');
+	      var latLng = { lat: this.props.location.lat, lng: this.props.location.lng };
+
+	      renderMap(latLng, [{
+	        latLng: latLng
+	      }]);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whereIsTheFollowingPlace), _react2.default.createElement('div', null, this.props.description), _react2.default.createElement('div', { id: 'answerMap' }));
+	    }
+	  }]);
+
+	  return Answer;
+	})(_react2.default.Component);
+
+	exports.default = Answer;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = function () {
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitForAnswer));
+	};
+
+/***/ },
+/* 183 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33195,34 +33371,13 @@
 	      data: data
 	    });
 	  });
-	};
 
-/***/ },
-/* 181 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports.default = function (latLng, markers) {
-	  var map = new google.maps.Map(document.getElementById('writeMap'), {
-	    center: latLng,
-	    zoom: 8
-	  });
-
-	  markers.map(function (marker) {
-	    var thisMarker = new google.maps.Marker({
-	      position: marker.latLng,
-	      title: "Hello World!"
+	  socket.on('user description', function (description) {
+	    store.dispatch({
+	      type: 'SUBMITTED_USER_DESCRIPTION',
+	      description: description
 	    });
-
-	    thisMarker.setMap(map);
 	  });
-
-	  window.currentMap = map;
 	};
 
 /***/ }

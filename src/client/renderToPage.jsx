@@ -22,7 +22,7 @@ export default (socket) => {
       goToNameScreen={() => {
         store.dispatch({
           type: 'CHANGE_SCREEN',
-          target: 'NAME'
+          target: 'NAME',
         })
       }}
 
@@ -31,6 +31,16 @@ export default (socket) => {
           type: 'SET_NAME',
           newName: name
         })
+
+        store.dispatch({
+          type: 'CHANGE_SCREEN',
+          target: 'WAIT_FOR_OTHER_PLAYERS'
+        })
+      }}
+
+      startGame={() => {
+        console.log('starting game')
+        socket.emit('start game')
       }}
 
 

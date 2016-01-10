@@ -32,6 +32,24 @@ app.get('/client.bundle.js', (req, res) => {
   res.sendFile(filePath);
 })
 
+Array.prototype.random = function () {
+  return this[Math.floor((Math.random()*this.length))];
+}
+
+const startNewRound = () => {
+  state.round = state.round + 1
+  state.currentLocation = state.locations.random()
+  state.guesses = {}
+  state.writer = state.players.random().name
+  state.userDescription = ''
+
+  io.emit('start new round', {
+    writer: state.writer,
+    location: state.currentLocation,
+    userDescription: state.userDescription
+  })
+}
+
 // what to do when a user connects
 io.on('connection', function(socket) {
   console.log('a user connected')
@@ -58,6 +76,13 @@ io.on('connection', function(socket) {
     console.log(state)
 
     io.emit('update players', state.players)
+  })
+
+  socket.on('start game', () => {
+    console.log('started game')
+    state.status = 'PLAYING'
+
+    startNewRound()
   })
 })
 

@@ -92,7 +92,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _eventListeners = __webpack_require__(177);
+	var _eventListeners = __webpack_require__(178);
 
 	var _eventListeners2 = _interopRequireDefault(_eventListeners);
 
@@ -127,6 +127,16 @@
 	          type: 'SET_NAME',
 	          newName: name
 	        });
+
+	        _redux.store.dispatch({
+	          type: 'CHANGE_SCREEN',
+	          target: 'WAIT_FOR_OTHER_PLAYERS'
+	        });
+	      },
+
+	      startGame: function startGame() {
+	        console.log('starting game');
+	        socket.emit('start game');
 	      }
 
 	    }), document.getElementById('mount'));
@@ -19785,6 +19795,11 @@
 	      });
 	    case 'SET_INITIAL_DATA':
 	      return (0, _lodash.assign)(state, action.data);
+	    case 'START_NEW_ROUND':
+	      var nextScreen = action.data.writer === state.name ? 'WRITE' : 'WAIT_FOR_WRITER';
+	      return (0, _lodash.assign)(state, action.data, {
+	        screen: nextScreen
+	      });
 	    default:
 	      return state;
 	  }
@@ -32794,6 +32809,10 @@
 
 	var _Name2 = _interopRequireDefault(_Name);
 
+	var _WaitForOtherPlayers = __webpack_require__(177);
+
+	var _WaitForOtherPlayers2 = _interopRequireDefault(_WaitForOtherPlayers);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -32836,6 +32855,8 @@
 	            return _react2.default.createElement(_Hello2.default, { goToNameScreen: _this2.props.goToNameScreen });
 	          case 'NAME':
 	            return _react2.default.createElement(_Name2.default, { setName: _this2.props.setName });
+	          case 'WAIT_FOR_OTHER_PLAYERS':
+	            return _react2.default.createElement(_WaitForOtherPlayers2.default, { players: _this2.props.state.players, startGame: _this2.props.startGame });
 	          default:
 	            return _react2.default.createElement('div', null, _lang2.default.randomError);
 	        }
@@ -32864,7 +32885,10 @@
 	  name: 'Adivinar',
 	  whatsYourName: '¿Cómo te llamas?',
 	  next: 'next',
-	  yourName: 'tú nombre'
+	  yourName: 'tú nombre',
+	  waitingForOtherPlayers: 'waiting for others',
+	  connected: 'connected',
+	  startGame: 'Start Game'
 	};
 
 /***/ },
@@ -32977,6 +33001,35 @@
 
 /***/ },
 /* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = function (props) {
+	  var button = props.players.length > 1 ? _react2.default.createElement('button', { onClick: props.startGame }, _lang2.default.startGame) : _react2.default.createElement('div', null);
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitingForOtherPlayers), _react2.default.createElement('h3', null, _lang2.default.connected, ':'), _react2.default.createElement('ul', null, props.players.map(function (player) {
+	    return _react2.default.createElement('li', null, player.name);
+	  })), button);
+	};
+
+/***/ },
+/* 178 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33002,6 +33055,14 @@
 	    store.dispatch({
 	      type: 'SET_INITIAL_DATA',
 	      data: initialData
+	    });
+	  });
+
+	  socket.on('start new round', function (data) {
+	    console.log(data);
+	    store.dispatch({
+	      type: 'START_NEW_ROUND',
+	      data: data
 	    });
 	  });
 	};

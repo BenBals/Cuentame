@@ -18,4 +18,12 @@ export default (socket, store) => {
     })
   })
 
+  socket.on('start new round', (data) => {
+    console.log(data)
+    store.dispatch({
+      type: 'START_NEW_ROUND',
+      data: data
+    })
+  })
+
 }

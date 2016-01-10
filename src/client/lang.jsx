@@ -3,5 +3,8 @@ export default {
   name: 'Adivinar',
   whatsYourName: '¿Cómo te llamas?',
   next: 'next',
-  yourName: 'tú nombre'
+  yourName: 'tú nombre',
+  waitingForOtherPlayers: 'waiting for others',
+  connected: 'connected',
+  startGame: 'Start Game'
 }

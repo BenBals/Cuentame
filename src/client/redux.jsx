@@ -44,6 +44,11 @@ const reducer = (state = defaultState, action) => {
       })
     case 'SET_INITIAL_DATA':
       return assign(state, action.data)
+    case 'START_NEW_ROUND':
+      const nextScreen = action.data.writer === state.name ? 'WRITE' : 'WAIT_FOR_WRITER'
+      return assign(state, action.data, {
+        screen: nextScreen
+      })
     default:
       return state
   }

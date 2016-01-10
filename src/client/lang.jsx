@@ -12,5 +12,6 @@ export default {
   yourDescriptionHere: 'Your description here',
   youDescribe: 'You describe',
   vocHelp: 'Vocabulray Help',
-  submit: 'submit'
+  submit: 'submit',
+  locationOnMap: 'The location on map'
 }

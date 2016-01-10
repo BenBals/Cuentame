@@ -2,8 +2,11 @@ import React from 'react'
 
 import lang from '../lang.jsx'
 
-export default () => {
+export default (props) => {
   return (
-    <h1>{lang.name}</h1>
+    <div>
+      <h1>{lang.name}</h1>
+      <button onClick={props.goToNameScreen}>Go</button>
+    </div>
   )
 }

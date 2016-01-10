@@ -54,7 +54,8 @@
 	  players: [],
 	  locations: [{
 	    name: 'Bogota',
-	    description: 'Haoeu',
+	    description: "- Hauptstadt von Kolumbien",
+	    vocHelp: 'Hauptstadt - capital',
 	    long: '12E',
 	    lat: '12N'
 	  }],

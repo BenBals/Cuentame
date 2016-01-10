@@ -92,7 +92,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _eventListeners = __webpack_require__(178);
+	var _eventListeners = __webpack_require__(180);
 
 	var _eventListeners2 = _interopRequireDefault(_eventListeners);
 
@@ -32813,6 +32813,14 @@
 
 	var _WaitForOtherPlayers2 = _interopRequireDefault(_WaitForOtherPlayers);
 
+	var _WaitForWriter = __webpack_require__(178);
+
+	var _WaitForWriter2 = _interopRequireDefault(_WaitForWriter);
+
+	var _Write = __webpack_require__(179);
+
+	var _Write2 = _interopRequireDefault(_Write);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -32857,12 +32865,16 @@
 	            return _react2.default.createElement(_Name2.default, { setName: _this2.props.setName });
 	          case 'WAIT_FOR_OTHER_PLAYERS':
 	            return _react2.default.createElement(_WaitForOtherPlayers2.default, { players: _this2.props.state.players, startGame: _this2.props.startGame });
+	          case 'WAIT_FOR_WRITER':
+	            return _react2.default.createElement(_WaitForWriter2.default, null);
+	          case 'WRITE':
+	            return _react2.default.createElement(_Write2.default, { location: _this2.props.state.location });
 	          default:
 	            return _react2.default.createElement('div', null, _lang2.default.randomError);
 	        }
 	      };
 
-	      return _react2.default.createElement('div', null, getChild(), _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state)));
+	      return _react2.default.createElement('div', null, getChild(), _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state, null, 2)));
 	    }
 	  }]);
 
@@ -32882,13 +32894,19 @@
 	});
 	exports.default = {
 	  randomError: 'something went wrong',
-	  name: 'Adivinar',
+	  name: 'Cuéntame',
 	  whatsYourName: '¿Cómo te llamas?',
 	  next: 'next',
 	  yourName: 'tú nombre',
 	  waitingForOtherPlayers: 'waiting for others',
 	  connected: 'connected',
-	  startGame: 'Start Game'
+	  startGame: 'Start Game',
+	  waitForWriter: 'Waiting for the writer',
+	  youAreTheWriter: 'You are the writer',
+	  yourDescriptionHere: 'Your description here',
+	  youDescribe: 'You describe',
+	  vocHelp: 'Vocabulray Help',
+	  submit: 'submit'
 	};
 
 /***/ },
@@ -33030,6 +33048,58 @@
 
 /***/ },
 /* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = function () {
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitForWriter));
+	};
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = function (props) {
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.youAreTheWriter), _react2.default.createElement('textarea', null, _lang2.default.yourDescriptionHere), _react2.default.createElement('h3', null, _lang2.default.youDescribe, ': ', props.location.name), props.location.description, _react2.default.createElement('h3', null, _lang2.default.vocHelp), props.location.vocHelp, _react2.default.createElement('br', null), _react2.default.createElement('button', null, _lang2.default.submit));
+	};
+
+/***/ },
+/* 180 */
 /***/ function(module, exports) {
 
 	'use strict';

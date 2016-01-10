@@ -1,5 +1,5 @@
 {
-  "name": "adivinar",
+  "name": "Cuéntame",
   "version": "0.1.0",
   "description": "just me trying to get this up and running using webpack",
   "main": "build/server/server.bundle.js",

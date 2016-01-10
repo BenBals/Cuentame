@@ -53,14 +53,20 @@
 
 	'use strict';
 
-	var _redux = __webpack_require__(2);
+	var _renderToPage = __webpack_require__(177);
+
+	var _renderToPage2 = _interopRequireDefault(_renderToPage);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
 
 	var socket = io(); // being injected through the script tag
 
 	// import App from './components/App'
 
 	// setup the rendering
-	(0, _redux.renderToPage)(socket);
+	(0, _renderToPage2.default)(socket);
 
 /***/ },
 /* 2 */
@@ -71,31 +77,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.renderToPage = exports.store = undefined;
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(160);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
+	exports.store = undefined;
 
 	var _redux = __webpack_require__(161);
 
 	var _lodash = __webpack_require__(170);
-
-	var _eventListeners = __webpack_require__(172);
-
-	var _eventListeners2 = _interopRequireDefault(_eventListeners);
-
-	var _App = __webpack_require__(173);
-
-	var _App2 = _interopRequireDefault(_App);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
 
 	var defaultState = {
 	  screen: 'HELLO'
@@ -123,47 +109,8 @@
 	// create the redux store
 	var store = (0, _redux.createStore)(reducer);
 
-	// the function that does the heavy lifting for rendering
-	var renderToPage = function renderToPage(socket) {
-	  (0, _eventListeners2.default)(socket, store);
-
-	  // the render it self
-	  var renderIt = function renderIt() {
-	    _reactDom2.default.render(_react2.default.createElement(_App2.default
-	    // all the stuff that needs to be injected
-	    , { state: store.getState(),
-
-	      sendAMessage: function sendAMessage(msg) {
-	        socket.emit('message', msg);
-	      },
-
-	      goToNameScreen: function goToNameScreen() {
-	        store.dispatch({
-	          type: 'CHANGE_SCREEN',
-	          target: 'NAME'
-	        });
-	      },
-
-	      setName: function setName(name) {
-	        store.dispatch({
-	          type: 'SET_NAME',
-	          newName: name
-	        });
-	      }
-
-	    }), document.getElementById('mount'));
-	  };
-	  // rerender on data change
-	  store.subscribe(function () {
-	    renderIt();
-	  });
-	  // initial render
-	  renderIt();
-	};
-
 	// exporting all of that
 	exports.store = store;
-	exports.renderToPage = renderToPage;
 
 /***/ },
 /* 3 */
@@ -32945,6 +32892,77 @@
 	})(_react2.default.Component);
 
 	exports.default = Name;
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(160);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _redux = __webpack_require__(2);
+
+	var _App = __webpack_require__(173);
+
+	var _App2 = _interopRequireDefault(_App);
+
+	var _eventListeners = __webpack_require__(172);
+
+	var _eventListeners2 = _interopRequireDefault(_eventListeners);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	// the function that does the heavy lifting for rendering
+
+	exports.default = function (socket) {
+	  (0, _eventListeners2.default)(socket, _redux.store);
+
+	  // the render it self
+	  var renderIt = function renderIt() {
+	    _reactDom2.default.render(_react2.default.createElement(_App2.default
+	    // all the stuff that needs to be injected
+	    , { state: _redux.store.getState(),
+
+	      sendAMessage: function sendAMessage(msg) {
+	        socket.emit('message', msg);
+	      },
+
+	      goToNameScreen: function goToNameScreen() {
+	        _redux.store.dispatch({
+	          type: 'CHANGE_SCREEN',
+	          target: 'NAME'
+	        });
+	      },
+
+	      setName: function setName(name) {
+	        _redux.store.dispatch({
+	          type: 'SET_NAME',
+	          newName: name
+	        });
+	      }
+
+	    }), document.getElementById('mount'));
+	  };
+	  // rerender on data change
+	  _redux.store.subscribe(function () {
+	    renderIt();
+	  });
+	  // initial render
+	  renderIt();
+	};
 
 /***/ }
 /******/ ]);

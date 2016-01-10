@@ -258,7 +258,7 @@
 
 	// start the server on port SERVER_PORT
 	http.listen(SERVER_PORT, function () {
-	  console.log('listening on *: ', SERVER_PORT);
+	  console.log('listening on *: ', process.env.PORT || SERVER_PORT);
 	});
 
 	// NOTE: must be run from porject root due to not working __dirname

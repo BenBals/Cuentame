@@ -1,6 +1,7 @@
 import React from 'react'
 import reactDOM from 'react-dom'
 import { createStore } from 'redux'
+import { assign } from 'lodash'
 
 
 import setUpListeners from './eventListeners.jsx'
@@ -14,8 +15,12 @@ const defaultState = {
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'CHANGE_SCREEN':
-      return Object().assign(state, {
+      return assign(state, {
         screen: action.target
+      })
+    case 'SET_NAME':
+      return assign(state, {
+        name: action.newName
       })
     default:
       return state
@@ -43,6 +48,13 @@ const renderToPage = (socket) => {
         store.dispatch({
           type: 'CHANGE_SCREEN',
           target: 'NAME'
+        })
+      }}
+
+      setName={(name) => {
+        store.dispatch({
+          type: 'SET_NAME',
+          newName: name
         })
       }}
 

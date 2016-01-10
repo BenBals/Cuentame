@@ -1,26 +1,16 @@
 import React from 'react'
 
 import lang from '../lang.jsx'
+import renderMap from '../renderMap.jsx'
 
 export default class Write extends React.Component {
   componentDidMount() {
     console.log('the component did mount')
     const latLng = {lat: this.props.location.lat, lng: this.props.location.lng}
 
-    const map = new google.maps.Map(document.getElementById('writeMap'), {
-      center: latLng,
-      zoom: 8
-    })
-
-    const marker = new google.maps.Marker({
-      position: latLng,
-      title: "Hello World!"
-    })
-
-    marker.setMap(map)
-
-    window.writeMap = map
-
+    renderMap(latLng, [{
+      latLng: latLng
+    }])
   }
 
   render () {

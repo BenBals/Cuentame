@@ -33101,6 +33101,10 @@
 
 	var _lang2 = _interopRequireDefault(_lang);
 
+	var _renderMap = __webpack_require__(181);
+
+	var _renderMap2 = _interopRequireDefault(_renderMap);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -33138,19 +33142,9 @@
 	      console.log('the component did mount');
 	      var latLng = { lat: this.props.location.lat, lng: this.props.location.lng };
 
-	      var map = new google.maps.Map(document.getElementById('writeMap'), {
-	        center: latLng,
-	        zoom: 8
-	      });
-
-	      var marker = new google.maps.Marker({
-	        position: latLng,
-	        title: "Hello World!"
-	      });
-
-	      marker.setMap(map);
-
-	      window.writeMap = map;
+	      (0, _renderMap2.default)(latLng, [{
+	        latLng: latLng
+	      }]);
 	    }
 	  }, {
 	    key: 'render',
@@ -33201,6 +33195,34 @@
 	      data: data
 	    });
 	  });
+	};
+
+/***/ },
+/* 181 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function (latLng, markers) {
+	  var map = new google.maps.Map(document.getElementById('writeMap'), {
+	    center: latLng,
+	    zoom: 8
+	  });
+
+	  markers.map(function (marker) {
+	    var thisMarker = new google.maps.Marker({
+	      position: marker.latLng,
+	      title: "Hello World!"
+	    });
+
+	    thisMarker.setMap(map);
+	  });
+
+	  window.currentMap = map;
 	};
 
 /***/ }

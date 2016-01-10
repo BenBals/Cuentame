@@ -141,6 +141,10 @@
 
 	      submitGuess: function submitGuess() {
 	        _redux.store.dispatch({ type: 'SUBMIT_GUESS' });
+	      },
+
+	      reset: function reset() {
+	        socket.emit('reset');
 	      }
 
 	    }), document.getElementById('mount'));
@@ -32943,7 +32947,7 @@
 	        return _this2.props.state.status === 'PLAYING' ? _react2.default.createElement('div', null, _lang2.default.yourScore, ': ', _this2.props.state.score) : null;
 	      };
 
-	      return _react2.default.createElement('div', null, getScoreHeader(), getChild(), _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state, null, 2)));
+	      return _react2.default.createElement('div', null, getScoreHeader(), getChild(), _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state, null, 2)), _react2.default.createElement('button', { onClick: this.props.reset }, 'reset'));
 	    }
 	  }]);
 
@@ -33490,6 +33494,10 @@
 	      type: 'SET_ROUND_WINNER',
 	      roundWinner: roundWinner
 	    });
+	  });
+
+	  socket.on('reset', function () {
+	    window.location.reload();
 	  });
 	};
 

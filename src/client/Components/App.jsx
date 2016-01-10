@@ -54,6 +54,7 @@ export default class App extends React.Component {
           state:
           {JSON.stringify(this.props.state, null, 2)}
         </div>
+        <button onClick={this.props.reset}>reset</button>
       </div>
     )
   }

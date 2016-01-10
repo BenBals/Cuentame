@@ -50,7 +50,7 @@
 	var io = __webpack_require__(4)(http);
 	var _ = __webpack_require__(5);
 
-	state = {
+	const defaultState = {
 	  status: 'NOT_STARTED',
 	  players: [],
 	  locations: [{
@@ -62,6 +62,8 @@
 	  }],
 	  round: 0
 	};
+
+	var state = defaultState;
 
 	// the port on which the server runs
 	SERVER_PORT = 3000;
@@ -237,6 +239,20 @@
 	    } else {
 	      return false;
 	    }
+	  });
+
+	  socket.on('reset', () => {
+	    state = defaultState;
+	    state.players = [];
+	    io.emit('reset');
+	    io.emit('initial data', {
+	      players: state.players
+	    });
+	    console.log('=====================');
+	    console.log('reset');
+	    console.log('=====================');
+
+	    console.log(state);
 	  });
 	});
 

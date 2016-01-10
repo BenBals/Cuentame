@@ -47,6 +47,10 @@ export default (socket) => {
         store.dispatch({type: 'SUBMIT_GUESS'})
       }}
 
+      reset={() => {
+        socket.emit('reset')
+      }}
+
 
     />, document.getElementById('mount'))
   }

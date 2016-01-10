@@ -41,4 +41,8 @@ export default (socket, store) => {
     })
   })
 
+  socket.on('reset', () => {
+    window.location.reload()
+  })
+
 }

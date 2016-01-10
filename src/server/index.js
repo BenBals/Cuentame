@@ -4,7 +4,7 @@ var path = require('path')
 var io = require('socket.io')(http)
 var _ = require('lodash')
 
-state = {
+const defaultState = {
   status: 'NOT_STARTED',
   players: [],
   locations: [
@@ -18,6 +18,8 @@ state = {
   ],
   round: 0
 }
+
+var state = defaultState
 
 // the port on which the server runs
 SERVER_PORT = 3000
@@ -194,6 +196,20 @@ io.on('connection', function(socket) {
     } else {
       return false
     }
+  })
+
+  socket.on('reset', () => {
+    state = defaultState
+    state.players = []
+    io.emit('reset')
+    io.emit('initial data', {
+      players: state.players
+    })
+    console.log('=====================')
+    console.log('reset')
+    console.log('=====================')
+
+    console.log(state)
   })
 })
 

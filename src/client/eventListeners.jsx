@@ -26,4 +26,11 @@ export default (socket, store) => {
     })
   })
 
+  socket.on('user description', (description) => {
+    store.dispatch({
+      type: 'SUBMITTED_USER_DESCRIPTION',
+      description: description
+    })
+  })
+
 }

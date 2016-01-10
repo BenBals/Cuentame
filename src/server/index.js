@@ -11,8 +11,8 @@ state = {
       name: 'Bogota',
       description: "- Hauptstadt von Kolumbien",
       vocHelp: 'Hauptstadt - capital',
-      lng: -74.2478913,
-      lat: 4.6486259
+      lng: -74.075833,
+      lat: 4.598056
     }
   ],
   round: 0
@@ -84,6 +84,11 @@ io.on('connection', function(socket) {
     state.status = 'PLAYING'
 
     startNewRound()
+  })
+
+  socket.on('submit description', (description) => {
+    state.userDescription = description
+    io.emit('user description', description)
   })
 })
 

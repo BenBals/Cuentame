@@ -7,6 +7,8 @@ import Name from './Name.jsx'
 import WaitForOtherPlayers from './WaitForOtherPlayers.jsx'
 import WaitForWriter from './WaitForWriter.jsx'
 import Write from './Write.jsx'
+import Answer from './Answer.jsx'
+import WaitForAnswer from './WaitForAnswer.jsx'
 
 export default class App extends React.Component {
   render() {
@@ -22,7 +24,11 @@ export default class App extends React.Component {
         case 'WAIT_FOR_WRITER':
           return <WaitForWriter />
         case 'WRITE':
-          return <Write location={this.props.state.location} />
+          return <Write location={this.props.state.location} submitDescription={this.props.submitDescription}/>
+        case 'ANSWER':
+          return <Answer description={this.props.state.userDescription}/>
+        case 'WAIT_FOR_ANSWER':
+          return <WaitForAnswer />
         default:
           return <div>{lang.randomError}</div>
       }

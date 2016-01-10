@@ -13,5 +13,7 @@ export default {
   youDescribe: 'You describe',
   vocHelp: 'Vocabulray Help',
   submit: 'submit',
-  locationOnMap: 'The location on map'
+  locationOnMap: 'The location on map',
+  waitForAnswer: 'Waiting for answer',
+  whereIsTheFollowingPlace: 'Where is the following place?'
 }

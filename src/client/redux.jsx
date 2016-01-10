@@ -1,8 +1,12 @@
 import { createStore } from 'redux'
-import { assign } from 'lodash'
+import { assign, reduce } from 'lodash'
+
+const socket = io() // being injected through the script tag
 
 const defaultState = {
-  screen: 'HELLO'
+  screen: 'HELLO',
+  players: [],
+  name: ''
 }
 
 // the redux reducer
@@ -13,8 +17,26 @@ const reducer = (state = defaultState, action) => {
         screen: action.target
       })
     case 'SET_NAME':
+      const newNameIsntEmpty = action.newName !== ''
+
+      const newNameIsntTaken = !reduce(
+        store.getState().players,
+        (found, item) => {found ? found : action.newName === item.name},
+        false
+      )
+
+      if ((action.newName !== '') && (!reduce(store.getState().players, (found, item) => {found ? found : action.newName === item.name}))) {
+        socket.emit('add player', action.newName)
+
+        return assign(state, {
+          name: action.newName
+        })
+      } else {
+        return state
+      }
+    case 'UPDATE_PLAYERS':
       return assign(state, {
-        name: action.newName
+        players: action.newPlayers
       })
     default:
       return state
@@ -24,5 +46,8 @@ const reducer = (state = defaultState, action) => {
 // create the redux store
 const store = createStore(reducer)
 
+// export for debug purposes
+window.store = store
+
 // exporting all of that
-export { store }
+export { store, socket }

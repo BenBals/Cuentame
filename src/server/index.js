@@ -44,6 +44,15 @@ io.on('connection', function(socket) {
     console.log(msg)
     io.emit('INCREMENT')
   })
+
+  socket.on('add player', (name) => {
+    state.players.push({
+      name: name,
+      score: 0
+    })
+
+    io.emit('update players', state.players)
+  })
 })
 
 // start the server on port SERVER_PORT

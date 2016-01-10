@@ -53,20 +53,20 @@
 
 	'use strict';
 
-	var _renderToPage = __webpack_require__(177);
+	var _renderToPage = __webpack_require__(2);
 
 	var _renderToPage2 = _interopRequireDefault(_renderToPage);
+
+	var _redux = __webpack_require__(161);
 
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	var socket = io(); // being injected through the script tag
-
 	// import App from './components/App'
 
 	// setup the rendering
-	(0, _renderToPage2.default)(socket);
+	(0, _renderToPage2.default)(_redux.socket);
 
 /***/ },
 /* 2 */
@@ -77,40 +77,67 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.store = undefined;
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(160);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 
 	var _redux = __webpack_require__(161);
 
-	var _lodash = __webpack_require__(170);
+	var _App = __webpack_require__(173);
 
-	var defaultState = {
-	  screen: 'HELLO'
+	var _App2 = _interopRequireDefault(_App);
+
+	var _eventListeners = __webpack_require__(177);
+
+	var _eventListeners2 = _interopRequireDefault(_eventListeners);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	// the function that does the heavy lifting for rendering
+
+	exports.default = function (socket) {
+	  (0, _eventListeners2.default)(socket, _redux.store);
+
+	  // the render it self
+	  var renderIt = function renderIt() {
+	    _reactDom2.default.render(_react2.default.createElement(_App2.default
+	    // all the stuff that needs to be injected
+	    , { state: _redux.store.getState(),
+
+	      sendAMessage: function sendAMessage(msg) {
+	        socket.emit('message', msg);
+	      },
+
+	      goToNameScreen: function goToNameScreen() {
+	        _redux.store.dispatch({
+	          type: 'CHANGE_SCREEN',
+	          target: 'NAME'
+	        });
+	      },
+
+	      setName: function setName(name) {
+	        _redux.store.dispatch({
+	          type: 'SET_NAME',
+	          newName: name
+	        });
+	      }
+
+	    }), document.getElementById('mount'));
+	  };
+	  // rerender on data change
+	  _redux.store.subscribe(function () {
+	    renderIt();
+	  });
+	  // initial render
+	  renderIt();
 	};
-
-	// the redux reducer
-	var reducer = function reducer() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? defaultState : arguments[0];
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    case 'CHANGE_SCREEN':
-	      return (0, _lodash.assign)(state, {
-	        screen: action.target
-	      });
-	    case 'SET_NAME':
-	      return (0, _lodash.assign)(state, {
-	        name: action.newName
-	      });
-	    default:
-	      return state;
-	  }
-	};
-
-	// create the redux store
-	var store = (0, _redux.createStore)(reducer);
-
-	// exporting all of that
-	exports.store = store;
 
 /***/ },
 /* 3 */
@@ -19707,27 +19734,97 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.socket = exports.store = undefined;
+
+	var _redux = __webpack_require__(162);
+
+	var _lodash = __webpack_require__(171);
+
+	var socket = io(); // being injected through the script tag
+
+	var defaultState = {
+	  screen: 'HELLO',
+	  players: [],
+	  name: ''
+	};
+
+	// the redux reducer
+	var reducer = function reducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? defaultState : arguments[0];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'CHANGE_SCREEN':
+	      return (0, _lodash.assign)(state, {
+	        screen: action.target
+	      });
+	    case 'SET_NAME':
+	      var newNameIsntEmpty = action.newName !== '';
+
+	      var newNameIsntTaken = !(0, _lodash.reduce)(store.getState().players, function (found, item) {
+	        found ? found : action.newName === item.name;
+	      }, false);
+
+	      if (action.newName !== '' && !(0, _lodash.reduce)(store.getState().players, function (found, item) {
+	        found ? found : action.newName === item.name;
+	      })) {
+	        socket.emit('add player', action.newName);
+
+	        return (0, _lodash.assign)(state, {
+	          name: action.newName
+	        });
+	      } else {
+	        return state;
+	      }
+	    case 'UPDATE_PLAYERS':
+	      return (0, _lodash.assign)(state, {
+	        players: action.newPlayers
+	      });
+	    default:
+	      return state;
+	  }
+	};
+
+	// create the redux store
+	var store = (0, _redux.createStore)(reducer);
+
+	// export for debug purposes
+	window.store = store;
+
+	// exporting all of that
+	exports.store = store;
+	exports.socket = socket;
+
+/***/ },
+/* 162 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	exports.__esModule = true;
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _createStore = __webpack_require__(162);
+	var _createStore = __webpack_require__(163);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _utilsCombineReducers = __webpack_require__(164);
+	var _utilsCombineReducers = __webpack_require__(165);
 
 	var _utilsCombineReducers2 = _interopRequireDefault(_utilsCombineReducers);
 
-	var _utilsBindActionCreators = __webpack_require__(167);
+	var _utilsBindActionCreators = __webpack_require__(168);
 
 	var _utilsBindActionCreators2 = _interopRequireDefault(_utilsBindActionCreators);
 
-	var _utilsApplyMiddleware = __webpack_require__(168);
+	var _utilsApplyMiddleware = __webpack_require__(169);
 
 	var _utilsApplyMiddleware2 = _interopRequireDefault(_utilsApplyMiddleware);
 
-	var _utilsCompose = __webpack_require__(169);
+	var _utilsCompose = __webpack_require__(170);
 
 	var _utilsCompose2 = _interopRequireDefault(_utilsCompose);
 
@@ -19738,7 +19835,7 @@
 	exports.compose = _utilsCompose2['default'];
 
 /***/ },
-/* 162 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19748,7 +19845,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsIsPlainObject = __webpack_require__(163);
+	var _utilsIsPlainObject = __webpack_require__(164);
 
 	var _utilsIsPlainObject2 = _interopRequireDefault(_utilsIsPlainObject);
 
@@ -19906,7 +20003,7 @@
 	}
 
 /***/ },
-/* 163 */
+/* 164 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19942,7 +20039,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 164 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -19952,17 +20049,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _createStore = __webpack_require__(162);
+	var _createStore = __webpack_require__(163);
 
-	var _isPlainObject = __webpack_require__(163);
+	var _isPlainObject = __webpack_require__(164);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _mapValues = __webpack_require__(165);
+	var _mapValues = __webpack_require__(166);
 
 	var _mapValues2 = _interopRequireDefault(_mapValues);
 
-	var _pick = __webpack_require__(166);
+	var _pick = __webpack_require__(167);
 
 	var _pick2 = _interopRequireDefault(_pick);
 
@@ -20079,7 +20176,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 165 */
+/* 166 */
 /***/ function(module, exports) {
 
 	/**
@@ -20104,7 +20201,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 166 */
+/* 167 */
 /***/ function(module, exports) {
 
 	/**
@@ -20131,7 +20228,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 167 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20141,7 +20238,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _mapValues = __webpack_require__(165);
+	var _mapValues = __webpack_require__(166);
 
 	var _mapValues2 = _interopRequireDefault(_mapValues);
 
@@ -20190,7 +20287,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 168 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20203,7 +20300,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _compose = __webpack_require__(169);
+	var _compose = __webpack_require__(170);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -20256,7 +20353,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 169 */
+/* 170 */
 /***/ function(module, exports) {
 
 	/**
@@ -20286,7 +20383,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 170 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -32641,10 +32738,10 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(171)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(172)(module), (function() { return this; }())))
 
 /***/ },
-/* 171 */
+/* 172 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -32658,23 +32755,6 @@
 		return module;
 	}
 
-
-/***/ },
-/* 172 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports.default = function (socket, store) {
-
-	  socket.on('INCREMENT', function () {
-	    store.dispatch({ type: 'INCREMENT' });
-	  });
-	};
 
 /***/ },
 /* 173 */
@@ -32895,7 +32975,7 @@
 
 /***/ },
 /* 177 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -32903,65 +32983,18 @@
 	  value: true
 	});
 
-	var _react = __webpack_require__(3);
+	exports.default = function (socket, store) {
 
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(160);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _redux = __webpack_require__(2);
-
-	var _App = __webpack_require__(173);
-
-	var _App2 = _interopRequireDefault(_App);
-
-	var _eventListeners = __webpack_require__(172);
-
-	var _eventListeners2 = _interopRequireDefault(_eventListeners);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	// the function that does the heavy lifting for rendering
-
-	exports.default = function (socket) {
-	  (0, _eventListeners2.default)(socket, _redux.store);
-
-	  // the render it self
-	  var renderIt = function renderIt() {
-	    _reactDom2.default.render(_react2.default.createElement(_App2.default
-	    // all the stuff that needs to be injected
-	    , { state: _redux.store.getState(),
-
-	      sendAMessage: function sendAMessage(msg) {
-	        socket.emit('message', msg);
-	      },
-
-	      goToNameScreen: function goToNameScreen() {
-	        _redux.store.dispatch({
-	          type: 'CHANGE_SCREEN',
-	          target: 'NAME'
-	        });
-	      },
-
-	      setName: function setName(name) {
-	        _redux.store.dispatch({
-	          type: 'SET_NAME',
-	          newName: name
-	        });
-	      }
-
-	    }), document.getElementById('mount'));
-	  };
-	  // rerender on data change
-	  _redux.store.subscribe(function () {
-	    renderIt();
+	  socket.on('INCREMENT', function () {
+	    store.dispatch({ type: 'INCREMENT' });
 	  });
-	  // initial render
-	  renderIt();
+
+	  socket.on('update players', function (newPlayers) {
+	    store.dispatch({
+	      type: 'UPDATE_PLAYERS',
+	      newPlayers: newPlayers
+	    });
+	  });
 	};
 
 /***/ }

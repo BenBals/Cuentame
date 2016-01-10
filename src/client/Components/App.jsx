@@ -8,17 +8,21 @@ import Hello from './Hello.jsx'
 export default class App extends React.Component {
   render() {
 
-    var child = <div>{lang.randomError}</div>
-
-    switch (this.props.state.screen) {
-      case 'HELLO':
-        child = <Hello />
+    const getChild = () => {
+      switch (this.props.state.screen) {
+        case 'HELLO':
+          return <Hello goToNameScreen={this.props.goToNameScreen}/>
+        case 'NAME':
+          return <Name />
+        default:
+          return <div>{lang.randomError}</div>
+      }
     }
 
     return (
       <div>
 
-        {child}
+        {getChild()}
 
         {/* just in dev */}
         <hr />

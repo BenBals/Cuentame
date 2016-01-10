@@ -105,10 +105,10 @@
 	  var action = arguments[1];
 
 	  switch (action.type) {
-	    case 'INCREMENT':
-	      return state + 1;
-	    case 'DECREMENT':
-	      return state - 1;
+	    case 'CHANGE_SCREEN':
+	      return Object().assign(state, {
+	        screen: action.target
+	      });
 	    default:
 	      return state;
 	  }
@@ -126,9 +126,18 @@
 	    _reactDom2.default.render(_react2.default.createElement(_App2.default
 	    // all the stuff that needs to be injected
 	    , { state: store.getState(),
+
 	      sendAMessage: function sendAMessage(msg) {
 	        socket.emit('message', msg);
+	      },
+
+	      goToNameScreen: function goToNameScreen() {
+	        store.dispatch({
+	          type: 'CHANGE_SCREEN',
+	          target: 'NAME'
+	        });
 	      }
+
 	    }), document.getElementById('mount'));
 	  };
 	  // rerender on data change
@@ -20399,15 +20408,20 @@
 	  _createClass(App, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
 
-	      var child = _react2.default.createElement('div', null, _lang2.default.randomError);
+	      var getChild = function getChild() {
+	        switch (_this2.props.state.screen) {
+	          case 'HELLO':
+	            return _react2.default.createElement(_Hello2.default, { goToNameScreen: _this2.props.goToNameScreen });
+	          case 'NAME':
+	            return _react2.default.createElement(Name, null);
+	          default:
+	            return _react2.default.createElement('div', null, _lang2.default.randomError);
+	        }
+	      };
 
-	      switch (this.props.state.screen) {
-	        case 'HELLO':
-	          child = _react2.default.createElement(_Hello2.default, null);
-	      }
-
-	      return _react2.default.createElement('div', null, child, _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state)));
+	      return _react2.default.createElement('div', null, getChild(), _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state)));
 	    }
 	  }]);
 
@@ -20452,8 +20466,8 @@
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	exports.default = function () {
-	  return _react2.default.createElement('h1', null, _lang2.default.name);
+	exports.default = function (props) {
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h1', null, _lang2.default.name), _react2.default.createElement('button', { onClick: props.goToNameScreen }, 'Go'));
 	};
 
 /***/ }

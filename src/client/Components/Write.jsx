@@ -5,12 +5,15 @@ import renderMap from '../renderMap.jsx'
 
 export default class Write extends React.Component {
   componentDidMount() {
-    console.log('the component did mount')
-    const latLng = {lat: this.props.location.lat, lng: this.props.location.lng}
-
-    renderMap(latLng, [{
-      latLng: latLng
-    }])
+    const lngLat = {lat: this.props.location.lat, lng: this.props.location.lng}
+    const zoom = 8
+    renderMap(
+      lngLat,
+      zoom,
+      false,
+      document.getElementById('writeMap'),
+      [{lngLat: lngLat}]
+    )
   }
 
   render () {

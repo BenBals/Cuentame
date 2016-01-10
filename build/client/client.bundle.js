@@ -33171,12 +33171,9 @@
 	  _createClass(Write, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      console.log('the component did mount');
-	      var latLng = { lat: this.props.location.lat, lng: this.props.location.lng };
-
-	      (0, _renderMap2.default)(latLng, [{
-	        latLng: latLng
-	      }]);
+	      var lngLat = { lat: this.props.location.lat, lng: this.props.location.lng };
+	      var zoom = 8;
+	      (0, _renderMap2.default)(lngLat, zoom, false, document.getElementById('writeMap'), [{ lngLat: lngLat }]);
 	    }
 	  }, {
 	    key: 'render',
@@ -33209,17 +33206,43 @@
 	  value: true
 	});
 
-	exports.default = function (latLng, markers) {
-	  var map = new google.maps.Map(document.getElementById('writeMap'), {
-	    center: latLng,
-	    zoom: 8
+	exports.default = function (lngLat, zoom, addNewMarkers, renderTarget, markers) {
+	  var allMarkers = [];
+
+	  var placeMakerAndPanTo = function placeMakerAndPanTo(lngLat, map) {
+	    var newMarker = new google.maps.Marker({
+	      position: lngLat,
+	      map: map
+	    });
+
+	    for (var i = 0; i < allMarkers.length; i++) {
+	      allMarkers[i].setMap(null);
+	    }
+	    allMarkers.length = 0;
+
+	    allMarkers.push(newMarker);
+
+	    map.panTo(lngLat);
+	  };
+
+	  var map = new google.maps.Map(renderTarget, {
+	    center: lngLat,
+	    zoom: zoom
 	  });
+
+	  if (addNewMarkers) {
+	    map.addListener('click', function (e) {
+	      console.log(e);
+	    });
+	  }
 
 	  markers.map(function (marker) {
 	    var thisMarker = new google.maps.Marker({
-	      position: marker.latLng,
+	      position: marker.lngLat,
 	      title: "Hello World!"
 	    });
+
+	    allMarkers.push(thisMarker);
 
 	    thisMarker.setMap(map);
 	  });
@@ -33234,17 +33257,17 @@
 	'use strict';
 
 	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
+	    function defineProperties(target, props) {
+	        for (var i = 0; i < props.length; i++) {
+	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	        }
+	    }return function (Constructor, protoProps, staticProps) {
+	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	    };
 	})();
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _react = __webpack_require__(3);
@@ -33255,55 +33278,61 @@
 
 	var _lang2 = _interopRequireDefault(_lang);
 
+	var _renderMap = __webpack_require__(180);
+
+	var _renderMap2 = _interopRequireDefault(_renderMap);
+
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
+	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
 	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
+	    if (!(instance instanceof Constructor)) {
+	        throw new TypeError("Cannot call a class as a function");
+	    }
 	}
 
 	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	    if (!self) {
+	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
 	}
 
 	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	    if (typeof superClass !== "function" && superClass !== null) {
+	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
 	var Answer = (function (_React$Component) {
-	  _inherits(Answer, _React$Component);
+	    _inherits(Answer, _React$Component);
 
-	  function Answer() {
-	    _classCallCheck(this, Answer);
+	    function Answer() {
+	        _classCallCheck(this, Answer);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Answer).apply(this, arguments));
-	  }
-
-	  _createClass(Answer, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      console.log('the component did mount');
-	      var latLng = { lat: this.props.location.lat, lng: this.props.location.lng };
-
-	      renderMap(latLng, [{
-	        latLng: latLng
-	      }]);
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Answer).apply(this, arguments));
 	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whereIsTheFollowingPlace), _react2.default.createElement('div', null, this.props.description), _react2.default.createElement('div', { id: 'answerMap' }));
-	    }
-	  }]);
 
-	  return Answer;
+	    _createClass(Answer, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var lngLat = {
+	                lng: -74.075833,
+	                lat: 4.598056
+	            };
+
+	            var zoom = 4;
+
+	            (0, _renderMap2.default)(lngLat, zoom, true, document.getElementById('answerMap'));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whereIsTheFollowingPlace), _react2.default.createElement('div', null, this.props.description), _react2.default.createElement('div', { id: 'answerMap', style: { height: '200px' } }));
+	        }
+	    }]);
+
+	    return Answer;
 	})(_react2.default.Component);
 
 	exports.default = Answer;

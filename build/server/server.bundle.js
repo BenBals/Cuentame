@@ -56,8 +56,8 @@
 	    name: 'Bogota',
 	    description: "- Hauptstadt von Kolumbien",
 	    vocHelp: 'Hauptstadt - capital',
-	    lng: '12',
-	    lat: '12'
+	    lng: -74.2478913,
+	    lat: 4.6486259
 	  }],
 	  round: 0
 	};

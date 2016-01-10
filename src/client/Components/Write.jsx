@@ -14,7 +14,13 @@ export default (props) => {
       {props.location.vocHelp}
 
       <h3>{lang.locationOnMap}</h3>
-
+      <div height="200px" width="200px">
+        <GoogleMap
+          defaultCenter={{lng: props.location.lng, lat: props.location.lat}}
+          defaultZoom={8}
+          apiKey="AIzaSyBTagEOPS3wEauXAQI3ko8YkkgjgPjK6Sk"
+          />
+      </div>
 
       <br />
       <button>{lang.submit}</button>

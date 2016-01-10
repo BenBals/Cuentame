@@ -11,8 +11,8 @@ state = {
       name: 'Bogota',
       description: "- Hauptstadt von Kolumbien",
       vocHelp: 'Hauptstadt - capital',
-      lng: -74.2478913,
-      lat: 4.6486259
+      lng: -74.075833,
+      lat: 4.598056
     }
   ],
   round: 0

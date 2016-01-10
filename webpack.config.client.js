@@ -34,7 +34,6 @@ fs.readdirSync('node_modules')
         return ['.bin'].indexOf(x) === -1;
     })
     .forEach(function(mod) {
-        console.log('Node module: '+mod);
         nodeModules[mod] = 'commonjs ' + mod;
     });
 

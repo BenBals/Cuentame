@@ -19,5 +19,7 @@ export default {
   winsThisRound: 'wins this round',
   theirDistaceWas: 'Their distace was',
   meters: 'meters',
-  yourScore: 'Your score'
+  yourScore: 'Your score',
+  reset: 'reset',
+  gameRunningWantToReset: 'there is already a game running. do you want to reset game'
 }

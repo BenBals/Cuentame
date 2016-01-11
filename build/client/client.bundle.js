@@ -19777,7 +19777,7 @@
 
 	  switch (action.type) {
 	    case 'CHANGE_SCREEN':
-	      return (0, _lodash.assign)(state, {
+	      return (0, _lodash.assign)({}, state, {
 	        screen: action.target
 	      });
 	    case 'SET_NAME':
@@ -19792,7 +19792,7 @@
 	      if (isValid) {
 	        socket.emit('add player', action.newName);
 
-	        return (0, _lodash.assign)(state, {
+	        return (0, _lodash.assign)({}, state, {
 	          name: action.newName
 	        });
 	      } else {
@@ -19802,35 +19802,35 @@
 	      var thisPlayer = action.newPlayers.reduce(function (acc, player) {
 	        return player.name === state.name ? player : acc;
 	      }, null);
-	      return (0, _lodash.assign)(state, {
+	      return (0, _lodash.assign)({}, state, {
 	        players: action.newPlayers,
 	        score: thisPlayer.score ? thisPlayer.score : 0
 	      });
 	    case 'SET_INITIAL_DATA':
-	      return (0, _lodash.assign)(state, action.data);
+	      return (0, _lodash.assign)({}, state, action.data);
 	    case 'START_NEW_ROUND':
 	      var nextScreen = action.data.writer === state.name ? 'WRITE' : 'WAIT_FOR_WRITER';
-	      return (0, _lodash.assign)(state, action.data, {
+	      return (0, _lodash.assign)({}, state, action.data, {
 	        screen: nextScreen,
 	        status: 'PLAYING'
 	      });
 	    case 'SET_USER_DESCRIPTION':
 	      socket.emit('submit description', action.description);
 
-	      return (0, _lodash.assign)(state, {
+	      return (0, _lodash.assign)({}, state, {
 	        userDescription: action.description
 	      });
 	    case 'SUBMITTED_USER_DESCRIPTION':
 	      var nextScreen2 = state.writer === state.name ? 'WAIT_FOR_ANSWER' : 'ANSWER';
 
-	      return (0, _lodash.assign)(state, {
+	      return (0, _lodash.assign)({}, state, {
 	        userDescription: action.description
 	      }, {
 	        screen: nextScreen2
 	      });
 	    case 'PLACE_MARKER':
 	      console.log(action.latLng);
-	      return (0, _lodash.assign)(state, {
+	      return (0, _lodash.assign)({}, state, {
 	        marker: {
 	          latLng: {
 	            lat: action.latLng.lat(),
@@ -19843,11 +19843,11 @@
 	        latLng: state.marker.latLng,
 	        name: state.name
 	      });
-	      return (0, _lodash.assign)(state, {
+	      return (0, _lodash.assign)({}, state, {
 	        screen: 'WAIT_FOR_ANSWER'
 	      });
 	    case 'SET_ROUND_WINNER':
-	      return (0, _lodash.assign)(state, {
+	      return (0, _lodash.assign)({}, state, {
 	        winner: action.roundWinner,
 	        screen: 'SHOW_ROUND_WINNER'
 	      });
@@ -32923,7 +32923,7 @@
 	      var getChild = function getChild() {
 	        switch (_this2.props.state.screen) {
 	          case 'HELLO':
-	            return _react2.default.createElement(_Hello2.default, { goToNameScreen: _this2.props.goToNameScreen });
+	            return _react2.default.createElement(_Hello2.default, { goToNameScreen: _this2.props.goToNameScreen, status: _this2.props.state.status, reset: _this2.props.reset });
 	          case 'NAME':
 	            return _react2.default.createElement(_Name2.default, { setName: _this2.props.setName });
 	          case 'WAIT_FOR_OTHER_PLAYERS':
@@ -32986,7 +32986,9 @@
 	  winsThisRound: 'wins this round',
 	  theirDistaceWas: 'Their distace was',
 	  meters: 'meters',
-	  yourScore: 'Your score'
+	  yourScore: 'Your score',
+	  reset: 'reset',
+	  gameRunningWantToReset: 'there is already a game running. do you want to reset game'
 	};
 
 /***/ },
@@ -33012,7 +33014,11 @@
 	}
 
 	exports.default = function (props) {
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h1', null, _lang2.default.name), _react2.default.createElement('button', { onClick: props.goToNameScreen }, 'Go'));
+	  var goOrReset = function goOrReset() {
+	    return props.status === 'NOT_STARTED' ? _react2.default.createElement('button', { onClick: props.goToNameScreen }, 'Go') : _react2.default.createElement('div', null, _react2.default.createElement('span', null, _lang2.default.gameRunningWantToReset), _react2.default.createElement('button', { onClick: props.reset }, _lang2.default.reset));
+	  };
+
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h1', null, _lang2.default.name), goOrReset());
 	};
 
 /***/ },
@@ -33497,6 +33503,7 @@
 	  });
 
 	  socket.on('reset', function () {
+	    alert('reset');
 	    window.location.reload();
 	  });
 	};

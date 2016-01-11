@@ -58,7 +58,7 @@ const startNewRound = () => {
   state.round = state.round + 1
   state.currentLocation = state.locations.random()
   state.guesses = {}
-  state.writer = state.players.random().name
+  state.writer = state.players[state.round % state.players.length].name
   state.userDescription = ''
 
   io.emit('start new round', {
@@ -132,7 +132,7 @@ const calculateRoundWinner = () => {
 
     state.players = _.map(state.players, (player) => {
       if (player.name === roundWinner2.name) {
-        return _.assign(player, {
+        return _.assign({}, player, {
           score: player.score + 1
         })
       } else {
@@ -154,9 +154,7 @@ io.on('connection', function(socket) {
     console.log('user disconnected')
   })
 
-  socket.emit('initial data', {
-    players: state.players
-  })
+  socket.emit('initial data', _.assign({}, state, {locations: undefined}))
 
   socket.on('message', (msg) => {
     console.log(msg)

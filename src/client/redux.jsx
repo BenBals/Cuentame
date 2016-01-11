@@ -14,7 +14,7 @@ const defaultState = {
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'CHANGE_SCREEN':
-      return assign(state, {
+      return assign({}, state, {
         screen: action.target
       })
     case 'SET_NAME':
@@ -33,7 +33,7 @@ const reducer = (state = defaultState, action) => {
       if (isValid) {
         socket.emit('add player', action.newName)
 
-        return assign(state, {
+        return assign({}, state, {
           name: action.newName
         })
       } else {
@@ -43,35 +43,35 @@ const reducer = (state = defaultState, action) => {
       const thisPlayer = action.newPlayers.reduce((acc, player) => {
         return player.name === state.name ? player : acc
       }, null)
-      return assign(state, {
+      return assign({}, state, {
         players: action.newPlayers,
         score: thisPlayer.score ? thisPlayer.score : 0
       })
     case 'SET_INITIAL_DATA':
-      return assign(state, action.data)
+      return assign({}, state, action.data)
     case 'START_NEW_ROUND':
       const nextScreen = action.data.writer === state.name ? 'WRITE' : 'WAIT_FOR_WRITER'
-      return assign(state, action.data, {
+      return assign({}, state, action.data, {
         screen: nextScreen,
         status: 'PLAYING'
       })
     case 'SET_USER_DESCRIPTION':
       socket.emit('submit description', action.description)
 
-      return assign(state, {
+      return assign({}, state, {
         userDescription: action.description
       })
     case 'SUBMITTED_USER_DESCRIPTION':
       const nextScreen2 = state.writer === state.name ? 'WAIT_FOR_ANSWER' : 'ANSWER'
 
-      return assign(state, {
+      return assign({}, state, {
         userDescription: action.description
       }, {
         screen: nextScreen2
       })
     case 'PLACE_MARKER':
       console.log(action.latLng)
-      return assign(state, {
+      return assign({}, state, {
         marker: {
           latLng: {
             lat: action.latLng.lat(),
@@ -84,11 +84,11 @@ const reducer = (state = defaultState, action) => {
         latLng: state.marker.latLng,
         name: state.name
       })
-      return assign(state, {
+      return assign({}, state, {
         screen: 'WAIT_FOR_ANSWER'
       })
     case 'SET_ROUND_WINNER':
-      return assign(state, {
+      return assign({}, state, {
         winner: action.roundWinner,
         screen: 'SHOW_ROUND_WINNER'
       })

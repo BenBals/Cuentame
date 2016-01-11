@@ -17,7 +17,7 @@ export default class App extends React.Component {
     const getChild = () => {
       switch (this.props.state.screen) {
         case 'HELLO':
-          return <Hello goToNameScreen={this.props.goToNameScreen}/>
+          return <Hello goToNameScreen={this.props.goToNameScreen} status={this.props.state.status} reset={this.props.reset}/>
         case 'NAME':
           return <Name setName={this.props.setName}/>
         case 'WAIT_FOR_OTHER_PLAYERS':

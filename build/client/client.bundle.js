@@ -88,11 +88,11 @@
 
 	var _redux = __webpack_require__(161);
 
-	var _App = __webpack_require__(162);
+	var _App = __webpack_require__(173);
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _eventListeners = __webpack_require__(173);
+	var _eventListeners = __webpack_require__(184);
 
 	var _eventListeners2 = _interopRequireDefault(_eventListeners);
 
@@ -19757,9 +19757,9 @@
 	});
 	exports.socket = exports.store = undefined;
 
-	var _redux = __webpack_require__(174);
+	var _redux = __webpack_require__(162);
 
-	var _lodash = __webpack_require__(183);
+	var _lodash = __webpack_require__(171);
 
 	var socket = io(); // being injected through the script tag
 
@@ -19882,710 +19882,27 @@
 
 	'use strict';
 
-	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	})();
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	var _Hello = __webpack_require__(164);
-
-	var _Hello2 = _interopRequireDefault(_Hello);
-
-	var _Name = __webpack_require__(165);
-
-	var _Name2 = _interopRequireDefault(_Name);
-
-	var _WaitForOtherPlayers = __webpack_require__(166);
-
-	var _WaitForOtherPlayers2 = _interopRequireDefault(_WaitForOtherPlayers);
-
-	var _WaitForWriter = __webpack_require__(167);
-
-	var _WaitForWriter2 = _interopRequireDefault(_WaitForWriter);
-
-	var _Write = __webpack_require__(168);
-
-	var _Write2 = _interopRequireDefault(_Write);
-
-	var _Answer = __webpack_require__(170);
-
-	var _Answer2 = _interopRequireDefault(_Answer);
-
-	var _WaitForAnswer = __webpack_require__(171);
-
-	var _WaitForAnswer2 = _interopRequireDefault(_WaitForAnswer);
-
-	var _ShowRoundWinner = __webpack_require__(172);
-
-	var _ShowRoundWinner2 = _interopRequireDefault(_ShowRoundWinner);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-
-	var App = (function (_React$Component) {
-	  _inherits(App, _React$Component);
-
-	  function App() {
-	    _classCallCheck(this, App);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
-	  }
-
-	  _createClass(App, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      var getChild = function getChild() {
-	        switch (_this2.props.state.screen) {
-	          case 'HELLO':
-	            return _react2.default.createElement(_Hello2.default, { goToNameScreen: _this2.props.goToNameScreen, status: _this2.props.state.status, reset: _this2.props.reset });
-	          case 'NAME':
-	            return _react2.default.createElement(_Name2.default, { setName: _this2.props.setName });
-	          case 'WAIT_FOR_OTHER_PLAYERS':
-	            return _react2.default.createElement(_WaitForOtherPlayers2.default, { players: _this2.props.state.players, startGame: _this2.props.startGame });
-	          case 'WAIT_FOR_WRITER':
-	            return _react2.default.createElement(_WaitForWriter2.default, null);
-	          case 'WRITE':
-	            return _react2.default.createElement(_Write2.default, { location: _this2.props.state.location, submitDescription: _this2.props.submitDescription });
-	          case 'ANSWER':
-	            return _react2.default.createElement(_Answer2.default, { description: _this2.props.state.userDescription, submitGuess: _this2.props.submitGuess });
-	          case 'WAIT_FOR_ANSWER':
-	            return _react2.default.createElement(_WaitForAnswer2.default, null);
-	          case 'SHOW_ROUND_WINNER':
-	            return _react2.default.createElement(_ShowRoundWinner2.default, { winner: _this2.props.state.winner });
-	          default:
-	            return _react2.default.createElement('div', null, _lang2.default.randomError);
-	        }
-	      };
-
-	      var getScoreHeader = function getScoreHeader() {
-	        return _this2.props.state.status === 'PLAYING' && _this2.props.state.screen !== 'HELLO' ? _react2.default.createElement('div', null, _lang2.default.yourScore, ': ', _this2.props.state.score) : null;
-	      };
-
-	      return _react2.default.createElement('div', null, getScoreHeader(), getChild(), _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state, null, 2)), _react2.default.createElement('button', { onClick: this.props.reset }, 'reset'));
-	    }
-	  }]);
-
-	  return App;
-	})(_react2.default.Component);
-
-	exports.default = App;
-
-/***/ },
-/* 163 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	  randomError: 'something went wrong',
-	  name: 'Cuéntame',
-	  whatsYourName: '¿Cómo te llamas?',
-	  next: 'next',
-	  yourName: 'tú nombre',
-	  waitingForOtherPlayers: 'waiting for others',
-	  connected: 'connected',
-	  startGame: 'Start Game',
-	  waitForWriter: 'Waiting for the writer',
-	  youAreTheWriter: 'You are the writer',
-	  yourDescriptionHere: 'Your description here',
-	  youDescribe: 'You describe',
-	  vocHelp: 'Vocabulray Help',
-	  submit: 'submit',
-	  locationOnMap: 'The location on map',
-	  waitForAnswer: 'Waiting for other players to answer',
-	  whereIsTheFollowingPlace: 'Where is the following place?',
-	  winsThisRound: 'wins this round',
-	  theirDistaceWas: 'Their distace was',
-	  meters: 'meters',
-	  yourScore: 'Your score',
-	  reset: 'reset',
-	  gameRunningWantToReset: 'there is already a game running. do you want to reset game'
-	};
-
-/***/ },
-/* 164 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	exports.default = function (props) {
-	  var goOrReset = function goOrReset() {
-	    return props.status === 'NOT_STARTED' ? _react2.default.createElement('button', { onClick: props.goToNameScreen }, 'Go') : _react2.default.createElement('div', null, _react2.default.createElement('span', null, _lang2.default.gameRunningWantToReset), _react2.default.createElement('button', { onClick: props.reset }, _lang2.default.reset));
-	  };
-
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h1', null, _lang2.default.name), goOrReset());
-	};
-
-/***/ },
-/* 165 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	})();
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-
-	var Name = (function (_React$Component) {
-	  _inherits(Name, _React$Component);
-
-	  function Name() {
-	    _classCallCheck(this, Name);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Name).apply(this, arguments));
-	  }
-
-	  _createClass(Name, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      var handleSubmit = function handleSubmit(event) {
-	        // console.log(this.nameInp)
-	        event.preventDefault();
-	        _this2.props.setName(_this2.nameInp.value);
-	        return false;
-	      };
-
-	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whatsYourName), _react2.default.createElement('form', { onSubmit: handleSubmit }, _react2.default.createElement('input', { type: 'text', placeholder: _lang2.default.yourName, ref: function ref(_ref) {
-	          return _this2.nameInp = _ref;
-	        } }), _react2.default.createElement('input', { type: 'submit', value: _lang2.default.next })));
-	    }
-	  }]);
-
-	  return Name;
-	})(_react2.default.Component);
-
-	exports.default = Name;
-
-/***/ },
-/* 166 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	exports.default = function (props) {
-	  var button = props.players.length > 1 ? _react2.default.createElement('button', { onClick: props.startGame }, _lang2.default.startGame) : _react2.default.createElement('div', null);
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitingForOtherPlayers), _react2.default.createElement('h3', null, _lang2.default.connected, ':'), _react2.default.createElement('ul', null, props.players.map(function (player) {
-	    return _react2.default.createElement('li', null, player.name);
-	  })), button);
-	};
-
-/***/ },
-/* 167 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	exports.default = function () {
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitForWriter));
-	};
-
-/***/ },
-/* 168 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	})();
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	var _renderMap = __webpack_require__(169);
-
-	var _renderMap2 = _interopRequireDefault(_renderMap);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-
-	var Write = (function (_React$Component) {
-	  _inherits(Write, _React$Component);
-
-	  function Write() {
-	    _classCallCheck(this, Write);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Write).apply(this, arguments));
-	  }
-
-	  _createClass(Write, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var latLng = { lat: this.props.location.lat, lng: this.props.location.lng };
-	      var zoom = 8;
-	      (0, _renderMap2.default)(latLng, zoom, false, document.getElementById('writeMap'), [{ latLng: latLng }]);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      var handleSubmit = function handleSubmit() {
-	        console.log('submitDescription');
-	        _this2.props.submitDescription(_this2.text.value);
-	      };
-
-	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.youAreTheWriter), _react2.default.createElement('textarea', { defaultValue: _lang2.default.yourDescriptionHere, ref: function ref(_ref) {
-	          return _this2.text = _ref;
-	        } }), _react2.default.createElement('h3', null, _lang2.default.youDescribe, ': ', this.props.location.name), this.props.location.description, _react2.default.createElement('h3', null, _lang2.default.vocHelp), this.props.location.vocHelp, _react2.default.createElement('h3', null, _lang2.default.locationOnMap), _react2.default.createElement('div', { id: 'writeMap', style: { height: '25vh' } }), _react2.default.createElement('br', null), _react2.default.createElement('button', { onClick: handleSubmit }, _lang2.default.submit));
-	    }
-	  }]);
-
-	  return Write;
-	})(_react2.default.Component);
-
-	exports.default = Write;
-
-/***/ },
-/* 169 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _redux = __webpack_require__(161);
-
-	exports.default = function (latLng, zoom, addNewMarkers, renderTarget, markers) {
-	  var allMarkers = [];
-
-	  var placeMakerAndPanTo = function placeMakerAndPanTo(latLng, map) {
-	    var newMarker = new google.maps.Marker({
-	      position: latLng,
-	      map: map
-	    });
-
-	    for (var i = 0; i < allMarkers.length; i++) {
-	      allMarkers[i].setMap(null);
-	    }
-	    allMarkers.length = 0;
-
-	    allMarkers.push(newMarker);
-
-	    map.panTo(latLng);
-	  };
-
-	  var map = new google.maps.Map(renderTarget, {
-	    center: latLng,
-	    zoom: zoom
-	  });
-
-	  if (addNewMarkers) {
-	    map.addListener('click', function (e) {
-	      console.log(e);
-	      _redux.store.dispatch({
-	        type: 'PLACE_MARKER',
-	        latLng: e.latLng
-	      });
-	      placeMakerAndPanTo(_redux.store.getState().marker.latLng, map);
-	    });
-	  }
-
-	  markers.map(function (marker) {
-	    var thisMarker = new google.maps.Marker({
-	      position: marker.latLng,
-	      title: "Hello World!"
-	    });
-
-	    allMarkers.push(thisMarker);
-
-	    thisMarker.setMap(map);
-	  });
-
-	  window.currentMap = map;
-	};
-
-/***/ },
-/* 170 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = (function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	})();
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	var _renderMap = __webpack_require__(169);
-
-	var _renderMap2 = _interopRequireDefault(_renderMap);
-
-	function _interopRequireDefault(obj) {
-	    return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) {
-	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if (typeof superClass !== "function" && superClass !== null) {
-	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-
-	var Answer = (function (_React$Component) {
-	    _inherits(Answer, _React$Component);
-
-	    function Answer() {
-	        _classCallCheck(this, Answer);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Answer).apply(this, arguments));
-	    }
-
-	    _createClass(Answer, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var latLng = {
-	                lng: -74.075833,
-	                lat: 4.598056
-	            };
-
-	            var zoom = 4;
-
-	            (0, _renderMap2.default)(latLng, zoom, true, document.getElementById('answerMap'));
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whereIsTheFollowingPlace), _react2.default.createElement('div', null, this.props.description), _react2.default.createElement('div', { id: 'answerMap', style: { height: '50vh' } }), _react2.default.createElement('button', { onClick: this.props.submitGuess }, _lang2.default.submit));
-	        }
-	    }]);
-
-	    return Answer;
-	})(_react2.default.Component);
-
-	exports.default = Answer;
-
-/***/ },
-/* 171 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	exports.default = function () {
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitForAnswer));
-	};
-
-/***/ },
-/* 172 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	exports.default = function (props) {
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, props.winner.name, ' ', _lang2.default.winsThisRound), _react2.default.createElement('span', null, _lang2.default.theirDistaceWas, ' ', props.winner.distance, ' ', _lang2.default.meters));
-	};
-
-/***/ },
-/* 173 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports.default = function (socket, store) {
-
-	  socket.on('INCREMENT', function () {
-	    store.dispatch({ type: 'INCREMENT' });
-	  });
-
-	  socket.on('update players', function (newPlayers) {
-	    store.dispatch({
-	      type: 'UPDATE_PLAYERS',
-	      newPlayers: newPlayers
-	    });
-	  });
-
-	  socket.on('initial data', function (initialData) {
-	    store.dispatch({
-	      type: 'SET_INITIAL_DATA',
-	      data: initialData
-	    });
-	  });
-
-	  socket.on('start new round', function (data) {
-	    console.log(data);
-	    store.dispatch({
-	      type: 'START_NEW_ROUND',
-	      data: data
-	    });
-	  });
-
-	  socket.on('user description', function (description) {
-	    store.dispatch({
-	      type: 'SUBMITTED_USER_DESCRIPTION',
-	      description: description
-	    });
-	  });
-
-	  socket.on('and the round winner is...', function (roundWinner) {
-	    console.log('i know who won');
-	    store.dispatch({
-	      type: 'SET_ROUND_WINNER',
-	      roundWinner: roundWinner
-	    });
-	  });
-
-	  socket.on('reset', function () {
-	    window.location.reload();
-	  });
-	};
-
-/***/ },
-/* 174 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
 	exports.__esModule = true;
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _createStore = __webpack_require__(175);
+	var _createStore = __webpack_require__(163);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _utilsCombineReducers = __webpack_require__(177);
+	var _utilsCombineReducers = __webpack_require__(165);
 
 	var _utilsCombineReducers2 = _interopRequireDefault(_utilsCombineReducers);
 
-	var _utilsBindActionCreators = __webpack_require__(180);
+	var _utilsBindActionCreators = __webpack_require__(168);
 
 	var _utilsBindActionCreators2 = _interopRequireDefault(_utilsBindActionCreators);
 
-	var _utilsApplyMiddleware = __webpack_require__(181);
+	var _utilsApplyMiddleware = __webpack_require__(169);
 
 	var _utilsApplyMiddleware2 = _interopRequireDefault(_utilsApplyMiddleware);
 
-	var _utilsCompose = __webpack_require__(182);
+	var _utilsCompose = __webpack_require__(170);
 
 	var _utilsCompose2 = _interopRequireDefault(_utilsCompose);
 
@@ -20596,7 +19913,7 @@
 	exports.compose = _utilsCompose2['default'];
 
 /***/ },
-/* 175 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20606,7 +19923,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsIsPlainObject = __webpack_require__(176);
+	var _utilsIsPlainObject = __webpack_require__(164);
 
 	var _utilsIsPlainObject2 = _interopRequireDefault(_utilsIsPlainObject);
 
@@ -20764,7 +20081,7 @@
 	}
 
 /***/ },
-/* 176 */
+/* 164 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20800,7 +20117,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 177 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20810,17 +20127,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _createStore = __webpack_require__(175);
+	var _createStore = __webpack_require__(163);
 
-	var _isPlainObject = __webpack_require__(176);
+	var _isPlainObject = __webpack_require__(164);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _mapValues = __webpack_require__(178);
+	var _mapValues = __webpack_require__(166);
 
 	var _mapValues2 = _interopRequireDefault(_mapValues);
 
-	var _pick = __webpack_require__(179);
+	var _pick = __webpack_require__(167);
 
 	var _pick2 = _interopRequireDefault(_pick);
 
@@ -20937,7 +20254,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 178 */
+/* 166 */
 /***/ function(module, exports) {
 
 	/**
@@ -20962,7 +20279,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 179 */
+/* 167 */
 /***/ function(module, exports) {
 
 	/**
@@ -20989,7 +20306,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 180 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20999,7 +20316,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _mapValues = __webpack_require__(178);
+	var _mapValues = __webpack_require__(166);
 
 	var _mapValues2 = _interopRequireDefault(_mapValues);
 
@@ -21048,7 +20365,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 181 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21061,7 +20378,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _compose = __webpack_require__(182);
+	var _compose = __webpack_require__(170);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -21114,7 +20431,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 182 */
+/* 170 */
 /***/ function(module, exports) {
 
 	/**
@@ -21144,7 +20461,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 183 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -33499,10 +32816,10 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(184)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(172)(module), (function() { return this; }())))
 
 /***/ },
-/* 184 */
+/* 172 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -33516,6 +32833,695 @@
 		return module;
 	}
 
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	var _Hello = __webpack_require__(175);
+
+	var _Hello2 = _interopRequireDefault(_Hello);
+
+	var _Name = __webpack_require__(176);
+
+	var _Name2 = _interopRequireDefault(_Name);
+
+	var _WaitForOtherPlayers = __webpack_require__(177);
+
+	var _WaitForOtherPlayers2 = _interopRequireDefault(_WaitForOtherPlayers);
+
+	var _WaitForWriter = __webpack_require__(178);
+
+	var _WaitForWriter2 = _interopRequireDefault(_WaitForWriter);
+
+	var _Write = __webpack_require__(179);
+
+	var _Write2 = _interopRequireDefault(_Write);
+
+	var _Answer = __webpack_require__(181);
+
+	var _Answer2 = _interopRequireDefault(_Answer);
+
+	var _WaitForAnswer = __webpack_require__(182);
+
+	var _WaitForAnswer2 = _interopRequireDefault(_WaitForAnswer);
+
+	var _RoundResults = __webpack_require__(183);
+
+	var _RoundResults2 = _interopRequireDefault(_RoundResults);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+
+	var App = (function (_React$Component) {
+	  _inherits(App, _React$Component);
+
+	  function App() {
+	    _classCallCheck(this, App);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+	  }
+
+	  _createClass(App, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var getChild = function getChild() {
+	        switch (_this2.props.state.screen) {
+	          case 'HELLO':
+	            return _react2.default.createElement(_Hello2.default, { goToNameScreen: _this2.props.goToNameScreen, status: _this2.props.state.status, reset: _this2.props.reset });
+	          case 'NAME':
+	            return _react2.default.createElement(_Name2.default, { setName: _this2.props.setName });
+	          case 'WAIT_FOR_OTHER_PLAYERS':
+	            return _react2.default.createElement(_WaitForOtherPlayers2.default, { players: _this2.props.state.players, startGame: _this2.props.startGame });
+	          case 'WAIT_FOR_WRITER':
+	            return _react2.default.createElement(_WaitForWriter2.default, null);
+	          case 'WRITE':
+	            return _react2.default.createElement(_Write2.default, { location: _this2.props.state.location, submitDescription: _this2.props.submitDescription });
+	          case 'ANSWER':
+	            return _react2.default.createElement(_Answer2.default, { description: _this2.props.state.userDescription, submitGuess: _this2.props.submitGuess });
+	          case 'WAIT_FOR_ANSWER':
+	            return _react2.default.createElement(_WaitForAnswer2.default, null);
+	          case 'ROUND_RESULTS':
+	            return _react2.default.createElement(_RoundResults2.default, { players: _this2.props.state.players });
+	          default:
+	            return _react2.default.createElement('div', null, _lang2.default.randomError);
+	        }
+	      };
+
+	      var getScoreHeader = function getScoreHeader() {
+	        return _this2.props.state.status === 'PLAYING' && _this2.props.state.screen !== 'HELLO' ? _react2.default.createElement('div', null, _lang2.default.yourScore, ': ', _this2.props.state.score) : null;
+	      };
+
+	      return _react2.default.createElement('div', null, getScoreHeader(), getChild(), _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state, null, 2)), _react2.default.createElement('button', { onClick: this.props.reset }, 'reset'));
+	    }
+	  }]);
+
+	  return App;
+	})(_react2.default.Component);
+
+	exports.default = App;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  randomError: 'something went wrong',
+	  name: 'Cuéntame',
+	  whatsYourName: '¿Cómo te llamas?',
+	  next: 'next',
+	  yourName: 'tú nombre',
+	  waitingForOtherPlayers: 'waiting for others',
+	  connected: 'connected',
+	  startGame: 'Start Game',
+	  waitForWriter: 'Waiting for the writer',
+	  youAreTheWriter: 'You are the writer',
+	  yourDescriptionHere: 'Your description here',
+	  youDescribe: 'You describe',
+	  vocHelp: 'Vocabulray Help',
+	  submit: 'submit',
+	  locationOnMap: 'The location on map',
+	  waitForAnswer: 'Waiting for other players to answer',
+	  whereIsTheFollowingPlace: 'Where is the following place?',
+	  winsThisRound: 'wins this round',
+	  theirDistaceWas: 'Their distace was',
+	  meters: 'meters',
+	  yourScore: 'Your score',
+	  reset: 'reset',
+	  gameRunningWantToReset: 'there is already a game running. do you want to reset game',
+	  roundEndMessage: 'The round is over. The new scores are',
+	  nextRoundIn10s: 'The next round starts in 10s'
+	};
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = function (props) {
+	  var goOrReset = function goOrReset() {
+	    return props.status === 'NOT_STARTED' ? _react2.default.createElement('button', { onClick: props.goToNameScreen }, 'Go') : _react2.default.createElement('div', null, _react2.default.createElement('span', null, _lang2.default.gameRunningWantToReset), _react2.default.createElement('button', { onClick: props.reset }, _lang2.default.reset));
+	  };
+
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h1', null, _lang2.default.name), goOrReset());
+	};
+
+/***/ },
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+
+	var Name = (function (_React$Component) {
+	  _inherits(Name, _React$Component);
+
+	  function Name() {
+	    _classCallCheck(this, Name);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Name).apply(this, arguments));
+	  }
+
+	  _createClass(Name, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var handleSubmit = function handleSubmit(event) {
+	        // console.log(this.nameInp)
+	        event.preventDefault();
+	        _this2.props.setName(_this2.nameInp.value);
+	        return false;
+	      };
+
+	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whatsYourName), _react2.default.createElement('form', { onSubmit: handleSubmit }, _react2.default.createElement('input', { type: 'text', placeholder: _lang2.default.yourName, ref: function ref(_ref) {
+	          return _this2.nameInp = _ref;
+	        } }), _react2.default.createElement('input', { type: 'submit', value: _lang2.default.next })));
+	    }
+	  }]);
+
+	  return Name;
+	})(_react2.default.Component);
+
+	exports.default = Name;
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = function (props) {
+	  var button = props.players.length > 1 ? _react2.default.createElement('button', { onClick: props.startGame }, _lang2.default.startGame) : _react2.default.createElement('div', null);
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitingForOtherPlayers), _react2.default.createElement('h3', null, _lang2.default.connected, ':'), _react2.default.createElement('ul', null, props.players.map(function (player) {
+	    return _react2.default.createElement('li', null, player.name);
+	  })), button);
+	};
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = function () {
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitForWriter));
+	};
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	var _renderMap = __webpack_require__(180);
+
+	var _renderMap2 = _interopRequireDefault(_renderMap);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+
+	var Write = (function (_React$Component) {
+	  _inherits(Write, _React$Component);
+
+	  function Write() {
+	    _classCallCheck(this, Write);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Write).apply(this, arguments));
+	  }
+
+	  _createClass(Write, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var latLng = { lat: this.props.location.lat, lng: this.props.location.lng };
+	      var zoom = 8;
+	      (0, _renderMap2.default)(latLng, zoom, false, document.getElementById('writeMap'), [{ latLng: latLng }]);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var handleSubmit = function handleSubmit() {
+	        console.log('submitDescription');
+	        _this2.props.submitDescription(_this2.text.value);
+	      };
+
+	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.youAreTheWriter), _react2.default.createElement('textarea', { defaultValue: _lang2.default.yourDescriptionHere, ref: function ref(_ref) {
+	          return _this2.text = _ref;
+	        } }), _react2.default.createElement('h3', null, _lang2.default.youDescribe, ': ', this.props.location.name), this.props.location.description, _react2.default.createElement('h3', null, _lang2.default.vocHelp), this.props.location.vocHelp, _react2.default.createElement('h3', null, _lang2.default.locationOnMap), _react2.default.createElement('div', { id: 'writeMap', style: { height: '25vh' } }), _react2.default.createElement('br', null), _react2.default.createElement('button', { onClick: handleSubmit }, _lang2.default.submit));
+	    }
+	  }]);
+
+	  return Write;
+	})(_react2.default.Component);
+
+	exports.default = Write;
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _redux = __webpack_require__(161);
+
+	exports.default = function (latLng, zoom, addNewMarkers, renderTarget, markers) {
+	  var allMarkers = [];
+
+	  var placeMakerAndPanTo = function placeMakerAndPanTo(latLng, map) {
+	    var newMarker = new google.maps.Marker({
+	      position: latLng,
+	      map: map
+	    });
+
+	    for (var i = 0; i < allMarkers.length; i++) {
+	      allMarkers[i].setMap(null);
+	    }
+	    allMarkers.length = 0;
+
+	    allMarkers.push(newMarker);
+
+	    map.panTo(latLng);
+	  };
+
+	  var map = new google.maps.Map(renderTarget, {
+	    center: latLng,
+	    zoom: zoom
+	  });
+
+	  if (addNewMarkers) {
+	    map.addListener('click', function (e) {
+	      console.log(e);
+	      _redux.store.dispatch({
+	        type: 'PLACE_MARKER',
+	        latLng: e.latLng
+	      });
+	      placeMakerAndPanTo(_redux.store.getState().marker.latLng, map);
+	    });
+	  }
+
+	  markers.map(function (marker) {
+	    var thisMarker = new google.maps.Marker({
+	      position: marker.latLng,
+	      title: "Hello World!"
+	    });
+
+	    allMarkers.push(thisMarker);
+
+	    thisMarker.setMap(map);
+	  });
+
+	  window.currentMap = map;
+	};
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () {
+	    function defineProperties(target, props) {
+	        for (var i = 0; i < props.length; i++) {
+	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	        }
+	    }return function (Constructor, protoProps, staticProps) {
+	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	    };
+	})();
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	var _renderMap = __webpack_require__(180);
+
+	var _renderMap2 = _interopRequireDefault(_renderMap);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) {
+	        throw new TypeError("Cannot call a class as a function");
+	    }
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) {
+	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if (typeof superClass !== "function" && superClass !== null) {
+	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+
+	var Answer = (function (_React$Component) {
+	    _inherits(Answer, _React$Component);
+
+	    function Answer() {
+	        _classCallCheck(this, Answer);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Answer).apply(this, arguments));
+	    }
+
+	    _createClass(Answer, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var latLng = {
+	                lng: -74.075833,
+	                lat: 4.598056
+	            };
+
+	            var zoom = 4;
+
+	            (0, _renderMap2.default)(latLng, zoom, true, document.getElementById('answerMap'));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whereIsTheFollowingPlace), _react2.default.createElement('div', null, this.props.description), _react2.default.createElement('div', { id: 'answerMap', style: { height: '50vh' } }), _react2.default.createElement('button', { onClick: this.props.submitGuess }, _lang2.default.submit));
+	        }
+	    }]);
+
+	    return Answer;
+	})(_react2.default.Component);
+
+	exports.default = Answer;
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = function () {
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitForAnswer));
+	};
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(174);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.default = function (_ref) {
+	  var players = _ref.players;
+
+	  var getScoreList = function getScoreList() {};
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h1', null, _lang2.default.roundEndMessages), getScoreList, _react2.default.createElement('ul', null, players.map(function (player) {
+	    return _react2.default.createElement('li', null, player.name, ': ', player.score);
+	  })), _react2.default.createElement('div', null, _lang2.default.nextRoundIn10s));
+	};
+
+/***/ },
+/* 184 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function (socket, store) {
+
+	  socket.on('INCREMENT', function () {
+	    store.dispatch({ type: 'INCREMENT' });
+	  });
+
+	  socket.on('update players', function (newPlayers) {
+	    store.dispatch({
+	      type: 'UPDATE_PLAYERS',
+	      newPlayers: newPlayers
+	    });
+	  });
+
+	  socket.on('initial data', function (initialData) {
+	    store.dispatch({
+	      type: 'SET_INITIAL_DATA',
+	      data: initialData
+	    });
+	  });
+
+	  socket.on('start new round', function (data) {
+	    console.log(data);
+	    store.dispatch({
+	      type: 'START_NEW_ROUND',
+	      data: data
+	    });
+	  });
+
+	  socket.on('user description', function (description) {
+	    store.dispatch({
+	      type: 'SUBMITTED_USER_DESCRIPTION',
+	      description: description
+	    });
+	  });
+
+	  socket.on('round results', function (results) {
+	    store.dispatch({
+	      type: 'CHANGE_SCREEN',
+	      target: 'ROUND_RESULTS'
+	    });
+	  });
+
+	  socket.on('reset', function () {
+	    window.location.reload();
+	  });
+	};
 
 /***/ }
 /******/ ]);

@@ -84,66 +84,58 @@ const calculateDistence = (point1, point2) => {
   return d
 }
 
-const calculateRoundWinner = () => {
-  if (state.players.length > 2) {
-    const guessesWithDistances = _.map(state.guesses, (guess) => {
-      return {
-        name: guess.name,
-        distance: calculateDistence(guess.latLng, {
-          lat: state.currentLocation.lat,
-          lng: state.currentLocation.lng
-        })
-      }
-    })
+const getPlayerElementForName = (name) => {
 
-    const roundWinner = _.reduce(guessesWithDistances, (acc, guess) => {
-      console.log(guess)
-      return guess.distance < acc.distance ? guess : acc
-    }, {name: 'onone', distance: 123583478234578234759834257892345789234572347582345})
+  const ele = _.reduce(state.players, (acc, player) => {
+    return player.name === name ? player : acc
+  }, null)
+  console.log('the player element for the name ' + name + 'is:')
+  console.log(ele)
+  return ele
+}
 
-    state.players = _.map(state.players, (player) => {
-      if (player.name === roundWinner.name) {
-        return _.assign(player, {
-          score: player.score + 1
-        })
-      } else {
-        return player
-      }
-    })
+const getScoreForDistance = (distance) => {
+  const res = Math.floor(100000 / distance)
+  console.log('the score for the distance ' + distance + ' is ' + res)
+  return res
+} 
 
-    io.emit('and the round winner is...', roundWinner)
-    io.emit('update players', state.players)
-    setTimeout(startNewRound, 10000)
-  } else {
-    console.log(state.guesses)
-    const onlyGuess = _.map(state.guesses, (val) => val)[0]
-    const distance = calculateDistence(onlyGuess.latLng, {
-      lat: state.currentLocation.lat,
-      lng: state.currentLocation.lng
-    })
+const calculateRoundScores = () => {
 
-    const roundWinner2 = distance < SOLO_DISTANCE ? {
-      name: onlyGuess.name,
-      distance: distance
-    } : {
-      name: 'noone',
-      distance: SOLO_DISTANCE
+  const guessesWithDistances = _.map(state.guesses, (guess) => {
+    return {
+      name: guess.name,
+      distance: calculateDistence(guess.latLng, {
+        lat: state.currentLocation.lat,
+        lng: state.currentLocation.lng
+      })
     }
+  })
 
-    state.players = _.map(state.players, (player) => {
-      if (player.name === roundWinner2.name) {
-        return _.assign({}, player, {
-          score: player.score + 1
-        })
-      } else {
-        return player
-      }
-    })
+  const newPlayers = [].concat(
 
-    io.emit('and the round winner is...', roundWinner2)
-    io.emit('update players', state.players)
-    setTimeout(startNewRound, 10000)
-  }
+    _.map(guessesWithDistances, (guess) => {
+      return _.assign({}, getPlayerElementForName(guess.name), {
+        score: getPlayerElementForName(guess.name).score + getScoreForDistance(guess.distance)
+      })
+    }),
+
+    getPlayerElementForName(state.writer)
+
+  )
+
+  console.log('new player arr: ')
+
+  console.log(newPlayers)
+
+  state = _.assign({}, state, {
+    players: newPlayers
+  })
+
+  io.emit('update players', state.players)
+  io.emit('round results')
+
+  setTimeout(startNewRound, 10000)
 }
 
 // what to do when a user connects
@@ -192,9 +184,12 @@ io.on('connection', function(socket) {
     state.guesses[guess.name] = guess
 
     console.log(state)
+    console.log(Object.size(state.guesses))
+    console.log(state.players.length -1)
 
-    if (Object.size(state.guesses) === state.players.length -1) {
-      calculateRoundWinner()
+    if (Object.size(state.guesses) >= state.players.length -1) {
+      console.log('the round is over')
+      calculateRoundScores()
     } else {
       return false
     }

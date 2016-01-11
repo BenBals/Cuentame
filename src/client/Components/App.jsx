@@ -9,7 +9,7 @@ import WaitForWriter from './WaitForWriter.jsx'
 import Write from './Write.jsx'
 import Answer from './Answer.jsx'
 import WaitForAnswer from './WaitForAnswer.jsx'
-import ShowRoundWinner from './ShowRoundWinner.jsx'
+import RoundResults from './RoundResults.jsx'
 
 export default class App extends React.Component {
   render() {
@@ -30,8 +30,8 @@ export default class App extends React.Component {
           return <Answer description={this.props.state.userDescription} submitGuess={this.props.submitGuess}/>
         case 'WAIT_FOR_ANSWER':
           return <WaitForAnswer />
-        case 'SHOW_ROUND_WINNER':
-          return <ShowRoundWinner winner={this.props.state.winner}/>
+        case 'ROUND_RESULTS':
+          return <RoundResults players={this.props.state.players}/>
         default:
           return <div>{lang.randomError}</div>
       }

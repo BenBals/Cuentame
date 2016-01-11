@@ -50,9 +50,19 @@ const reducer = (state = defaultState, action) => {
     case 'SET_INITIAL_DATA':
       return assign({}, state, action.data)
     case 'START_NEW_ROUND':
-      const nextScreen = action.data.writer === state.name ? 'WRITE' : 'WAIT_FOR_WRITER'
+      const nextScreen = () => {
+        switch (state.name) {
+          case action.data.writer:
+            return 'WRITE'
+          case "":
+            return 'HELLO'
+          default:
+            return 'WAIT_FOR_WRITER'
+        }
+      }
+      console.log(nextScreen())
       return assign({}, state, action.data, {
-        screen: nextScreen,
+        screen: nextScreen(),
         status: 'PLAYING'
       })
     case 'SET_USER_DESCRIPTION':

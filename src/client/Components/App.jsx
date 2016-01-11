@@ -38,7 +38,7 @@ export default class App extends React.Component {
     }
 
     const getScoreHeader = () => {
-      return this.props.state.status === 'PLAYING' ? (<div>{lang.yourScore}: {this.props.state.score}</div>) : null
+      return this.props.state.status === 'PLAYING' && this.props.state.screen !== 'HELLO' ? (<div>{lang.yourScore}: {this.props.state.score}</div>) : null
     }
 
     return (

@@ -63,7 +63,7 @@
 	  round: 0
 	};
 
-	var state = defaultState;
+	var state = _.assign({}, defaultState);
 
 	// the port on which the server runs
 	SERVER_PORT = 3000;
@@ -205,9 +205,11 @@
 	  });
 
 	  socket.on('add player', name => {
-	    state.players.push({
-	      name: name,
-	      score: 0
+	    state = _.assign({}, state, {
+	      players: state.players.concat([{
+	        name: name,
+	        score: 0
+	      }])
 	    });
 	    console.log('logging state from the add player callback');
 	    console.log(state);
@@ -240,15 +242,14 @@
 	  });
 
 	  socket.on('reset', () => {
-	    state = defaultState;
-	    state.players = [];
-	    io.emit('reset');
-	    io.emit('initial data', {
-	      players: state.players
-	    });
 	    console.log('=====================');
 	    console.log('reset');
 	    console.log('=====================');
+	    console.log(defaultState);
+	    state = _.assign({}, defaultState, { players: [] });
+	    io.emit('reset');
+	    console.log(state);
+	    io.emit('initial data', _.assign({}, state, { locations: undefined }));
 
 	    console.log(state);
 	  });

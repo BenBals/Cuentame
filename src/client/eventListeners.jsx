@@ -1,9 +1,7 @@
+// the function that handels all socket events and dispatching them to the store
 export default (socket, store) => {
 
-  socket.on('INCREMENT', () => {
-    store.dispatch({type: 'INCREMENT'})
-  })
-
+  // getting new player data from the server
   socket.on('update players', (newPlayers) => {
     store.dispatch({
       type: 'UPDATE_PLAYERS',
@@ -11,6 +9,7 @@ export default (socket, store) => {
     })
   })
 
+  // getting all the data thats needed to do the set up
   socket.on('initial data', (initialData) => {
     store.dispatch({
       type: 'SET_INITIAL_DATA',
@@ -18,14 +17,15 @@ export default (socket, store) => {
     })
   })
 
+  // starting a new round
   socket.on('start new round', (data) => {
-    console.log(data)
     store.dispatch({
       type: 'START_NEW_ROUND',
       data: data
     })
   })
 
+  // getting the description of the writer
   socket.on('user description', (description) => {
     store.dispatch({
       type: 'SUBMITTED_USER_DESCRIPTION',
@@ -33,6 +33,7 @@ export default (socket, store) => {
     })
   })
 
+  // getting the round results
   socket.on('round results', (results) => {
     store.dispatch({
       type:'CHANGE_SCREEN',
@@ -40,6 +41,7 @@ export default (socket, store) => {
     })
   })
 
+  // reloading when reset
   socket.on('reset', () => {
     window.location.reload()
   })

@@ -1,21 +1,21 @@
+// same as always... react and dynamic lang files
 import React from 'react'
 import lang from '../lang.jsx'
 
+// stateless component
 export default ({ players }) => {
-  const getScoreList = () => {
-
-  }
   return (
     <div>
-      <h1>{lang.roundEndMessages}</h1>
-      {getScoreList}
-
+      {/* the right heading */}
+      <h2>{lang.roundEndMessages}</h2>
+      {/* lit of all users and their scores */}
       <ul>
         {players.map((player) => {
           return <li>{player.name}: {player.score}</li>
         })}
       </ul>
 
+      {/* tell them that the next round starts in 10s */}
       <div>{lang.nextRoundIn10s}</div>
     </div>
   )

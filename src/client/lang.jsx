@@ -1,3 +1,4 @@
+// all needed strings
 export default {
   randomError: 'something went wrong',
   name: 'Cuéntame',

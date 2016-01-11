@@ -1,7 +1,10 @@
+// importing the react library
 import React from 'react'
 
+// and the dynamic lang files
 import lang from '../lang.jsx'
 
+// the other components/screens
 import Hello from './Hello.jsx'
 import Name from './Name.jsx'
 import WaitForOtherPlayers from './WaitForOtherPlayers.jsx'
@@ -13,7 +16,7 @@ import RoundResults from './RoundResults.jsx'
 
 export default class App extends React.Component {
   render() {
-
+    // function that determains the component to render based on state and pass the needed state
     const getChild = () => {
       switch (this.props.state.screen) {
         case 'HELLO':
@@ -37,6 +40,7 @@ export default class App extends React.Component {
       }
     }
 
+    // determain if the score header should be shown
     const getScoreHeader = () => {
       return this.props.state.status === 'PLAYING' && this.props.state.screen !== 'HELLO' ? (<div>{lang.yourScore}: {this.props.state.score}</div>) : null
     }
@@ -44,16 +48,20 @@ export default class App extends React.Component {
     return (
       <div>
 
+        {/* get the header */}
         {getScoreHeader()}
 
+        {/* and the screen */}
         {getChild()}
 
         {/* just in dev */}
         <hr />
         <div>
+          {/* state as json*/}
           state:
           {JSON.stringify(this.props.state, null, 2)}
         </div>
+        {/* the reset button */}
         <button onClick={this.props.reset}>reset</button>
       </div>
     )

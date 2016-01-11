@@ -1,8 +1,10 @@
+// getting the needed stuff from the libs
 import { createStore } from 'redux'
 import { assign, reduce } from 'lodash'
 
 const socket = io() // being injected through the script tag
 
+// the default data
 const defaultState = {
   screen: 'HELLO',
   players: [],
@@ -12,14 +14,18 @@ const defaultState = {
 
 // the redux reducer
 const reducer = (state = defaultState, action) => {
+  // checking the action types
   switch (action.type) {
+    // changing the screen
     case 'CHANGE_SCREEN':
       return assign({}, state, {
         screen: action.target
       })
+    // setting the names if it isnt taken
     case 'SET_NAME':
+      // check if its empty
       const newNameIsntEmpty = action.newName !== ''
-
+      // and if someone else took it
       const newNameIsntTaken = !reduce(
         store.getState().players,
         (found, item) => {
@@ -27,9 +33,10 @@ const reducer = (state = defaultState, action) => {
         },
         false
       )
-
+      // combining that into the isValid flag
       const isValid = newNameIsntEmpty && newNameIsntTaken
 
+      // if its valid change the name, if not then not
       if (isValid) {
         socket.emit('add player', action.newName)
 
@@ -39,17 +46,23 @@ const reducer = (state = defaultState, action) => {
       } else {
         return state
       }
+    // getting new player data
     case 'UPDATE_PLAYERS':
+      // the data for the current player
       const thisPlayer = action.newPlayers.reduce((acc, player) => {
         return player.name === state.name ? player : acc
       }, null)
+      // updating the players and the own score
       return assign({}, state, {
         players: action.newPlayers,
         score: thisPlayer.score ? thisPlayer.score : 0
       })
+    // getting the initial data
     case 'SET_INITIAL_DATA':
       return assign({}, state, action.data)
+    // what to do when a new round starts
     case 'START_NEW_ROUND':
+      // the next screen depending on wether you are writer, answerer or not in the game
       const nextScreen = () => {
         switch (state.name) {
           case action.data.writer:
@@ -60,27 +73,31 @@ const reducer = (state = defaultState, action) => {
             return 'WAIT_FOR_WRITER'
         }
       }
-      console.log(nextScreen())
+      // go to that screen and set the status to playing
       return assign({}, state, action.data, {
         screen: nextScreen(),
         status: 'PLAYING'
       })
+    // the writer submitted the discription
     case 'SET_USER_DESCRIPTION':
+      // send the description to the server
       socket.emit('submit description', action.description)
-
+      // and setting it on the store
       return assign({}, state, {
         userDescription: action.description
       })
+    // getting the user description form the server
     case 'SUBMITTED_USER_DESCRIPTION':
+      // next screen based on whether you are writer or answerer
       const nextScreen2 = state.writer === state.name ? 'WAIT_FOR_ANSWER' : 'ANSWER'
 
+      // setting the description and the new screen
       return assign({}, state, {
-        userDescription: action.description
-      }, {
+        userDescription: action.description,
         screen: nextScreen2
       })
+    // placing the marken
     case 'PLACE_MARKER':
-      console.log(action.latLng)
       return assign({}, state, {
         marker: {
           latLng: {
@@ -89,19 +106,18 @@ const reducer = (state = defaultState, action) => {
           }
         }
       })
+    // and submit the guess to the server
     case 'SUBMIT_GUESS':
+      // send your name and the latLng of the marker to the server
       socket.emit('submit guess', {
         latLng: state.marker.latLng,
         name: state.name
       })
+      // waiting for other players to answer screen
       return assign({}, state, {
         screen: 'WAIT_FOR_ANSWER'
       })
-    case 'SET_ROUND_WINNER':
-      return assign({}, state, {
-        winner: action.roundWinner,
-        screen: 'SHOW_ROUND_WINNER'
-      })
+    // the fallback
     default:
       return state
   }

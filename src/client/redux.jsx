@@ -76,6 +76,7 @@ const reducer = (state = defaultState, action) => {
       // go to that screen and set the status to playing
       return assign({}, state, action.data, {
         screen: nextScreen(),
+        round: state.route + 1,
         status: 'PLAYING'
       })
     // the writer submitted the discription
@@ -116,6 +117,11 @@ const reducer = (state = defaultState, action) => {
       // waiting for other players to answer screen
       return assign({}, state, {
         screen: 'WAIT_FOR_ANSWER'
+      })
+    case 'END_GAME':
+      return assign({}, state, {
+        screen: 'END_RESULTS',
+        players: action.players
       })
     // the fallback
     default:

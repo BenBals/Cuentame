@@ -41,9 +41,16 @@ export default (socket, store) => {
     })
   })
 
+  // the games are over!
+  socket.on('end game', (players) => {
+    store.dispatch({
+      type: 'END_GAME', 
+      players: players
+    })
+  })
+
   // reloading when reset
   socket.on('reset', () => {
     window.location.reload()
   })
-
 }

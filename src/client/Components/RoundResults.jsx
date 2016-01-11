@@ -7,7 +7,7 @@ export default ({ players }) => {
   return (
     <div>
       {/* the right heading */}
-      <h2>{lang.roundEndMessages}</h2>
+      <h2>{lang.roundEndMessage}</h2>
       {/* lit of all users and their scores */}
       <ul>
         {players.map((player) => {

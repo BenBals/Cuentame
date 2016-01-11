@@ -13,6 +13,7 @@ import Write from './Write.jsx'
 import Answer from './Answer.jsx'
 import WaitForAnswer from './WaitForAnswer.jsx'
 import RoundResults from './RoundResults.jsx'
+import EndResults from './EndResults.jsx'
 
 export default class App extends React.Component {
   render() {
@@ -35,6 +36,8 @@ export default class App extends React.Component {
           return <WaitForAnswer />
         case 'ROUND_RESULTS':
           return <RoundResults players={this.props.state.players}/>
+        case 'END_RESULTS':
+          return <EndResults players={this.props.state.players} />
         default:
           return <div>{lang.randomError}</div>
       }
@@ -42,7 +45,7 @@ export default class App extends React.Component {
 
     // determain if the score header should be shown
     const getScoreHeader = () => {
-      return this.props.state.status === 'PLAYING' && this.props.state.screen !== 'HELLO' ? (<div>{lang.yourScore}: {this.props.state.score}</div>) : null
+      (this.props.state.status === 'PLAYING' && this.props.state.screen !== 'HELLO') ? (<div>{lang.yourScore}: {this.props.state.score}</div>) : null
     }
 
     return (

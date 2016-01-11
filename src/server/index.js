@@ -59,6 +59,20 @@ Number.prototype.toRadians = function() {
     return this * Math.PI / 180;
   }
 
+// calculate the number of rounds to play based on the amout of players
+const calulateNumberOfRounds = (playerN) => {
+  switch (playerN) {
+    case 2:
+      return 6
+    case 3:
+      return 6
+    case 4:
+      return 8
+    default:
+      return playerN
+  }
+}
+
 // start a new round
 const startNewRound = () => {
   // increment the round counter
@@ -68,6 +82,8 @@ const startNewRound = () => {
   // reset/init guesses
   state.guesses = {}
   // the next guy is the writer now
+  console.log(state.players)
+  console.log('calulateing the writer, the round number is ' + state.round + ', the length of the players array is ' + state.players.length + ', so the writer should be ' + (state.round % state.players.length) + ' and he is ' + state.players[state.round % state.players.length].name)
   state.writer = state.players[state.round % state.players.length].name
   // reset/init the user description
   state.userDescription = ''
@@ -79,6 +95,18 @@ const startNewRound = () => {
     userDescription: state.userDescription
   })
 }
+
+// func that ends the game
+const endGame = () => {
+  // get the word out to the contestants
+  io.emit('end game', state.players)
+  // set the status to ended
+  state = _.assign({}, state, {
+    status: 'ENDED'
+  })
+}
+
+
 // calculate the distance between two coordinates on the earths surface
 const calculateDistence = (point1, point2) => {
   const R = 6371000; // metres
@@ -100,11 +128,11 @@ const calculateDistence = (point1, point2) => {
   return d
 }
 
-// get a player element form a name
-const getPlayerElementForName = (name) => {
+// get a guess element form a name
+const getGuessForPlayerName = (name) => {
   // get the ele using a fold (HASKELL FTW)
-  const ele = _.reduce(state.players, (acc, player) => {
-    return player.name === name ? player : acc
+  const ele = _.reduce(state.guesses, (acc, guess) => {
+    return guess.name === name ? guess : acc
   }, null)
   // and return it
   return ele
@@ -117,29 +145,29 @@ const getScoreForDistance = (distance) => {
 
 // calulate the scores of all players
 const calculateRoundScores = () => {
-  // calculate the distance for each guesss
-  const guessesWithDistances = _.map(state.guesses, (guess) => {
-    return {
-      name: guess.name,
-      distance: calculateDistence(guess.latLng, {
+  // generate the new players array with the updated score
+  const newPlayers = _.map(state.players, (player) => {
+    // no points for the writer
+    if (player.name === state.writer) {
+      return player
+    } else {
+      // get the guess of the given player
+      const playerGuess = getGuessForPlayerName(player.name)
+      // get the distance of the given player
+      const playerDistance = calculateDistence(playerGuess.latLng, {
         lat: state.currentLocation.lat,
         lng: state.currentLocation.lng
+      })
+      // get their new points
+      const pointsThisRound = getScoreForDistance(playerDistance)
+
+      // add them to the score
+      return _.assign({}, player, {
+        score: player.score + pointsThisRound
       })
     }
   })
 
-  // generate the new players array with the updated score
-  const newPlayers = [].concat(
-    // map over all guesses, take the distance, calculate the store and put it onto the player obj
-    _.map(guessesWithDistances, (guess) => {
-      return _.assign({}, getPlayerElementForName(guess.name), {
-        score: getPlayerElementForName(guess.name).score + getScoreForDistance(guess.distance)
-      })
-    }),
-    // dont for get the writer, who did'nt guess this time
-    getPlayerElementForName(state.writer)
-
-  )
   // save the changes
   state = _.assign({}, state, {
     players: newPlayers
@@ -147,8 +175,14 @@ const calculateRoundScores = () => {
   // bring the shit to the client
   io.emit('update players', state.players)
   io.emit('round results')
-  // start a new round after the wait period
-  setTimeout(startNewRound, WAIT_PERIOD)
+  // start a new round or end the game after the wait period
+  setTimeout(() => {
+    if (state.round >= calulateNumberOfRounds(state.players.length)) {
+      endGame()
+    } else {
+      startNewRound()
+    }
+  }, WAIT_PERIOD)
 }
 
 // what to do when a user connects

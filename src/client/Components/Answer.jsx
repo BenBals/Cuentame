@@ -31,14 +31,14 @@ export default class Answer extends React.Component  {
     render() {
       return (
         <div>
-          // the question
+          {/*the question*/}
           <h2>{lang.whereIsTheFollowingPlace}</h2>
-          // the description by the other user
+          {/*the description by the other user*/}
           <div>{this.props.description}</div>
-          // the element to render the map to
+          {/*the element to render the map to*/}
           <div id='answerMap' style={{height: '50vh'}}></div>
 
-          // the submit button
+          {/*the submit button*/}
           <button onClick={this.props.submitGuess}>{lang.submit}</button>
         </div>
       )

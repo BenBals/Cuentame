@@ -89,11 +89,11 @@
 
 	var _redux = __webpack_require__(161);
 
-	var _App = __webpack_require__(162);
+	var _App = __webpack_require__(173);
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _eventListeners = __webpack_require__(173);
+	var _eventListeners = __webpack_require__(174);
 
 	var _eventListeners2 = _interopRequireDefault(_eventListeners);
 
@@ -19767,9 +19767,9 @@
 	});
 	exports.socket = exports.store = undefined;
 
-	var _redux = __webpack_require__(174);
+	var _redux = __webpack_require__(162);
 
-	var _lodash = __webpack_require__(183);
+	var _lodash = __webpack_require__(171);
 
 	// getting the needed stuff from the libs
 
@@ -19846,6 +19846,7 @@
 	      // go to that screen and set the status to playing
 	      return (0, _lodash.assign)({}, state, action.data, {
 	        screen: nextScreen(),
+	        round: state.route + 1,
 	        status: 'PLAYING'
 	      });
 	    // the writer submitted the discription
@@ -19887,6 +19888,11 @@
 	      return (0, _lodash.assign)({}, state, {
 	        screen: 'WAIT_FOR_ANSWER'
 	      });
+	    case 'END_GAME':
+	      return (0, _lodash.assign)({}, state, {
+	        screen: 'END_RESULTS',
+	        players: action.players
+	      });
 	    // the fallback
 	    default:
 	      return state;
@@ -19909,797 +19915,27 @@
 
 	'use strict';
 
-	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	})();
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	var _Hello = __webpack_require__(164);
-
-	var _Hello2 = _interopRequireDefault(_Hello);
-
-	var _Name = __webpack_require__(165);
-
-	var _Name2 = _interopRequireDefault(_Name);
-
-	var _WaitForOtherPlayers = __webpack_require__(166);
-
-	var _WaitForOtherPlayers2 = _interopRequireDefault(_WaitForOtherPlayers);
-
-	var _WaitForWriter = __webpack_require__(167);
-
-	var _WaitForWriter2 = _interopRequireDefault(_WaitForWriter);
-
-	var _Write = __webpack_require__(168);
-
-	var _Write2 = _interopRequireDefault(_Write);
-
-	var _Answer = __webpack_require__(170);
-
-	var _Answer2 = _interopRequireDefault(_Answer);
-
-	var _WaitForAnswer = __webpack_require__(171);
-
-	var _WaitForAnswer2 = _interopRequireDefault(_WaitForAnswer);
-
-	var _RoundResults = __webpack_require__(172);
-
-	var _RoundResults2 = _interopRequireDefault(_RoundResults);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	} // importing the react library
-
-	// and the dynamic lang files
-
-	// the other components/screens
-
-	var App = (function (_React$Component) {
-	  _inherits(App, _React$Component);
-
-	  function App() {
-	    _classCallCheck(this, App);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
-	  }
-
-	  _createClass(App, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      // function that determains the component to render based on state and pass the needed state
-	      var getChild = function getChild() {
-	        switch (_this2.props.state.screen) {
-	          case 'HELLO':
-	            return _react2.default.createElement(_Hello2.default, { goToNameScreen: _this2.props.goToNameScreen, status: _this2.props.state.status, reset: _this2.props.reset });
-	          case 'NAME':
-	            return _react2.default.createElement(_Name2.default, { setName: _this2.props.setName });
-	          case 'WAIT_FOR_OTHER_PLAYERS':
-	            return _react2.default.createElement(_WaitForOtherPlayers2.default, { players: _this2.props.state.players, startGame: _this2.props.startGame });
-	          case 'WAIT_FOR_WRITER':
-	            return _react2.default.createElement(_WaitForWriter2.default, null);
-	          case 'WRITE':
-	            return _react2.default.createElement(_Write2.default, { location: _this2.props.state.location, submitDescription: _this2.props.submitDescription });
-	          case 'ANSWER':
-	            return _react2.default.createElement(_Answer2.default, { description: _this2.props.state.userDescription, submitGuess: _this2.props.submitGuess });
-	          case 'WAIT_FOR_ANSWER':
-	            return _react2.default.createElement(_WaitForAnswer2.default, null);
-	          case 'ROUND_RESULTS':
-	            return _react2.default.createElement(_RoundResults2.default, { players: _this2.props.state.players });
-	          default:
-	            return _react2.default.createElement('div', null, _lang2.default.randomError);
-	        }
-	      };
-
-	      // determain if the score header should be shown
-	      var getScoreHeader = function getScoreHeader() {
-	        return _this2.props.state.status === 'PLAYING' && _this2.props.state.screen !== 'HELLO' ? _react2.default.createElement('div', null, _lang2.default.yourScore, ': ', _this2.props.state.score) : null;
-	      };
-
-	      return _react2.default.createElement('div', null, getScoreHeader(), getChild(), _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state, null, 2)), _react2.default.createElement('button', { onClick: this.props.reset }, 'reset'));
-	    }
-	  }]);
-
-	  return App;
-	})(_react2.default.Component);
-
-	exports.default = App;
-
-/***/ },
-/* 163 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	// all needed strings
-	exports.default = {
-	  randomError: 'something went wrong',
-	  name: 'Cuéntame',
-	  whatsYourName: '¿Cómo te llamas?',
-	  next: 'next',
-	  yourName: 'tú nombre',
-	  waitingForOtherPlayers: 'waiting for others',
-	  connected: 'connected',
-	  startGame: 'Start Game',
-	  waitForWriter: 'Waiting for the writer',
-	  youAreTheWriter: 'You are the writer',
-	  yourDescriptionHere: 'Your description here',
-	  youDescribe: 'You describe',
-	  vocHelp: 'Vocabulray Help',
-	  submit: 'submit',
-	  locationOnMap: 'The location on map',
-	  waitForAnswer: 'Waiting for other players to answer',
-	  whereIsTheFollowingPlace: 'Where is the following place?',
-	  winsThisRound: 'wins this round',
-	  theirDistaceWas: 'Their distace was',
-	  meters: 'meters',
-	  yourScore: 'Your score',
-	  reset: 'reset',
-	  gameRunningWantToReset: 'there is already a game running. do you want to reset game',
-	  roundEndMessage: 'The round is over. The new scores are',
-	  nextRoundIn10s: 'The next round starts in 10s'
-	};
-
-/***/ },
-/* 164 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	// stateles components
-	// react lib
-
-	exports.default = function (props) {
-	  // get the go or reset button depending on wether there is a running game
-	  var goOrReset = function goOrReset() {
-	    return props.status === 'NOT_STARTED' ? _react2.default.createElement('button', { onClick: props.goToNameScreen }, 'Go') : _react2.default.createElement('div', null, _react2.default.createElement('span', null, _lang2.default.gameRunningWantToReset), _react2.default.createElement('button', { onClick: props.reset }, _lang2.default.reset));
-	  };
-
-	  // render it all to the page with the right headline
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h1', null, _lang2.default.name), goOrReset());
-	};
-
-	// dynmic lang files
-
-/***/ },
-/* 165 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	})();
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	} // react lib
-
-	// dynamic lang files
-
-	// the component that gets your name
-
-	var Name = (function (_React$Component) {
-	  _inherits(Name, _React$Component);
-
-	  function Name() {
-	    _classCallCheck(this, Name);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Name).apply(this, arguments));
-	  }
-
-	  _createClass(Name, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      // the function that handels the submit event
-	      var handleSubmit = function handleSubmit(event) {
-	        // do not reload
-	        event.preventDefault();
-	        // call the setName function with the value of the input
-	        _this2.props.setName(_this2.nameInp.value);
-	        return false;
-	      };
-
-	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whatsYourName), _react2.default.createElement('form', { onSubmit: handleSubmit }, _react2.default.createElement('input', { type: 'text', placeholder: _lang2.default.yourName, ref: function ref(_ref) {
-	          return _this2.nameInp = _ref;
-	        } }), _react2.default.createElement('input', { type: 'submit', value: _lang2.default.next })));
-	    }
-	  }]);
-
-	  return Name;
-	})(_react2.default.Component);
-
-	exports.default = Name;
-
-/***/ },
-/* 166 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	// stateless component
-	// recat lib
-
-	exports.default = function (props) {
-	  // only enable the start game button if at least 2 players are connecet
-	  var button = props.players.length > 1 ? _react2.default.createElement('button', { onClick: props.startGame }, _lang2.default.startGame) : _react2.default.createElement('div', null);
-
-	  // render func
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitingForOtherPlayers), _react2.default.createElement('h3', null, _lang2.default.connected, ':'), _react2.default.createElement('ul', null, props.players.map(function (player) {
-	    return _react2.default.createElement('li', null, player.name);
-	  })), button);
-	};
-
-	// and that lang stuff
-
-/***/ },
-/* 167 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	// stateless component
-	// react lib
-
-	exports.default = function () {
-	  // just the wait message
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitForWriter));
-	};
-	// dynamic lang files
-
-/***/ },
-/* 168 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	})();
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	var _renderMap = __webpack_require__(169);
-
-	var _renderMap2 = _interopRequireDefault(_renderMap);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	} // react lib
-
-	// lang files
-
-	// the func to render the map to the screen
-
-	var Write = (function (_React$Component) {
-	  _inherits(Write, _React$Component);
-
-	  function Write() {
-	    _classCallCheck(this, Write);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Write).apply(this, arguments));
-	  }
-
-	  _createClass(Write, [{
-	    key: 'componentDidMount',
-
-	    // what to do when the component was rendered
-	    value: function componentDidMount() {
-	      // process the lat and lng in to a maps readable format
-	      var latLng = { lat: this.props.location.lat, lng: this.props.location.lng };
-	      // the zoom level
-	      var zoom = 8;
-	      // and render it with the right latLng, the zoom level, no ability to make new markers, the mount and the marker
-	      (0, _renderMap2.default)(latLng, zoom, false, document.getElementById('writeMap'), [{ latLng: latLng }]);
-	    }
-
-	    // render stuff
-
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      // the function that handels the submit
-	      var handleSubmit = function handleSubmit() {
-	        // use the ref and the prop
-	        _this2.props.submitDescription(_this2.text.value);
-	      };
-
-	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.youAreTheWriter), _react2.default.createElement('textarea', { defaultValue: _lang2.default.yourDescriptionHere, ref: function ref(_ref) {
-	          return _this2.text = _ref;
-	        } }), _react2.default.createElement('h3', null, _lang2.default.youDescribe, ': ', this.props.location.name), this.props.location.description, _react2.default.createElement('h3', null, _lang2.default.vocHelp), this.props.location.vocHelp, _react2.default.createElement('h3', null, _lang2.default.locationOnMap), _react2.default.createElement('div', { id: 'writeMap', style: { height: '25vh' } }), _react2.default.createElement('br', null), _react2.default.createElement('button', { onClick: handleSubmit }, _lang2.default.submit));
-	    }
-	  }]);
-
-	  return Write;
-	})(_react2.default.Component);
-
-	exports.default = Write;
-
-/***/ },
-/* 169 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _redux = __webpack_require__(161);
-
-	exports.default = function (latLng, zoom, addNewMarkers, renderTarget, markers) {
-	  // keep track of all markers
-	  var allMarkers = [];
-
-	  // place a marker on latLng and render it to the map map
-	  var placeMakerAndPanTo = function placeMakerAndPanTo(latLng, map) {
-	    // create the marker and render it
-	    var newMarker = new google.maps.Marker({
-	      position: latLng,
-	      map: map
-	    });
-
-	    // remove all other markers
-	    for (var i = 0; i < allMarkers.length; i++) {
-	      allMarkers[i].setMap(null);
-	    }
-	    // delete them from the array
-	    allMarkers.length = 0;
-
-	    // push the new marker onto the array
-	    allMarkers.push(newMarker);
-
-	    // pan to the latLng of the marker
-	    map.panTo(latLng);
-	  };
-
-	  // create the map with the given latLng and zoom
-	  var map = new google.maps.Map(renderTarget, {
-	    center: latLng,
-	    zoom: zoom
-	  });
-
-	  // if there is the ability to set markers set up the event listeners
-	  if (addNewMarkers) {
-	    // do all the event stuff
-	    map.addListener('click', function (e) {
-	      // pass all the stuff to the store
-	      _redux.store.dispatch({
-	        type: 'PLACE_MARKER',
-	        latLng: e.latLng
-	      });
-	      // do the heavy-lifting
-	      placeMakerAndPanTo(_redux.store.getState().marker.latLng, map);
-	    });
-	  }
-
-	  // place all of the markers in the passed markers array
-	  markers.map(function (marker) {
-	    // create the markers
-	    var thisMarker = new google.maps.Marker({
-	      position: marker.latLng,
-	      title: "Hello World!"
-	    });
-
-	    // push them into the array
-	    allMarkers.push(thisMarker);
-
-	    // put it onto the map
-	    thisMarker.setMap(map);
-	  });
-
-	  window.currentMap = map;
-	}; // getting the store
-
-/***/ },
-/* 170 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = (function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	})();
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	var _renderMap = __webpack_require__(169);
-
-	var _renderMap2 = _interopRequireDefault(_renderMap);
-
-	function _interopRequireDefault(obj) {
-	    return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) {
-	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if (typeof superClass !== "function" && superClass !== null) {
-	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	} // importing the react library
-
-	// getting the dynamic lang files
-
-	// get the function to render the map to the page
-
-	var Answer = (function (_React$Component) {
-	    _inherits(Answer, _React$Component);
-
-	    function Answer() {
-	        _classCallCheck(this, Answer);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Answer).apply(this, arguments));
-	    }
-
-	    _createClass(Answer, [{
-	        key: 'componentDidMount',
-
-	        // stuff to do when the component was loaded
-	        value: function componentDidMount() {
-	            // center: bogota
-	            var latLng = {
-	                lng: -74.075833,
-	                lat: 4.598056
-	            };
-
-	            // the default zoom level
-	            var zoom = 4;
-
-	            // render with the given center, zoom and the ability to set markers on the #answerMap div
-	            (0, _renderMap2.default)(latLng, zoom, true, document.getElementById('answerMap'));
-	        }
-
-	        // the render function
-
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement('div', null, '// the question', _react2.default.createElement('h2', null, _lang2.default.whereIsTheFollowingPlace), '// the description by the other user', _react2.default.createElement('div', null, this.props.description), '// the element to render the map to', _react2.default.createElement('div', { id: 'answerMap', style: { height: '50vh' } }), '// the submit button', _react2.default.createElement('button', { onClick: this.props.submitGuess }, _lang2.default.submit));
-	        }
-	    }]);
-
-	    return Answer;
-	})(_react2.default.Component);
-
-	exports.default = Answer;
-
-/***/ },
-/* 171 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	// just sayin "waiting for answer"
-	// react lib
-
-	exports.default = function () {
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitForAnswer));
-	};
-	// lang files
-
-/***/ },
-/* 172 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(163);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	// stateless component
-	// same as always... react and dynamic lang files
-
-	exports.default = function (_ref) {
-	  var players = _ref.players;
-
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.roundEndMessages), _react2.default.createElement('ul', null, players.map(function (player) {
-	    return _react2.default.createElement('li', null, player.name, ': ', player.score);
-	  })), _react2.default.createElement('div', null, _lang2.default.nextRoundIn10s));
-	};
-
-/***/ },
-/* 173 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	// the function that handels all socket events and dispatching them to the store
-
-	exports.default = function (socket, store) {
-
-	  // getting new player data from the server
-	  socket.on('update players', function (newPlayers) {
-	    store.dispatch({
-	      type: 'UPDATE_PLAYERS',
-	      newPlayers: newPlayers
-	    });
-	  });
-
-	  // getting all the data thats needed to do the set up
-	  socket.on('initial data', function (initialData) {
-	    store.dispatch({
-	      type: 'SET_INITIAL_DATA',
-	      data: initialData
-	    });
-	  });
-
-	  // starting a new round
-	  socket.on('start new round', function (data) {
-	    store.dispatch({
-	      type: 'START_NEW_ROUND',
-	      data: data
-	    });
-	  });
-
-	  // getting the description of the writer
-	  socket.on('user description', function (description) {
-	    store.dispatch({
-	      type: 'SUBMITTED_USER_DESCRIPTION',
-	      description: description
-	    });
-	  });
-
-	  // getting the round results
-	  socket.on('round results', function (results) {
-	    store.dispatch({
-	      type: 'CHANGE_SCREEN',
-	      target: 'ROUND_RESULTS'
-	    });
-	  });
-
-	  // reloading when reset
-	  socket.on('reset', function () {
-	    window.location.reload();
-	  });
-	};
-
-/***/ },
-/* 174 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
 	exports.__esModule = true;
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _createStore = __webpack_require__(175);
+	var _createStore = __webpack_require__(163);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
-	var _utilsCombineReducers = __webpack_require__(177);
+	var _utilsCombineReducers = __webpack_require__(165);
 
 	var _utilsCombineReducers2 = _interopRequireDefault(_utilsCombineReducers);
 
-	var _utilsBindActionCreators = __webpack_require__(180);
+	var _utilsBindActionCreators = __webpack_require__(168);
 
 	var _utilsBindActionCreators2 = _interopRequireDefault(_utilsBindActionCreators);
 
-	var _utilsApplyMiddleware = __webpack_require__(181);
+	var _utilsApplyMiddleware = __webpack_require__(169);
 
 	var _utilsApplyMiddleware2 = _interopRequireDefault(_utilsApplyMiddleware);
 
-	var _utilsCompose = __webpack_require__(182);
+	var _utilsCompose = __webpack_require__(170);
 
 	var _utilsCompose2 = _interopRequireDefault(_utilsCompose);
 
@@ -20710,7 +19946,7 @@
 	exports.compose = _utilsCompose2['default'];
 
 /***/ },
-/* 175 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20720,7 +19956,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utilsIsPlainObject = __webpack_require__(176);
+	var _utilsIsPlainObject = __webpack_require__(164);
 
 	var _utilsIsPlainObject2 = _interopRequireDefault(_utilsIsPlainObject);
 
@@ -20878,7 +20114,7 @@
 	}
 
 /***/ },
-/* 176 */
+/* 164 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20914,7 +20150,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 177 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -20924,17 +20160,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _createStore = __webpack_require__(175);
+	var _createStore = __webpack_require__(163);
 
-	var _isPlainObject = __webpack_require__(176);
+	var _isPlainObject = __webpack_require__(164);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _mapValues = __webpack_require__(178);
+	var _mapValues = __webpack_require__(166);
 
 	var _mapValues2 = _interopRequireDefault(_mapValues);
 
-	var _pick = __webpack_require__(179);
+	var _pick = __webpack_require__(167);
 
 	var _pick2 = _interopRequireDefault(_pick);
 
@@ -21051,7 +20287,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 178 */
+/* 166 */
 /***/ function(module, exports) {
 
 	/**
@@ -21076,7 +20312,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 179 */
+/* 167 */
 /***/ function(module, exports) {
 
 	/**
@@ -21103,7 +20339,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 180 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21113,7 +20349,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _mapValues = __webpack_require__(178);
+	var _mapValues = __webpack_require__(166);
 
 	var _mapValues2 = _interopRequireDefault(_mapValues);
 
@@ -21162,7 +20398,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 181 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21175,7 +20411,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _compose = __webpack_require__(182);
+	var _compose = __webpack_require__(170);
 
 	var _compose2 = _interopRequireDefault(_compose);
 
@@ -21228,7 +20464,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 182 */
+/* 170 */
 /***/ function(module, exports) {
 
 	/**
@@ -21258,7 +20494,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 183 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -33613,10 +32849,10 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(184)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(172)(module), (function() { return this; }())))
 
 /***/ },
-/* 184 */
+/* 172 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -33630,6 +32866,872 @@
 		return module;
 	}
 
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(175);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	var _Hello = __webpack_require__(176);
+
+	var _Hello2 = _interopRequireDefault(_Hello);
+
+	var _Name = __webpack_require__(177);
+
+	var _Name2 = _interopRequireDefault(_Name);
+
+	var _WaitForOtherPlayers = __webpack_require__(178);
+
+	var _WaitForOtherPlayers2 = _interopRequireDefault(_WaitForOtherPlayers);
+
+	var _WaitForWriter = __webpack_require__(179);
+
+	var _WaitForWriter2 = _interopRequireDefault(_WaitForWriter);
+
+	var _Write = __webpack_require__(180);
+
+	var _Write2 = _interopRequireDefault(_Write);
+
+	var _Answer = __webpack_require__(182);
+
+	var _Answer2 = _interopRequireDefault(_Answer);
+
+	var _WaitForAnswer = __webpack_require__(183);
+
+	var _WaitForAnswer2 = _interopRequireDefault(_WaitForAnswer);
+
+	var _RoundResults = __webpack_require__(184);
+
+	var _RoundResults2 = _interopRequireDefault(_RoundResults);
+
+	var _EndResults = __webpack_require__(185);
+
+	var _EndResults2 = _interopRequireDefault(_EndResults);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	} // importing the react library
+
+	// and the dynamic lang files
+
+	// the other components/screens
+
+	var App = (function (_React$Component) {
+	  _inherits(App, _React$Component);
+
+	  function App() {
+	    _classCallCheck(this, App);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+	  }
+
+	  _createClass(App, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      // function that determains the component to render based on state and pass the needed state
+	      var getChild = function getChild() {
+	        switch (_this2.props.state.screen) {
+	          case 'HELLO':
+	            return _react2.default.createElement(_Hello2.default, { goToNameScreen: _this2.props.goToNameScreen, status: _this2.props.state.status, reset: _this2.props.reset });
+	          case 'NAME':
+	            return _react2.default.createElement(_Name2.default, { setName: _this2.props.setName });
+	          case 'WAIT_FOR_OTHER_PLAYERS':
+	            return _react2.default.createElement(_WaitForOtherPlayers2.default, { players: _this2.props.state.players, startGame: _this2.props.startGame });
+	          case 'WAIT_FOR_WRITER':
+	            return _react2.default.createElement(_WaitForWriter2.default, null);
+	          case 'WRITE':
+	            return _react2.default.createElement(_Write2.default, { location: _this2.props.state.location, submitDescription: _this2.props.submitDescription });
+	          case 'ANSWER':
+	            return _react2.default.createElement(_Answer2.default, { description: _this2.props.state.userDescription, submitGuess: _this2.props.submitGuess });
+	          case 'WAIT_FOR_ANSWER':
+	            return _react2.default.createElement(_WaitForAnswer2.default, null);
+	          case 'ROUND_RESULTS':
+	            return _react2.default.createElement(_RoundResults2.default, { players: _this2.props.state.players });
+	          case 'END_RESULTS':
+	            return _react2.default.createElement(_EndResults2.default, { players: _this2.props.state.players });
+	          default:
+	            return _react2.default.createElement('div', null, _lang2.default.randomError);
+	        }
+	      };
+
+	      // determain if the score header should be shown
+	      var getScoreHeader = function getScoreHeader() {
+	        _this2.props.state.status === 'PLAYING' && _this2.props.state.screen !== 'HELLO' ? _react2.default.createElement('div', null, _lang2.default.yourScore, ': ', _this2.props.state.score) : null;
+	      };
+
+	      return _react2.default.createElement('div', null, getScoreHeader(), getChild(), _react2.default.createElement('hr', null), _react2.default.createElement('div', null, 'state:', JSON.stringify(this.props.state, null, 2)), _react2.default.createElement('button', { onClick: this.props.reset }, 'reset'));
+	    }
+	  }]);
+
+	  return App;
+	})(_react2.default.Component);
+
+	exports.default = App;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// the function that handels all socket events and dispatching them to the store
+
+	exports.default = function (socket, store) {
+
+	  // getting new player data from the server
+	  socket.on('update players', function (newPlayers) {
+	    store.dispatch({
+	      type: 'UPDATE_PLAYERS',
+	      newPlayers: newPlayers
+	    });
+	  });
+
+	  // getting all the data thats needed to do the set up
+	  socket.on('initial data', function (initialData) {
+	    store.dispatch({
+	      type: 'SET_INITIAL_DATA',
+	      data: initialData
+	    });
+	  });
+
+	  // starting a new round
+	  socket.on('start new round', function (data) {
+	    store.dispatch({
+	      type: 'START_NEW_ROUND',
+	      data: data
+	    });
+	  });
+
+	  // getting the description of the writer
+	  socket.on('user description', function (description) {
+	    store.dispatch({
+	      type: 'SUBMITTED_USER_DESCRIPTION',
+	      description: description
+	    });
+	  });
+
+	  // getting the round results
+	  socket.on('round results', function (results) {
+	    store.dispatch({
+	      type: 'CHANGE_SCREEN',
+	      target: 'ROUND_RESULTS'
+	    });
+	  });
+
+	  // the games are over!
+	  socket.on('end game', function (players) {
+	    store.dispatch({
+	      type: 'END_GAME',
+	      players: players
+	    });
+	  });
+
+	  // reloading when reset
+	  socket.on('reset', function () {
+	    window.location.reload();
+	  });
+	};
+
+/***/ },
+/* 175 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// all needed strings
+	exports.default = {
+	  randomError: 'something went wrong',
+	  name: 'Cuéntame',
+	  whatsYourName: '¿Cómo te llamas?',
+	  next: 'next',
+	  yourName: 'tú nombre',
+	  waitingForOtherPlayers: 'waiting for others',
+	  connected: 'connected',
+	  startGame: 'Start Game',
+	  waitForWriter: 'Waiting for the writer',
+	  youAreTheWriter: 'You are the writer',
+	  yourDescriptionHere: 'Your description here',
+	  youDescribe: 'You describe',
+	  vocHelp: 'Vocabulray Help',
+	  submit: 'submit',
+	  locationOnMap: 'The location on map',
+	  waitForAnswer: 'Waiting for other players to answer',
+	  whereIsTheFollowingPlace: 'Where is the following place?',
+	  winsThisRound: 'wins this round',
+	  theirDistaceWas: 'Their distace was',
+	  meters: 'meters',
+	  yourScore: 'Your score',
+	  reset: 'reset',
+	  gameRunningWantToReset: 'there is already a game running. do you want to reset game',
+	  roundEndMessage: 'The round is over. The new scores are',
+	  nextRoundIn10s: 'The next round starts in 10s',
+	  gameOver: 'Game over! The end results are:'
+	};
+
+/***/ },
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(175);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	// stateles components
+	// react lib
+
+	exports.default = function (props) {
+	  // get the go or reset button depending on wether there is a running game
+	  var goOrReset = function goOrReset() {
+	    return props.status === 'NOT_STARTED' ? _react2.default.createElement('button', { onClick: props.goToNameScreen }, 'Go') : _react2.default.createElement('div', null, _react2.default.createElement('span', null, _lang2.default.gameRunningWantToReset), _react2.default.createElement('button', { onClick: props.reset }, _lang2.default.reset));
+	  };
+
+	  // render it all to the page with the right headline
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h1', null, _lang2.default.name), goOrReset());
+	};
+
+	// dynmic lang files
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(175);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	} // react lib
+
+	// dynamic lang files
+
+	// the component that gets your name
+
+	var Name = (function (_React$Component) {
+	  _inherits(Name, _React$Component);
+
+	  function Name() {
+	    _classCallCheck(this, Name);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Name).apply(this, arguments));
+	  }
+
+	  _createClass(Name, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      // the function that handels the submit event
+	      var handleSubmit = function handleSubmit(event) {
+	        // do not reload
+	        event.preventDefault();
+	        // call the setName function with the value of the input
+	        _this2.props.setName(_this2.nameInp.value);
+	        return false;
+	      };
+
+	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whatsYourName), _react2.default.createElement('form', { onSubmit: handleSubmit }, _react2.default.createElement('input', { type: 'text', placeholder: _lang2.default.yourName, ref: function ref(_ref) {
+	          return _this2.nameInp = _ref;
+	        } }), _react2.default.createElement('input', { type: 'submit', value: _lang2.default.next })));
+	    }
+	  }]);
+
+	  return Name;
+	})(_react2.default.Component);
+
+	exports.default = Name;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(175);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	// stateless component
+	// recat lib
+
+	exports.default = function (props) {
+	  // only enable the start game button if at least 2 players are connecet
+	  var button = props.players.length > 1 ? _react2.default.createElement('button', { onClick: props.startGame }, _lang2.default.startGame) : _react2.default.createElement('div', null);
+
+	  // render func
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitingForOtherPlayers), _react2.default.createElement('h3', null, _lang2.default.connected, ':'), _react2.default.createElement('ul', null, props.players.map(function (player) {
+	    return _react2.default.createElement('li', null, player.name);
+	  })), button);
+	};
+
+	// and that lang stuff
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(175);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	// stateless component
+	// react lib
+
+	exports.default = function () {
+	  // just the wait message
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitForWriter));
+	};
+	// dynamic lang files
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	})();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(175);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	var _renderMap = __webpack_require__(181);
+
+	var _renderMap2 = _interopRequireDefault(_renderMap);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	} // react lib
+
+	// lang files
+
+	// the func to render the map to the screen
+
+	var Write = (function (_React$Component) {
+	  _inherits(Write, _React$Component);
+
+	  function Write() {
+	    _classCallCheck(this, Write);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Write).apply(this, arguments));
+	  }
+
+	  _createClass(Write, [{
+	    key: 'componentDidMount',
+
+	    // what to do when the component was rendered
+	    value: function componentDidMount() {
+	      // process the lat and lng in to a maps readable format
+	      var latLng = { lat: this.props.location.lat, lng: this.props.location.lng };
+	      // the zoom level
+	      var zoom = 8;
+	      // and render it with the right latLng, the zoom level, no ability to make new markers, the mount and the marker
+	      (0, _renderMap2.default)(latLng, zoom, false, document.getElementById('writeMap'), [{ latLng: latLng }]);
+	    }
+
+	    // render stuff
+
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      // the function that handels the submit
+	      var handleSubmit = function handleSubmit() {
+	        // use the ref and the prop
+	        _this2.props.submitDescription(_this2.text.value);
+	      };
+
+	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.youAreTheWriter), _react2.default.createElement('textarea', { defaultValue: _lang2.default.yourDescriptionHere, ref: function ref(_ref) {
+	          return _this2.text = _ref;
+	        } }), _react2.default.createElement('h3', null, _lang2.default.youDescribe, ': ', this.props.location.name), this.props.location.description, _react2.default.createElement('h3', null, _lang2.default.vocHelp), this.props.location.vocHelp, _react2.default.createElement('h3', null, _lang2.default.locationOnMap), _react2.default.createElement('div', { id: 'writeMap', style: { height: '25vh' } }), _react2.default.createElement('br', null), _react2.default.createElement('button', { onClick: handleSubmit }, _lang2.default.submit));
+	    }
+	  }]);
+
+	  return Write;
+	})(_react2.default.Component);
+
+	exports.default = Write;
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _redux = __webpack_require__(161);
+
+	exports.default = function (latLng, zoom, addNewMarkers, renderTarget, markers) {
+	  // keep track of all markers
+	  var allMarkers = [];
+
+	  // place a marker on latLng and render it to the map map
+	  var placeMakerAndPanTo = function placeMakerAndPanTo(latLng, map) {
+	    // create the marker and render it
+	    var newMarker = new google.maps.Marker({
+	      position: latLng,
+	      map: map
+	    });
+
+	    // remove all other markers
+	    for (var i = 0; i < allMarkers.length; i++) {
+	      allMarkers[i].setMap(null);
+	    }
+	    // delete them from the array
+	    allMarkers.length = 0;
+
+	    // push the new marker onto the array
+	    allMarkers.push(newMarker);
+
+	    // pan to the latLng of the marker
+	    map.panTo(latLng);
+	  };
+
+	  // create the map with the given latLng and zoom
+	  var map = new google.maps.Map(renderTarget, {
+	    center: latLng,
+	    zoom: zoom
+	  });
+
+	  // if there is the ability to set markers set up the event listeners
+	  if (addNewMarkers) {
+	    // do all the event stuff
+	    map.addListener('click', function (e) {
+	      // pass all the stuff to the store
+	      _redux.store.dispatch({
+	        type: 'PLACE_MARKER',
+	        latLng: e.latLng
+	      });
+	      // do the heavy-lifting
+	      placeMakerAndPanTo(_redux.store.getState().marker.latLng, map);
+	    });
+	  }
+
+	  // place all of the markers in the passed markers array
+	  markers.map(function (marker) {
+	    // create the markers
+	    var thisMarker = new google.maps.Marker({
+	      position: marker.latLng,
+	      title: "Hello World!"
+	    });
+
+	    // push them into the array
+	    allMarkers.push(thisMarker);
+
+	    // put it onto the map
+	    thisMarker.setMap(map);
+	  });
+
+	  window.currentMap = map;
+	}; // getting the store
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () {
+	    function defineProperties(target, props) {
+	        for (var i = 0; i < props.length; i++) {
+	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	        }
+	    }return function (Constructor, protoProps, staticProps) {
+	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	    };
+	})();
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(175);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	var _renderMap = __webpack_require__(181);
+
+	var _renderMap2 = _interopRequireDefault(_renderMap);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) {
+	        throw new TypeError("Cannot call a class as a function");
+	    }
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) {
+	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if (typeof superClass !== "function" && superClass !== null) {
+	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	} // importing the react library
+
+	// getting the dynamic lang files
+
+	// get the function to render the map to the page
+
+	var Answer = (function (_React$Component) {
+	    _inherits(Answer, _React$Component);
+
+	    function Answer() {
+	        _classCallCheck(this, Answer);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Answer).apply(this, arguments));
+	    }
+
+	    _createClass(Answer, [{
+	        key: 'componentDidMount',
+
+	        // stuff to do when the component was loaded
+	        value: function componentDidMount() {
+	            // center: bogota
+	            var latLng = {
+	                lng: -74.075833,
+	                lat: 4.598056
+	            };
+
+	            // the default zoom level
+	            var zoom = 4;
+
+	            // render with the given center, zoom and the ability to set markers on the #answerMap div
+	            (0, _renderMap2.default)(latLng, zoom, true, document.getElementById('answerMap'));
+	        }
+
+	        // the render function
+
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whereIsTheFollowingPlace), _react2.default.createElement('div', null, this.props.description), _react2.default.createElement('div', { id: 'answerMap', style: { height: '50vh' } }), _react2.default.createElement('button', { onClick: this.props.submitGuess }, _lang2.default.submit));
+	        }
+	    }]);
+
+	    return Answer;
+	})(_react2.default.Component);
+
+	exports.default = Answer;
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(175);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	// just sayin "waiting for answer"
+	// react lib
+
+	exports.default = function () {
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.waitForAnswer));
+	};
+	// lang files
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(175);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	// stateless component
+	// same as always... react and dynamic lang files
+
+	exports.default = function (_ref) {
+	  var players = _ref.players;
+
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.roundEndMessage), _react2.default.createElement('ul', null, players.map(function (player) {
+	    return _react2.default.createElement('li', null, player.name, ': ', player.score);
+	  })), _react2.default.createElement('div', null, _lang2.default.nextRoundIn10s));
+	};
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lang = __webpack_require__(175);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	var _ScoreBoard = __webpack_require__(186);
+
+	var _ScoreBoard2 = _interopRequireDefault(_ScoreBoard);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	// dynamic lang
+
+	exports.default = function (_ref) {
+	  var players = _ref.players;
+
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.gameOver), _react2.default.createElement(_ScoreBoard2.default, { players: players }));
+	};
+	// the scoreboard component
+	// the react lib
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	// stateless component
+
+	exports.default = function (_ref) {
+	  var players = _ref.players;
+
+	  // return an ordered list
+	  return _react2.default.createElement('ol', null,
+
+	  // dont modify the origional array
+	  [].concat(players)
+	  // sort in by score
+	  .sort(function (a, b) {
+	    if (a.score > b.score) {
+	      return -1;
+	    } else if (a.score < b.score) {
+	      return 1;
+	    } else {
+	      return 0;
+	    }
+	  })
+	  // map over the array
+	  .map(function (player) {
+	    // return an li for every player
+	    return _react2.default.createElement('li', null, player.name, ': ', player.score);
+	  }));
+	}; // the react lib
 
 /***/ }
 /******/ ]);

@@ -67,8 +67,10 @@
 
 	// the port on which the server runs
 	SERVER_PORT = 3000;
+	// amount of rounds
 	ROUND_NUMBER = 10;
-	SOLO_DISTANCE = 50000;
+	// time between rounds
+	WAIT_PERIOD = 10000;
 
 	// respond with the index.html file when asked for /
 	app.get('/', (req, res) => {
@@ -82,10 +84,12 @@
 	  res.sendFile(filePath);
 	});
 
+	// implement the random array function
 	Array.prototype.random = function () {
 	  return this[Math.floor(Math.random() * this.length)];
 	};
 
+	// a function that returns the amount of elements in an object
 	Object.size = function (obj) {
 	  var size = 0,
 	      key;
@@ -95,56 +99,68 @@
 	  return size;
 	};
 
+	// convert any number to radians
 	Number.prototype.toRadians = function () {
 	  return this * Math.PI / 180;
 	};
 
+	// start a new round
 	const startNewRound = () => {
+	  // increment the round counter
 	  state.round = state.round + 1;
+	  // select a new location randomly
 	  state.currentLocation = state.locations.random();
+	  // reset/init guesses
 	  state.guesses = {};
+	  // the next guy is the writer now
 	  state.writer = state.players[state.round % state.players.length].name;
+	  // reset/init the user description
 	  state.userDescription = '';
 
+	  // get the data to the client
 	  io.emit('start new round', {
 	    writer: state.writer,
 	    location: state.currentLocation,
 	    userDescription: state.userDescription
 	  });
 	};
-
+	// calculate the distance between two coordinates on the earths surface
 	const calculateDistence = (point1, point2) => {
 	  const R = 6371000; // metres
+	  // lat of p1 and p2 in radians
 	  const φ1 = point1.lat.toRadians();
 	  const φ2 = point2.lat.toRadians();
+	  // difference between the lat and lng in radians
 	  const Δφ = (point1.lat - point2.lat).toRadians();
 	  const Δλ = (point1.lng - point2.lng).toRadians();
 
+	  // hypersine magic
 	  const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
 	  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
 	  const d = R * c;
+	  // the distance
 	  return d;
 	};
 
+	// get a player element form a name
 	const getPlayerElementForName = name => {
-
+	  // get the ele using a fold (HASKELL FTW)
 	  const ele = _.reduce(state.players, (acc, player) => {
 	    return player.name === name ? player : acc;
 	  }, null);
-	  console.log('the player element for the name ' + name + 'is:');
-	  console.log(ele);
+	  // and return it
 	  return ele;
 	};
 
+	// get calculate the score from a distance
 	const getScoreForDistance = distance => {
-	  const res = Math.floor(100000 / distance);
-	  console.log('the score for the distance ' + distance + ' is ' + res);
-	  return res;
+	  return Math.round(100000 / distance);
 	};
 
+	// calulate the scores of all players
 	const calculateRoundScores = () => {
-
+	  // calculate the distance for each guesss
 	  const guessesWithDistances = _.map(state.guesses, guess => {
 	    return {
 	      name: guess.name,
@@ -155,24 +171,25 @@
 	    };
 	  });
 
-	  const newPlayers = [].concat(_.map(guessesWithDistances, guess => {
+	  // generate the new players array with the updated score
+	  const newPlayers = [].concat(
+	  // map over all guesses, take the distance, calculate the store and put it onto the player obj
+	  _.map(guessesWithDistances, guess => {
 	    return _.assign({}, getPlayerElementForName(guess.name), {
 	      score: getPlayerElementForName(guess.name).score + getScoreForDistance(guess.distance)
 	    });
-	  }), getPlayerElementForName(state.writer));
-
-	  console.log('new player arr: ');
-
-	  console.log(newPlayers);
-
+	  }),
+	  // dont for get the writer, who did'nt guess this time
+	  getPlayerElementForName(state.writer));
+	  // save the changes
 	  state = _.assign({}, state, {
 	    players: newPlayers
 	  });
-
+	  // bring the shit to the client
 	  io.emit('update players', state.players);
 	  io.emit('round results');
-
-	  setTimeout(startNewRound, 10000);
+	  // start a new round after the wait period
+	  setTimeout(startNewRound, WAIT_PERIOD);
 	};
 
 	// what to do when a user connects
@@ -183,13 +200,10 @@
 	    console.log('user disconnected');
 	  });
 
+	  // get the data needed for set up to the client
 	  socket.emit('initial data', _.assign({}, state, { locations: undefined }));
 
-	  socket.on('message', msg => {
-	    console.log(msg);
-	    io.emit('INCREMENT');
-	  });
-
+	  // add the specified player
 	  socket.on('add player', name => {
 	    state = _.assign({}, state, {
 	      players: state.players.concat([{
@@ -197,54 +211,55 @@
 	        score: 0
 	      }])
 	    });
-	    console.log('logging state from the add player callback');
-	    console.log(state);
 
+	    // update the player data on the client side
 	    io.emit('update players', state.players);
 	  });
 
+	  // start the game when the button is pressed
 	  socket.on('start game', () => {
-	    console.log('started game');
+	    // set the status to playing
 	    state.status = 'PLAYING';
-
+	    // start a new round (the first one, but it makes on difference)
 	    startNewRound();
 	  });
 
+	  // get the description form the writer
 	  socket.on('submit description', description => {
-	    state.userDescription = description;
+	    // update the state
+	    state = _.assign({}, state, { userDescription: description });
+	    // the description to the clients
 	    io.emit('user description', description);
 	  });
 
+	  // get the guesses from the clients
 	  socket.on('submit guess', guess => {
+	    // add the guess to the obj
 	    state.guesses[guess.name] = guess;
 
-	    console.log(state);
-	    console.log(Object.size(state.guesses));
-	    console.log(state.players.length - 1);
-
+	    // if everyone answered do the evaluation if not wait some more
 	    if (Object.size(state.guesses) >= state.players.length - 1) {
-	      console.log('the round is over');
 	      calculateRoundScores();
 	    } else {
 	      return false;
 	    }
 	  });
 
+	  // reset when the client orders it
 	  socket.on('reset', () => {
 	    console.log('=====================');
 	    console.log('reset');
 	    console.log('=====================');
-	    console.log(defaultState);
+	    // reset the state
 	    state = _.assign({}, defaultState, { players: [] });
+	    // tell all clients to reload
 	    io.emit('reset');
-	    console.log(state);
+	    // and redo the setup
 	    io.emit('initial data', _.assign({}, state, { locations: undefined }));
-
-	    console.log(state);
 	  });
 	});
 
-	// start the server on port SERVER_PORT
+	// start the server on port SERVER_PORT or the dynamic port on heroku
 	http.listen(process.env.PORT || SERVER_PORT, function () {
 	  console.log('listening on *: ', process.env.PORT || SERVER_PORT);
 	});

@@ -217,15 +217,14 @@
 	  // bring the shit to the client
 	  io.emit('update players', state.players);
 	  io.emit('round results');
-
-	  // check if the game is over
-	  if (state.round >= calulateNumberOfRounds(state.players.length)) {
-	  	// end it if it is
-      endGame();
-    } else {
-    	// if it isnt wait some time and then the fight is on again
-      setTimeout(startNewRound,WAIT_PERIOD)
-    }
+	  // start a new round or end the game after the wait period
+	  setTimeout(() => {
+	    if (state.round >= calulateNumberOfRounds(state.players.length)) {
+	      endGame();
+	    } else {
+	      startNewRound();
+	    }
+	  }, WAIT_PERIOD);
 	};
 
 	// what to do when a user connects
@@ -284,7 +283,7 @@
 	  // reset when the client orders it
 	  socket.on('reset', () => {
 	    console.log('=====================');
-	    console.log('reset');
+	    console.log('=        reset      =');
 	    console.log('=====================');
 	    // reset the state
 	    state = _.assign({}, defaultState, { players: [] });

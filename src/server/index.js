@@ -243,7 +243,7 @@ io.on('connection', function(socket) {
   // reset when the client orders it
   socket.on('reset', () => {
     console.log('=====================')
-    console.log('reset')
+    console.log('=        reset      =')
     console.log('=====================')
     // reset the state
     state = _.assign({}, defaultState, {players: []})

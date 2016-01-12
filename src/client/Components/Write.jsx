@@ -1,6 +1,9 @@
 // react lib
 import React from 'react'
 
+// process markdown
+import marked from 'marked'
+
 // lang files
 import lang from '../lang.jsx'
 // the func to render the map to the screen
@@ -31,6 +34,15 @@ export default class Write extends React.Component {
       this.props.submitDescription(this.text.value)
     }
 
+    const getVocHelp = () => {
+      return this.props.location.vocHelp !== '' ? (
+        <div>
+          <h3>{lang.vocHelp}</h3>
+          <div dangerouslySetInnerHTML={{__html: marked(this.props.location.vocHelp)}}></div>
+        </div>
+        ) : null
+    }
+
     return (
       <div>
         {/* tell them that they are the writer */}
@@ -40,10 +52,10 @@ export default class Write extends React.Component {
         {/* tell them what they need to describe*/}
         <h3>{lang.youDescribe}: {this.props.location.name}</h3>
         {/* german description*/}
-        {this.props.location.description}
+        <div dangerouslySetInnerHTML={{__html: marked(this.props.location.description)}}>
+        </div>
         {/* voc help*/}
-        <h3>{lang.vocHelp}</h3>
-        {this.props.location.vocHelp}
+        {getVocHelp()}
 
         {/* the map */}
         <h3>{lang.locationOnMap}</h3>

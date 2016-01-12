@@ -4,12 +4,12 @@ var path = require('path')
 var io = require('socket.io')(http)
 var _ = require('lodash')
 
-var locations = require('./locations')
+var locations = require('./locations.js')
 
 const defaultState = {
   status: 'NOT_STARTED',
   players: [],
-  locations: locations,
+  locations: locations.default,
   round: 0
 }
 

@@ -1,5 +1,7 @@
 // importing the react library
 import React from 'react'
+// process markdown
+import marked from 'marked'
 
 // getting the dynamic lang files
 import lang from '../lang.jsx'
@@ -34,7 +36,7 @@ export default class Answer extends React.Component  {
           {/*the question*/}
           <h2>{lang.whereIsTheFollowingPlace}</h2>
           {/*the description by the other user*/}
-          <div>{this.props.description}</div>
+          <div dangerouslySetInnerHTML={{__html: marked(this.props.description)}}></div>
           {/*the element to render the map to*/}
           <div id='answerMap' style={{height: '50vh'}}></div>
 

@@ -1,3 +1,3 @@
-# react-server-experiment
+# Cuentame
 
-Just me trying to set up a basic React project with webpack.
+We had to make a game for our spanish lessons so this is what we came up with

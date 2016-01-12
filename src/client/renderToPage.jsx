@@ -32,11 +32,6 @@ export default (socket) => {
           type: 'SET_NAME',
           newName: name
         })
-
-        store.dispatch({
-          type: 'CHANGE_SCREEN',
-          target: 'WAIT_FOR_OTHER_PLAYERS'
-        })
       }}
 
       // start the game

@@ -2,6 +2,9 @@
 import { createStore } from 'redux'
 import { assign, reduce } from 'lodash'
 
+// dynamic lang files
+import lang from './lang.jsx'
+
 const socket = io() // being injected through the script tag
 
 // the default data
@@ -27,12 +30,13 @@ const reducer = (state = defaultState, action) => {
       const newNameIsntEmpty = action.newName !== ''
       // and if someone else took it
       const newNameIsntTaken = !reduce(
-        store.getState().players,
+        state.players,
         (found, item) => {
           return found ? found : action.newName === item.name
         },
         false
       )
+
       // combining that into the isValid flag
       const isValid = newNameIsntEmpty && newNameIsntTaken
 
@@ -41,9 +45,11 @@ const reducer = (state = defaultState, action) => {
         socket.emit('add player', action.newName)
 
         return assign({}, state, {
-          name: action.newName
+          name: action.newName,
+          screen: 'WAIT_FOR_OTHER_PLAYERS'
         })
       } else {
+        alert(lang.nameTaken)
         return state
       }
     // getting new player data
@@ -52,14 +58,15 @@ const reducer = (state = defaultState, action) => {
       const thisPlayer = action.newPlayers.reduce((acc, player) => {
         return player.name === state.name ? player : acc
       }, null)
+
       // updating the players and the own score
       return assign({}, state, {
         players: action.newPlayers,
-        score: thisPlayer.score ? thisPlayer.score : 0
+        score: thisPlayer ? thisPlayer.score : 0
       })
-    // getting the initial data
+    // getting the initial data and resetting all old data
     case 'SET_INITIAL_DATA':
-      return assign({}, state, action.data)
+      return assign({}, state, defaultState, action.data)
     // what to do when a new round starts
     case 'START_NEW_ROUND':
       // the next screen depending on wether you are writer, answerer or not in the game

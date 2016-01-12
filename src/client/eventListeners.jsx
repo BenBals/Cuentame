@@ -3,6 +3,7 @@ export default (socket, store) => {
 
   // getting new player data from the server
   socket.on('update players', (newPlayers) => {
+    console.log('i got new players')
     store.dispatch({
       type: 'UPDATE_PLAYERS',
       newPlayers: newPlayers

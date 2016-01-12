@@ -25,5 +25,7 @@ export default {
   gameRunningWantToReset: 'there is already a game running. do you want to reset game',
   roundEndMessage: 'The round is over. The new scores are',
   nextRoundIn10s: 'The next round starts in 10s',
-  gameOver: 'Game over! The end results are:'
+  gameOver: 'Game over! The end results are:',
+  newGame: 'Start new game',
+  nameTaken: 'Another user already has that name!'
 }

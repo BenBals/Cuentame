@@ -82,8 +82,6 @@ const startNewRound = () => {
   // reset/init guesses
   state.guesses = {}
   // the next guy is the writer now
-  console.log(state.players)
-  console.log('calulateing the writer, the round number is ' + state.round + ', the length of the players array is ' + state.players.length + ', so the writer should be ' + (state.round % state.players.length) + ' and he is ' + state.players[state.round % state.players.length].name)
   state.writer = state.players[state.round % state.players.length].name
   // reset/init the user description
   state.userDescription = ''

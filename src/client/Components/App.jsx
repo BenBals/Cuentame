@@ -37,7 +37,7 @@ export default class App extends React.Component {
         case 'ROUND_RESULTS':
           return <RoundResults players={this.props.state.players}/>
         case 'END_RESULTS':
-          return <EndResults players={this.props.state.players} />
+          return <EndResults players={this.props.state.players} reset={this.props.reset}/>
         default:
           return <div>{lang.randomError}</div>
       }

@@ -129,11 +129,6 @@
 	          type: 'SET_NAME',
 	          newName: name
 	        });
-
-	        _redux.store.dispatch({
-	          type: 'CHANGE_SCREEN',
-	          target: 'WAIT_FOR_OTHER_PLAYERS'
-	        });
 	      }
 
 	      // start the game
@@ -19771,11 +19766,20 @@
 
 	var _lodash = __webpack_require__(171);
 
-	// getting the needed stuff from the libs
+	var _lang = __webpack_require__(175);
+
+	var _lang2 = _interopRequireDefault(_lang);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
 
 	var socket = io(); // being injected through the script tag
 
 	// the default data
+
+	// dynamic lang files
+	// getting the needed stuff from the libs
 	var defaultState = {
 	  screen: 'HELLO',
 	  players: [],
@@ -19800,9 +19804,10 @@
 	      // check if its empty
 	      var newNameIsntEmpty = action.newName !== '';
 	      // and if someone else took it
-	      var newNameIsntTaken = !(0, _lodash.reduce)(store.getState().players, function (found, item) {
+	      var newNameIsntTaken = !(0, _lodash.reduce)(state.players, function (found, item) {
 	        return found ? found : action.newName === item.name;
 	      }, false);
+
 	      // combining that into the isValid flag
 	      var isValid = newNameIsntEmpty && newNameIsntTaken;
 
@@ -19811,9 +19816,11 @@
 	        socket.emit('add player', action.newName);
 
 	        return (0, _lodash.assign)({}, state, {
-	          name: action.newName
+	          name: action.newName,
+	          screen: 'WAIT_FOR_OTHER_PLAYERS'
 	        });
 	      } else {
+	        alert(_lang2.default.nameTaken);
 	        return state;
 	      }
 	    // getting new player data
@@ -19822,14 +19829,15 @@
 	      var thisPlayer = action.newPlayers.reduce(function (acc, player) {
 	        return player.name === state.name ? player : acc;
 	      }, null);
+
 	      // updating the players and the own score
 	      return (0, _lodash.assign)({}, state, {
 	        players: action.newPlayers,
-	        score: thisPlayer.score ? thisPlayer.score : 0
+	        score: thisPlayer ? thisPlayer.score : 0
 	      });
-	    // getting the initial data
+	    // getting the initial data and resetting all old data
 	    case 'SET_INITIAL_DATA':
-	      return (0, _lodash.assign)({}, state, action.data);
+	      return (0, _lodash.assign)({}, state, defaultState, action.data);
 	    // what to do when a new round starts
 	    case 'START_NEW_ROUND':
 	      // the next screen depending on wether you are writer, answerer or not in the game
@@ -32991,7 +32999,7 @@
 	          case 'ROUND_RESULTS':
 	            return _react2.default.createElement(_RoundResults2.default, { players: _this2.props.state.players });
 	          case 'END_RESULTS':
-	            return _react2.default.createElement(_EndResults2.default, { players: _this2.props.state.players });
+	            return _react2.default.createElement(_EndResults2.default, { players: _this2.props.state.players, reset: _this2.props.reset });
 	          default:
 	            return _react2.default.createElement('div', null, _lang2.default.randomError);
 	        }
@@ -33026,6 +33034,7 @@
 
 	  // getting new player data from the server
 	  socket.on('update players', function (newPlayers) {
+	    console.log('i got new players');
 	    store.dispatch({
 	      type: 'UPDATE_PLAYERS',
 	      newPlayers: newPlayers
@@ -33114,7 +33123,9 @@
 	  gameRunningWantToReset: 'there is already a game running. do you want to reset game',
 	  roundEndMessage: 'The round is over. The new scores are',
 	  nextRoundIn10s: 'The next round starts in 10s',
-	  gameOver: 'Game over! The end results are:'
+	  gameOver: 'Game over! The end results are:',
+	  newGame: 'Start new game',
+	  nameTaken: 'Another user already has that name!'
 	};
 
 /***/ },
@@ -33682,8 +33693,9 @@
 
 	exports.default = function (_ref) {
 	  var players = _ref.players;
+	  var reset = _ref.reset;
 
-	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.gameOver), _react2.default.createElement(_ScoreBoard2.default, { players: players }));
+	  return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.gameOver), _react2.default.createElement(_ScoreBoard2.default, { players: players }), _react2.default.createElement('button', { onClick: reset }, _lang2.default.newGame));
 	};
 	// the scoreboard component
 	// the react lib

@@ -4,18 +4,12 @@ var path = require('path')
 var io = require('socket.io')(http)
 var _ = require('lodash')
 
+var locations = require('./locations')
+
 const defaultState = {
   status: 'NOT_STARTED',
   players: [],
-  locations: [
-    {
-      name: 'Bogota',
-      description: "- Hauptstadt von Kolumbien",
-      vocHelp: 'Hauptstadt - capital',
-      lng: -74.075833,
-      lat: 4.598056
-    }
-  ],
+  locations: locations,
   round: 0
 }
 

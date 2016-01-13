@@ -401,6 +401,84 @@
 	  vocHelp: '',
 	  lng: -73.925192,
 	  lat: 11.037997
+	}, {
+	  name: 'Leticia',
+	  description: "- südlichste Stadt Kolumbiens",
+	  vocHelp: '',
+	  lng: -69.940278,
+	  lat: -4.208333
+	}, {
+	  name: 'Nevado del Ruiz',
+	  description: "- Vulkan in den Anden \n- liegt westlich von Bogotá",
+	  vocHelp: 'der Vulkan - el volcán',
+	  lng: -75.316667,
+	  lat: 4.883333
+	}, {
+	  name: 'Galeras',
+	  description: "- Vulkan in den Anden \n- liegt im Südwesten von Kolumbien",
+	  vocHelp: '',
+	  lng: -77.353333,
+	  lat: 1.221944
+	}, {
+	  name: 'Florencia',
+	  description: "- Hauptstadt der Provinz Caquetá \n- liegt im Süden Kolumbiens, am östlichen Fuß der Anden (Kordillieren)",
+	  vocHelp: '',
+	  lng: -75.612778,
+	  lat: 1.613889
+	}, {
+	  name: 'Malpelo',
+	  description: "- Insel im Pazifik \n- westlichster Ort Kolumbiens",
+	  vocHelp: '',
+	  lng: -81.6075,
+	  lat: 4.002778
+	}, {
+	  name: 'Lago de Tota',
+	  description: "- größter SÜSSWASSERsee Kolumbiens \n- liegt ungefähr in halber Verlängerung Cali -> Bogotá",
+	  vocHelp: 'das Süßwasser - la agua dulce \nungefähr - más o menos \ndie Verlängerung - el alargamiento',
+	  lng: -72.92,
+	  lat: 5.54
+	}, {
+	  name: 'Acevedo',
+	  description: "- Quelle des Rio Magdalena (dieser mündet in Barranquilla) \n- liegt im Süden der Anden, südwestlich von Popayán",
+	  vocHelp: 'die Quelle - la fuente \nmünden in... - desembocar en...',
+	  lng: -75.612778,
+	  lat: 1.613889
+	}, {
+	  name: 'Nevado del Huila',
+	  description: "- Vulkan in den Anden \n- liegt in der Zentral-Kordillerie in den Anden \n- befindet sich südlicher als Cali",
+	  vocHelp: 'die Zentral-Kordillerie - la cordillera central',
+	  lng: -76.033333,
+	  lat: 2.933333
+	}, {
+	  name: 'Bucaramanga',
+	  description: "- Hauptstadt des Departamento Santander in Kolumbien \n- liegt nordöstlich von Bogotá \n- besitzt eine der renommiertesten technischen Universitäten in der Region",
+	  vocHelp: 'renommiert - prestigioso/-a \ntechnisch - técnico/-a',
+	  lng: -73.122742,
+	  lat: 7.119349
+	}, {
+	  name: 'Pereira',
+	  description: "- Stadt, liegt am westlichen Fuß der Zentral-Kordilleren \n- etwa Mittelpunkt des „Goldenen Dreiecks“ Bogotá-Medellín-Cali",
+	  vocHelp: 'das Gold - el oro \ndas Dreieck - el triángulo',
+	  lng: -75.695833,
+	  lat: 4.813056
+	}, {
+	  name: 'Pasto',
+	  description: "- Hauptstadt des Departamentos Nariño im Südwesten Kolumbiens \n- liegt am Fuß des Vulkans Galeras",
+	  vocHelp: '',
+	  lng: -77.280833,
+	  lat: 1.213333
+	}, {
+	  name: 'Manizales',
+	  description: "- Hauptstadt des Departamento Caldas \n- liegt im Hauptkaffeeanbaugebiet Kolumbiens \n- befindet sich nordöstlich von Pereira",
+	  vocHelp: 'Haupt-... - principal \ndas Anbaugebiet - el terreno de cultivo',
+	  lng: -75.517222,
+	  lat: 5.068889
+	}, {
+	  name: 'Turbo',
+	  description: "- Stadt und Gemeinde im Norden Kolumbiens \n- liegt am Golf von Urabá am Karibischen Meer \n- Hafenstadt und Grenzstadt nach Panamá",
+	  vocHelp: 'die Gemeinde - el municipio \nder Golf - el golfo \ndie Hafenstadt - la ciudad portuaria',
+	  lng: -76.728056,
+	  lat: 8.0925
 	}];
 
 	module.exports.default = locations;

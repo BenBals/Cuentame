@@ -19,8 +19,10 @@ export default (props) => {
   // render it all to the page with the right headline
   return (
     <div>
-      <h1>{lang.name}</h1>
-      {goOrReset()}
+      <h1 className="text-align-center">{lang.name}</h1>
+      <div className='center-div'>
+        {goOrReset()}
+      </div>
     </div>
   )
 }

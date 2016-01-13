@@ -19,7 +19,7 @@ export default class Name extends React.Component {
     return (
       <div>
         {/* the right heading */}
-        <h2>{lang.whatsYourName}</h2>
+        <h2 className="text-align-center">{lang.whatsYourName}</h2>
         {/* the form that gets the name */}
         <form onSubmit={handleSubmit}>
           {/* the input with the ref, so we can easily get it*/}

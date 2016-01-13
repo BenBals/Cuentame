@@ -49,7 +49,7 @@ export default class App extends React.Component {
     }
 
     return (
-      <div>
+      <div className="container">
 
         {/* get the header */}
         {getScoreHeader()}
@@ -58,14 +58,13 @@ export default class App extends React.Component {
         {getChild()}
 
         {/* just in dev */}
-        <hr />
+        {/*
         <div>
-          {/* state as json*/}
           state:
           {JSON.stringify(this.props.state, null, 2)}
         </div>
-        {/* the reset button */}
         <a className="waves-effect waves-light btn" onClick={this.props.reset}>reset</a>
+        */}
       </div>
     )
   }

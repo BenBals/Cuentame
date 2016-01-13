@@ -86,6 +86,10 @@ module.exports =
                     presets: ['es2015', 'react']
                 }
             }
+            {
+                test: /\.s*ss$/,
+                loaders: ["style", "css", "sass"]
+            }
 
             ///app\/.*\.json$/
             // { test:  /\.json$/, loader: 'json-loader' },

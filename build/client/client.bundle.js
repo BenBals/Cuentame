@@ -33177,9 +33177,9 @@
 	        return false;
 	      };
 
-	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whatsYourName), _react2.default.createElement('form', { onSubmit: handleSubmit }, _react2.default.createElement('input', { type: 'text', placeholder: _lang2.default.yourName, ref: function ref(_ref) {
+	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.whatsYourName), _react2.default.createElement('form', { onSubmit: handleSubmit }, _react2.default.createElement('div', { className: 'input-field' }, _react2.default.createElement('input', { type: 'text', placeholder: _lang2.default.yourName, id: 'name-input', ref: function ref(_ref) {
 	          return _this2.nameInp = _ref;
-	        } }), _react2.default.createElement('input', { className: 'waves-effect waves-light btn', type: 'submit', value: _lang2.default.next })));
+	        } })), _react2.default.createElement('input', { className: 'waves-effect waves-light btn', type: 'submit', value: _lang2.default.next })));
 	    }
 	  }]);
 

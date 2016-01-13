@@ -23,7 +23,10 @@ export default class Name extends React.Component {
         {/* the form that gets the name */}
         <form onSubmit={handleSubmit}>
           {/* the input with the ref, so we can easily get it*/}
-          <input type="text" placeholder={lang.yourName} ref={(ref) => this.nameInp = ref}/>
+          <div className="input-field">
+            <input type="text" placeholder={lang.yourName} id="name-input" ref={(ref) => this.nameInp = ref}/>
+          </div>
+          
           <input className="waves-effect waves-light btn" type="submit" value={lang.next} />
         </form>
       </div>

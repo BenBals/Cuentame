@@ -55,7 +55,7 @@
 	const defaultState = {
 	  status: 'NOT_STARTED',
 	  players: [],
-	  locations: locations.default,
+	  locations: _.shuffle(locations.default),
 	  round: 0
 	};
 
@@ -119,7 +119,7 @@
 	  // increment the round counter
 	  state.round = state.round + 1;
 	  // select a new location randomly
-	  state.currentLocation = state.locations.random();
+	  state.currentLocation = state.locations[state.round - 1];
 	  // reset/init guesses
 	  state.guesses = {};
 	  // the next guy is the writer now
@@ -401,18 +401,6 @@
 	  vocHelp: '',
 	  lng: -73.925192,
 	  lat: 11.037997
-	}, {
-	  name: 'Bogota',
-	  description: "- Hauptstadt von Kolumbien",
-	  vocHelp: 'Hauptstadt - capital',
-	  lng: -74.075833,
-	  lat: 4.598056
-	}, {
-	  name: 'Bogota',
-	  description: "- Hauptstadt von Kolumbien",
-	  vocHelp: 'Hauptstadt - capital',
-	  lng: -74.075833,
-	  lat: 4.598056
 	}];
 
 	module.exports.default = locations;

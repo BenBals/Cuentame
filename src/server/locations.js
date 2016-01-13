@@ -83,21 +83,6 @@ const locations = [
     lng: -73.925192,
     lat: 11.037997
   },
-  {
-    name: 'Bogota',
-    description: "- Hauptstadt von Kolumbien",
-    vocHelp: 'Hauptstadt - capital',
-    lng: -74.075833,
-    lat: 4.598056
-  },
-  {
-    name: 'Bogota',
-    description: "- Hauptstadt von Kolumbien",
-    vocHelp: 'Hauptstadt - capital',
-    lng: -74.075833,
-    lat: 4.598056
-  },
-  
 ]
 
 module.exports.default = locations

@@ -9,7 +9,7 @@ var locations = require('./locations.js')
 const defaultState = {
   status: 'NOT_STARTED',
   players: [],
-  locations: locations.default,
+  locations: _.shuffle(locations.default),
   round: 0
 }
 
@@ -72,7 +72,7 @@ const startNewRound = () => {
   // increment the round counter
   state.round = state.round + 1
   // select a new location randomly
-  state.currentLocation = state.locations.random()
+  state.currentLocation = state.locations[state.round - 1]
   // reset/init guesses
   state.guesses = {}
   // the next guy is the writer now

@@ -59,15 +59,19 @@
 
 	var _redux = __webpack_require__(161);
 
+	var _main = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./materialize/main.sass\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+	var _main2 = _interopRequireDefault(_main);
+
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 
+	// setup the rendering
+	(0, _renderToPage2.default)(_redux.socket);
 	// import App from './components/App'
 
-	// setup the rendering
 	// getting the function that renders every thing and the socket to pass to it
-	(0, _renderToPage2.default)(_redux.socket);
 
 /***/ },
 /* 2 */

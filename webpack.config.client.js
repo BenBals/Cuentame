@@ -22,7 +22,11 @@ var commonLoaders = [
                 query: {
                     presets: ['es2015', 'react']
                 }
-            }
+            },
+            {
+                test: /\.scss$/,
+                loaders: ["style", "css", "sass"]
+              }
         ]
     }
 ];
@@ -85,10 +89,10 @@ module.exports =
                 query: {
                     presets: ['es2015', 'react']
                 }
-            }
+            },
             {
                 test: /\.s*ss$/,
-                loaders: ["style", "css", "sass"]
+                loader: "style!css!sass?sourceMap"
             }
 
             ///app\/.*\.json$/

@@ -3,7 +3,9 @@ import renderToPage from './renderToPage.jsx'
 import {socket} from './redux.jsx'
 // import App from './components/App'
 
-import style from './materialize/main.sass'
+
+// make webpack to magic with the styles
+var style = require('./sass/main.sass')
 
 
 // setup the rendering

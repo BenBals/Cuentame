@@ -65,7 +65,7 @@ export default class App extends React.Component {
           {JSON.stringify(this.props.state, null, 2)}
         </div>
         {/* the reset button */}
-        <button onClick={this.props.reset}>reset</button>
+        <a className="waves-effect waves-light btn" onClick={this.props.reset}>reset</a>
       </div>
     )
   }

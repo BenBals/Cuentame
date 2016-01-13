@@ -24,9 +24,13 @@ var commonLoaders = [
                 }
             },
             {
+                test: /\.sass$/,
+                loader: "style!css!sass?sourceMap"
+            },
+            {
                 test: /\.scss$/,
-                loaders: ["style", "css", "sass"]
-              }
+                loader: "style!css!sass?sourceMap"
+            }
         ]
     }
 ];
@@ -71,6 +75,12 @@ module.exports =
         '.css', '.styl', '.scss', '.sass'
     ],
 
+    sassLoaderConfig: {
+        sourceMap: true,
+        indentedSyntax: true
+    },
+
+
     module: {
 
         loaders: [
@@ -91,7 +101,11 @@ module.exports =
                 }
             },
             {
-                test: /\.s*ss$/,
+                test: /\.sass$/,
+                loader: "style!css!sass?config=sassLoaderConfig"
+            },
+            {
+                test: /\.scss$/,
                 loader: "style!css!sass?sourceMap"
             }
 

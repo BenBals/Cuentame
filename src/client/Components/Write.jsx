@@ -64,7 +64,7 @@ export default class Write extends React.Component {
 
         <br />
         {/* the submit button*/}
-        <button onClick={handleSubmit}>{lang.submit}</button>
+        <a className="waves-effect waves-light btn" onClick={handleSubmit}>{lang.submit}</a>
       </div>
     )
   }

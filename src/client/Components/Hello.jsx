@@ -8,10 +8,10 @@ import lang from '../lang.jsx'
 export default (props) => {
   // get the go or reset button depending on wether there is a running game
   const goOrReset = () => {
-    return props.status === 'NOT_STARTED' ? <button onClick={props.goToNameScreen}>Go</button> : (
+    return props.status === 'NOT_STARTED' ? <a className="waves-effect waves-light btn" onClick={props.goToNameScreen}>Go</a> : (
       <div>
         <span>{lang.gameRunningWantToReset}</span>
-        <button onClick={props.reset}>{lang.reset}</button>
+        <a onClick={props.reset} className="waves-effect waves-light btn">{lang.reset}</a>
       </div>
     )
   }

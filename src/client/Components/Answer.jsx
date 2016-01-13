@@ -41,7 +41,7 @@ export default class Answer extends React.Component  {
           <div id='answerMap' style={{height: '50vh'}}></div>
 
           {/*the submit button*/}
-          <button onClick={this.props.submitGuess}>{lang.submit}</button>
+          <a className="waves-effect waves-light btn" onClick={this.props.submitGuess}>{lang.submit}</a>
         </div>
       )
     }

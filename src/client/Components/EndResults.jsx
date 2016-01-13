@@ -10,7 +10,7 @@ export default ({ players, reset }) => {
     <div>
       <h2>{lang.gameOver}</h2>
       <ScoreBoard players={players} />
-      <button onClick={reset}>{lang.newGame}</button>
+      <a className="waves-effect waves-light btn" onClick={reset}>{lang.newGame}</a>
     </div>
   )
 }

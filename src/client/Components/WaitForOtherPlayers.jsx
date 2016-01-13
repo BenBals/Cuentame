@@ -7,7 +7,7 @@ import lang from '../lang.jsx'
 // stateless component
 export default (props) => {
   // only enable the start game button if at least 2 players are connecet
-  const button = props.players.length > 1 ? <button onClick={props.startGame}>{lang.startGame}</button> : <div></div>
+  const button = props.players.length > 1 ? <a className="waves-effect waves-light btn"  onClick={props.startGame}>{lang.startGame}</a> : <div></div>
 
   // render func
   return (

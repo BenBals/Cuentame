@@ -32889,34 +32889,33 @@
 	});
 	// all needed strings
 	exports.default = {
-	  randomError: 'something went wrong',
+	  randomError: 'Hay un problemo.',
 	  name: 'Cuéntame',
 	  whatsYourName: '¿Cómo te llamas?',
-	  next: 'next',
+	  next: 'vale',
 	  yourName: 'tú nombre',
-	  waitingForOtherPlayers: 'waiting for others',
-	  connected: 'connected',
-	  startGame: 'Start Game',
-	  waitForWriter: 'Waiting for the writer',
-	  youAreTheWriter: 'You are the writer',
-	  yourDescriptionHere: 'Your description here',
-	  youDescribe: 'You describe',
-	  vocHelp: 'Vocabulray Help',
-	  submit: 'submit',
-	  locationOnMap: 'The location on map',
-	  waitForAnswer: 'Waiting for other players to answer',
-	  whereIsTheFollowingPlace: 'Where is the following place?',
-	  winsThisRound: 'wins this round',
-	  theirDistaceWas: 'Their distace was',
-	  meters: 'meters',
-	  yourScore: 'Your score',
+	  waitingForOtherPlayers: 'Esperamos los otros jugadores.',
+	  connected: 'comunicado con',
+	  startGame: '¡vamos a jugar!',
+	  waitForWriter: 'Esperas el escritor',
+	  youAreTheWriter: 'Tu escribes',
+	  yourDescriptionHere: 'Tú descripción aquí',
+	  youDescribe: 'Describes',
+	  vocHelp: 'Vocabulrio',
+	  submit: 'vale',
+	  locationOnMap: 'En la mapa:',
+	  waitForAnswer: 'Esperamos las respuestas de los otros jugadores.',
+	  whereIsTheFollowingPlace: '¿Dónde esta...',
+	  meters: 'metros',
+	  yourScore: 'Tú puntos',
 	  reset: 'reset',
-	  gameRunningWantToReset: 'there is already a game running. do you want to reset game',
-	  roundEndMessage: 'The round is over. The new scores are',
-	  nextRoundIn10s: 'The next round starts in 10s',
-	  gameOver: 'Game over! The end results are:',
-	  newGame: 'Start new game',
-	  nameTaken: 'Another user already has that name!'
+	  gameRunningWantToReset: 'Otros jugadores jugan un juego. Reset?',
+	  roundEndMessage: 'Los puntos nuevos son:',
+	  nextRoundIn10s: 'Espera 10s',
+	  gameOver: 'Es juego es término. Los puntos son:',
+	  newGame: 'Juego nuevo',
+	  nameTaken: 'El nombre no es possible.',
+	  go: '¡vamos!'
 	};
 
 /***/ },
@@ -33091,7 +33090,7 @@
 	exports.default = function (props) {
 	  // get the go or reset button depending on wether there is a running game
 	  var goOrReset = function goOrReset() {
-	    return props.status === 'NOT_STARTED' ? _react2.default.createElement('a', { className: 'waves-effect waves-light btn', onClick: props.goToNameScreen }, 'Go') : _react2.default.createElement('div', null, _react2.default.createElement('span', null, _lang2.default.gameRunningWantToReset), _react2.default.createElement('a', { onClick: props.reset, className: 'waves-effect waves-light btn' }, _lang2.default.reset));
+	    return props.status === 'NOT_STARTED' ? _react2.default.createElement('a', { className: 'waves-effect waves-light btn', onClick: props.goToNameScreen }, _lang2.default.go) : _react2.default.createElement('div', null, _react2.default.createElement('span', null, _lang2.default.gameRunningWantToReset), _react2.default.createElement('a', { onClick: props.reset, className: 'waves-effect waves-light btn' }, _lang2.default.reset));
 	  };
 
 	  // render it all to the page with the right headline
@@ -33361,7 +33360,7 @@
 
 	      return _react2.default.createElement('div', null, _react2.default.createElement('h2', null, _lang2.default.youAreTheWriter), _react2.default.createElement('textarea', { defaultValue: _lang2.default.yourDescriptionHere, ref: function ref(_ref) {
 	          return _this2.text = _ref;
-	        } }), _react2.default.createElement('h3', null, _lang2.default.youDescribe, ': ', this.props.location.name), _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: (0, _marked2.default)(this.props.location.description) } }), getVocHelp(), _react2.default.createElement('h3', null, _lang2.default.locationOnMap), _react2.default.createElement('div', { id: 'writeMap', style: { height: '25vh' } }), _react2.default.createElement('br', null), _react2.default.createElement('a', { className: 'waves-effect waves-light btn', onClick: handleSubmit }, _lang2.default.submit));
+	        } }), _react2.default.createElement('h3', null, _lang2.default.youDescribe, ' ', this.props.location.name), _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: (0, _marked2.default)(this.props.location.description) } }), getVocHelp(), _react2.default.createElement('h3', null, _lang2.default.locationOnMap), _react2.default.createElement('div', { id: 'writeMap', style: { height: '25vh' } }), _react2.default.createElement('br', null), _react2.default.createElement('a', { className: 'waves-effect waves-light btn', onClick: handleSubmit }, _lang2.default.submit));
 	    }
 	  }]);
 

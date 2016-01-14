@@ -452,7 +452,7 @@
 	}, {
 	  name: 'Bucaramanga',
 	  description: "- Hauptstadt des Departamento Santander in Kolumbien \n- liegt nordöstlich von Bogotá \n- besitzt eine der renommiertesten technischen Universitäten in der Region",
-	  vocHelp: 'renommiert - prestigioso/-a \ntechnisch - técnico/-a',
+	  vocHelp: 'renommiert - prestigioso/-a \n technisch - técnico/-a',
 	  lng: -73.122742,
 	  lat: 7.119349
 	}, {

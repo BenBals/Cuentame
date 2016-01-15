@@ -3,6 +3,8 @@ var path = require('path');
 var buildPath = path.resolve(__dirname, 'assets');
 var fs = require('fs');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var autoprefixer = require('autoprefixer');
+var precss       = require('precss');
 
 var commonLoaders = [
     {
@@ -135,6 +137,9 @@ module.exports =
     // ],
 
     // devtool: 'source-map'
+    postcss: function() {
+        return [autoprefixer, precss]
+    }
 }
 ;
 

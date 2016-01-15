@@ -74,6 +74,11 @@
 	  res.sendFile(filePath);
 	});
 
+	app.get('/hero.png', (req, res) => {
+	  var filePath = path.resolve('build/client/hero.png');
+	  res.sendFile(filePath);
+	});
+
 	// give them the client.bundle.js when they want it
 	app.get('/client.bundle.js', (req, res) => {
 	  var filePath = path.resolve('build/client/client.bundle.js');

@@ -20,7 +20,7 @@ SERVER_PORT = 3000
 // amount of rounds
 ROUND_NUMBER = 10
 // time between rounds
-WAIT_PERIOD = 10000
+WAIT_PERIOD = 5000
 
 // respond with the index.html file when asked for /
 app.get('/', (req, res) => {

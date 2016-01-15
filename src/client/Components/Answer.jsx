@@ -36,7 +36,7 @@ export default class Answer extends React.Component  {
           {/*the question*/}
           <h2>{lang.whereIsTheFollowingPlace}</h2>
           {/*the description by the other user*/}
-          <div dangerouslySetInnerHTML={{__html: marked(this.props.description)}}></div>
+          <div className="answers-description"dangerouslySetInnerHTML={{__html: marked(this.props.description)}}></div>
           {/*the element to render the map to*/}
           <div id='answerMap' style={{height: '50vh'}}></div>
 

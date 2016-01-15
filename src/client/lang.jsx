@@ -22,7 +22,7 @@ export default {
   reset: 'reset',
   gameRunningWantToReset: 'Otros jugadores jugan un juego. Reset?',
   roundEndMessage: 'Los puntos nuevos son:',
-  nextRoundIn10s: 'Espera 10s',
+  nextRoundIn10s: 'Espera 5s',
   gameOver: 'Es juego es término. Los puntos son:',
   newGame: 'Juego nuevo',
   nameTaken: 'El nombre no es possible.',

@@ -174,6 +174,13 @@ const locations = [
     lng: -76.728056,
     lat: 8.0925
   },
+  {
+      name: "Wessenhort",
+      description: "Da wohnen Bens Großeltern mütterlicherseits",
+      vocHelp: "",
+      lng: 7.8828154,
+      lat: 51.8527422
+  }
   
 ]
 

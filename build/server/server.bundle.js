@@ -124,7 +124,7 @@
 	  // increment the round counter
 	  state.round = state.round + 1;
 	  // select a new location randomly
-	  state.currentLocation = state.locations[state.round - 1];
+	  state.currentLocation = state.locations[(state.round - 1) % state.players.length];
 	  // reset/init guesses
 	  state.guesses = {};
 	  // the next guy is the writer now

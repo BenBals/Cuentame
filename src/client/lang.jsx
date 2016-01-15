@@ -8,7 +8,7 @@ export default {
   waitingForOtherPlayers: 'Esperamos a los otros jugadores.',
   connected: 'comunicado con',
   startGame: '¡vamos a jugar!',
-  waitForWriter: 'Esperas el escriptor',
+  waitForWriter: 'Esperas al escriptor',
   youAreTheWriter: 'Tú escribes',
   yourDescriptionHere: 'Tu descripción aquí',
   youDescribe: 'Describes',

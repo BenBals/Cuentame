@@ -48,6 +48,10 @@ export default (socket) => {
       // submit your guess
       submitGuess={() => {
         store.dispatch({type: 'SUBMIT_GUESS'})
+          }}
+
+      removePlayer={(playerName) => {
+        socket.emit('remove player', playerName)
       }}
 
       // RESET

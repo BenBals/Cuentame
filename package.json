@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.server.js & webpack --config webpack.config.client.js",
     "dev": "webpack --config webpack.config.server.js --watch & webpack --config webpack.config.client.js --watch",
+    "dev-server": "nodemon build/server/server.bundle.js",
     "lint": "eslint . --ext .js --ext .jsx",
     "test": "jest",
     "start": "node build/server/server.bundle.js"

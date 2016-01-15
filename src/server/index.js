@@ -56,7 +56,19 @@ Object.size = function(obj) {
 // convert any number to radians
 Number.prototype.toRadians = function() {
     return this * Math.PI / 180;
-  }
+}
+
+const reset = () => {
+    console.log('=====================')
+    console.log('=        reset      =')
+    console.log('=====================')
+    // reset the state
+    state = _.assign({}, defaultState, {players: []})
+    // tell all clients to reload
+    io.emit('reset')
+    // and redo the setup
+    io.emit('initial data', _.assign({}, state, {locations: undefined}))
+}
 
 // calculate the number of rounds to play based on the amout of players
 const calulateNumberOfRounds = (playerN) => {
@@ -208,48 +220,55 @@ io.on('connection', function(socket) {
     io.emit('update players', state.players)
   })
 
+    socket.on('remove player', (playerName) => {
+        state = _.assign({}, state, {
+            players: _.map(state.players, (player) => {
+                return player.name === playerName ? undefined : player
+            })
+        });
+
+        if (state.players.length >= 2) {
+            io.emit('update players', state.players);
+            startNewRound();
+        } else {
+            reset()
+        }
+    })
+
   // start the game when the button is pressed
   socket.on('start game', () => {
     // set the status to playing
     state.status = 'PLAYING'
     // start a new round (the first one, but it makes on difference)
-    startNewRound()
+      startNewRound();
   })
 
   // get the description form the writer
   socket.on('submit description', (description) => {
     // update the state
-    state = _.assign({}, state, {userDescription: description})
+      state = _.assign({}, state, {userDescription: description});
     // the description to the clients
-    io.emit('user description', description)
-  })
+      io.emit('user description', description);
+  });
 
   // get the guesses from the clients
   socket.on('submit guess', (guess) => {
     // add the guess to the obj
-    state.guesses[guess.name] = guess
+      state.guesses[guess.name] = guess;
 
     // if everyone answered do the evaluation if not wait some more
     if (Object.size(state.guesses) >= state.players.length -1) {
-      calculateRoundScores()
+        calculateRoundScores();
     } else {
-      return false
+        return false;
     }
-  })
+  });
 
   // reset when the client orders it
   socket.on('reset', () => {
-    console.log('=====================')
-    console.log('=        reset      =')
-    console.log('=====================')
-    // reset the state
-    state = _.assign({}, defaultState, {players: []})
-    // tell all clients to reload
-    io.emit('reset')
-    // and redo the setup
-    io.emit('initial data', _.assign({}, state, {locations: undefined}))
-  })
-})
+      reset();
+  });
+});
 
 // start the server on port SERVER_PORT or the dynamic port on heroku
 http.listen(process.env.PORT || SERVER_PORT, function(){

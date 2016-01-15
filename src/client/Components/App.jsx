@@ -14,6 +14,7 @@ import Answer from './Answer.jsx'
 import WaitForAnswer from './WaitForAnswer.jsx'
 import RoundResults from './RoundResults.jsx'
 import EndResults from './EndResults.jsx'
+import RemovePlayer from './RemovePlayer.jsx'
 
 export default class App extends React.Component {
   render() {
@@ -38,6 +39,8 @@ export default class App extends React.Component {
           return <RoundResults players={this.props.state.players}/>
         case 'END_RESULTS':
           return <EndResults players={this.props.state.players} reset={this.props.reset}/>
+        case 'REMOVE_PLAYER':
+          return <RemovePlayer removePlayer={this.props.removePlayer} players={this.props.state.players}/>
         default:
           return <div>{lang.randomError}</div>
       }

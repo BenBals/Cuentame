@@ -105,6 +105,18 @@
 	  return this * Math.PI / 180;
 	};
 
+	const reset = () => {
+	  console.log('=====================');
+	  console.log('=        reset      =');
+	  console.log('=====================');
+	  // reset the state
+	  state = _.assign({}, defaultState, { players: [] });
+	  // tell all clients to reload
+	  io.emit('reset');
+	  // and redo the setup
+	  io.emit('initial data', _.assign({}, state, { locations: undefined }));
+	};
+
 	// calculate the number of rounds to play based on the amout of players
 	const calulateNumberOfRounds = playerN => {
 	  switch (playerN) {
@@ -250,6 +262,21 @@
 	    io.emit('update players', state.players);
 	  });
 
+	  socket.on('remove player', playerName => {
+	    state = _.assign({}, state, {
+	      players: _.map(state.players, player => {
+	        return player.name === playerName ? undefined : player;
+	      })
+	    });
+
+	    if (state.players.length >= 2) {
+	      io.emit('update players', state.players);
+	      startNewRound();
+	    } else {
+	      reset();
+	    }
+	  });
+
 	  // start the game when the button is pressed
 	  socket.on('start game', () => {
 	    // set the status to playing
@@ -281,15 +308,7 @@
 
 	  // reset when the client orders it
 	  socket.on('reset', () => {
-	    console.log('=====================');
-	    console.log('=        reset      =');
-	    console.log('=====================');
-	    // reset the state
-	    state = _.assign({}, defaultState, { players: [] });
-	    // tell all clients to reload
-	    io.emit('reset');
-	    // and redo the setup
-	    io.emit('initial data', _.assign({}, state, { locations: undefined }));
+	    reset();
 	  });
 	});
 

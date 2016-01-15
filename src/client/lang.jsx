@@ -26,6 +26,7 @@ export default {
   gameOver: 'Es juego es término. Los puntos son:',
   newGame: 'Juego nuevo',
   nameTaken: 'El nombre no es possible.',
-    go: '¡vamos!',
-    remove: 'remove'
+  go: '¡vamos!',
+  remove: 'remove',
+  removePlayer: 'remove player'
 }

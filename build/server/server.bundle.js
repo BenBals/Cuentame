@@ -264,16 +264,20 @@
 
 	  socket.on('remove player', playerName => {
 	    state = _.assign({}, state, {
-	      players: _.map(state.players, player => {
-	        return player.name === playerName ? undefined : player;
+	      players: _.filter(state.players, player => {
+	        return player.name !== playerName;
 	      })
 	    });
 
-	    if (state.players.length >= 2) {
-	      io.emit('update players', state.players);
-	      startNewRound();
+	    if (state.status === 'PLAYING') {
+	      if (state.players.length >= 2) {
+	        io.emit('update players', state.players);
+	        startNewRound();
+	      } else {
+	        reset();
+	      }
 	    } else {
-	      reset();
+	      io.emit('update players', state.players);
 	    }
 	  });
 

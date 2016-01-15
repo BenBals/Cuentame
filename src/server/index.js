@@ -196,14 +196,14 @@ const calculateRoundScores = () => {
 
 // what to do when a user connects
 io.on('connection', function(socket) {
-  console.log('a user connected')
+    console.log('a user connected');
   // log the disconnect too
   socket.on('disconnect', () => {
-    console.log('user disconnected')
-  })
+      console.log('user disconnected');
+  });
 
   // get the data needed for set up to the client
-  socket.emit('initial data', _.assign({}, state, {locations: undefined}))
+    socket.emit('initial data', _.assign({}, state, {locations: undefined}));
 
   // add the specified player
   socket.on('add player', (name) => {
@@ -214,26 +214,30 @@ io.on('connection', function(socket) {
         score: 0
       }
       ])
-    })
+    });
 
     // update the player data on the client side
-    io.emit('update players', state.players)
-  })
+      io.emit('update players', state.players);
+  });
 
     socket.on('remove player', (playerName) => {
         state = _.assign({}, state, {
-            players: _.map(state.players, (player) => {
-                return player.name === playerName ? undefined : player
+            players: _.filter(state.players, (player) => {
+                return player.name !== playerName;
             })
         });
 
-        if (state.players.length >= 2) {
-            io.emit('update players', state.players);
-            startNewRound();
+        if (state.status === 'PLAYING') {
+            if (state.players.length >= 2) {
+                io.emit('update players', state.players);
+                startNewRound();
+            } else {
+                reset();
+            }
         } else {
-            reset()
+            io.emit('update players', state.players);
         }
-    })
+    });
 
   // start the game when the button is pressed
   socket.on('start game', () => {

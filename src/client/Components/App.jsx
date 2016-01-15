@@ -48,8 +48,16 @@ export default class App extends React.Component {
 
     // determain if the score header should be shown
     const getScoreHeader = () => {
-      (this.props.state.status === 'PLAYING' && this.props.state.screen !== 'HELLO') ? (<div>{lang.yourScore}: {this.props.state.score}</div>) : null
-    }
+      return (this.props.state.status === 'PLAYING' && this.props.state.screen !== 'HELLO') ? (<div>{lang.yourScore}: {this.props.state.score}</div>) : null
+    };
+
+      const getRemovePlayerBtn = () => {
+          if (this.props.state.screen !== "REMOVE_PLAYER") {
+            return (<div>
+                <a className="btn-flat" onClick={this.props.goToRemovePlayer}>{lang.removePlayer}</a>
+            </div>);
+          }
+      };
 
     return (
       <div className="container">
@@ -59,6 +67,9 @@ export default class App extends React.Component {
 
         {/* and the screen */}
         {getChild()}
+
+
+        {getRemovePlayerBtn()}
 
         {/* just in dev */}
         {/*

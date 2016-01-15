@@ -152,6 +152,16 @@
 
 	      removePlayer: function removePlayer(playerName) {
 	        socket.emit('remove player', playerName);
+	        if (playerName === _redux.store.getState().name) {
+	          window.location.reload();
+	        }
+	      },
+
+	      goToRemovePlayer: function goToRemovePlayer() {
+	        _redux.store.dispatch({
+	          type: 'CHANGE_SCREEN',
+	          target: 'REMOVE_PLAYER'
+	        });
 	      }
 
 	      // RESET
@@ -32920,7 +32930,8 @@
 	  newGame: 'Juego nuevo',
 	  nameTaken: 'El nombre no es possible.',
 	  go: '¡vamos!',
-	  remove: 'remove'
+	  remove: 'remove',
+	  removePlayer: 'remove player'
 	};
 
 /***/ },
@@ -33061,10 +33072,16 @@
 
 	      // determain if the score header should be shown
 	      var getScoreHeader = function getScoreHeader() {
-	        _this2.props.state.status === 'PLAYING' && _this2.props.state.screen !== 'HELLO' ? _react2.default.createElement('div', null, _lang2.default.yourScore, ': ', _this2.props.state.score) : null;
+	        return _this2.props.state.status === 'PLAYING' && _this2.props.state.screen !== 'HELLO' ? _react2.default.createElement('div', null, _lang2.default.yourScore, ': ', _this2.props.state.score) : null;
 	      };
 
-	      return _react2.default.createElement('div', { className: 'container' }, getScoreHeader(), getChild());
+	      var getRemovePlayerBtn = function getRemovePlayerBtn() {
+	        if (_this2.props.state.screen !== "REMOVE_PLAYER") {
+	          return _react2.default.createElement('div', null, _react2.default.createElement('a', { className: 'btn-flat', onClick: _this2.props.goToRemovePlayer }, _lang2.default.removePlayer));
+	        }
+	      };
+
+	      return _react2.default.createElement('div', { className: 'container' }, getScoreHeader(), getChild(), getRemovePlayerBtn());
 	    }
 	  }]);
 

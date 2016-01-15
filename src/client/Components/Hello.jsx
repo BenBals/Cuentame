@@ -30,7 +30,7 @@ export default (props) => {
       </div>
 
       <div className="resetBtn">
-          <a className="btn-flat">reset</a>
+          <a className="btn-flat" onClick={props.reset}>reset</a>
       </div>
     </div>
   )

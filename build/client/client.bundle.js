@@ -33094,7 +33094,7 @@
 	  };
 
 	  // render it all to the page with the right headline
-	  return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'center-div' }, _react2.default.createElement('img', { src: 'hero.png' }), _react2.default.createElement('br', null), _react2.default.createElement('div', { className: 'center-div' }, goOrReset())), _react2.default.createElement('div', { className: 'resetBtn' }, _react2.default.createElement('a', { className: 'btn-flat' }, 'reset')));
+	  return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'center-div' }, _react2.default.createElement('img', { src: 'hero.png' }), _react2.default.createElement('br', null), _react2.default.createElement('div', { className: 'center-div' }, goOrReset())), _react2.default.createElement('div', { className: 'resetBtn' }, _react2.default.createElement('a', { className: 'btn-flat', onClick: props.reset }, 'reset')));
 	};
 
 	// dynmic lang files

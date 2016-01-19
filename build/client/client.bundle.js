@@ -32931,7 +32931,7 @@
 	  nameTaken: 'El nombre no es possible.',
 	  go: '¡vamos!',
 	  remove: 'remove',
-	  removePlayer: 'remove player'
+	  removePlayer: 'Remove player'
 	};
 
 /***/ },
@@ -32998,7 +32998,7 @@
 
 	var _EndResults2 = _interopRequireDefault(_EndResults);
 
-	var _RemovePlayer = __webpack_require__(187);
+	var _RemovePlayer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./RemovePlayer.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var _RemovePlayer2 = _interopRequireDefault(_RemovePlayer);
 
@@ -35016,102 +35016,7 @@
 	}; // the react lib
 
 /***/ },
-/* 187 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = (function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	})();
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lang = __webpack_require__(173);
-
-	var _lang2 = _interopRequireDefault(_lang);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	} // the react lib
-
-	// stateless component
-
-	var RemovePlayer = (function (_React$Component) {
-	  _inherits(RemovePlayer, _React$Component);
-
-	  function RemovePlayer() {
-	    _classCallCheck(this, RemovePlayer);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(RemovePlayer).apply(this, arguments));
-	  }
-
-	  _createClass(RemovePlayer, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      // return an ordered list
-	      return _react2.default.createElement('ol', null,
-
-	      // dont modify the origional array
-	      [].concat(this.props.players)
-	      // sort in by score
-	      .sort(function (a, b) {
-	        if (a.score > b.score) {
-	          return -1;
-	        } else if (a.score < b.score) {
-	          return 1;
-	        } else {
-	          return 0;
-	        }
-	      })
-	      // map over the array
-	      .map(function (player) {
-	        // return an li for every player
-	        return _react2.default.createElement('li', null, player.name, ': ', _react2.default.createElement('a', { className: 'btn-flat', onClick: function onClick() {
-	            _this2.props.removePlayer(player.name);
-	          } }, _lang2.default.remove));
-	      }));
-	    }
-	  }]);
-
-	  return RemovePlayer;
-	})(_react2.default.Component);
-
-	exports.default = RemovePlayer;
-
-/***/ },
+/* 187 */,
 /* 188 */
 /***/ function(module, exports) {
 

@@ -271,7 +271,8 @@
 
 	    if (state.status === 'PLAYING') {
 	      if (state.players.length >= 2) {
-	        io.emit('update players', state.players);
+	          io.emit('update players', state.players);
+            state.round = state.round - 1
 	        startNewRound();
 	      } else {
 	        reset();

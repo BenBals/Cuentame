@@ -175,12 +175,124 @@ const locations = [
     lat: 8.0925
   },
   {
-      name: "Wessenhort",
-      description: "Da wohnen Bens Großeltern mütterlicherseits",
-      vocHelp: "",
-      lng: 7.8828154,
-      lat: 51.8527422
-  }
+    name: 'Riohacha',
+    description: "- Hauptstadt des nördlichsten Departamento (La Guijira) Kolumbiens  \n- liegt an der kolumbianischen Karibikküste",
+    vocHelp: '',
+    lng: -72.906944,
+    lat: 11.544167
+  },
+  {
+    name: 'Sincelejo',
+    description: "- Hauptstadt des Departamentos Sucre \n- liegt südlich von Cartagena",
+    vocHelp: '',
+    lng: -75.390557,
+    lat: 9.304577
+  },
+  {
+    name: 'Montería',
+    description: "- Hauptstadt des Departamentos Córdoba \n- liegt südwestlich von Sincelejo \n- liegt am Río Sinú",
+    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
+    lng: -75.878535,
+    lat: 	8.750983
+  },
+  {
+    name: 'Valledupar',
+    description: "- Hauptstadt des Departamento del Cesar im Norden Kolumbiens \n- auch interrnational als „Welt-Hauptstadt des Vallenato“ bekannt",
+    vocHelp: '',
+    lng: -73.243633,
+    lat: 10.474245
+  },
+  {
+    name: 'Arauca',
+    description: "- Hauptstadt des gleichnamigen Departamento in Kolumbien \n- liegt am gleichnamigen Fluss \n- die Internationale Brücke José Antonio Páez führt über diesen Fluss nach Venezuela",
+    vocHelp: '- gleichnamig - del mismo nombre \n- führen - llevar',
+    lng: -70.710457,
+    lat: 7.076172
+  },
+  {
+    name: 'Quibdó',
+    description: "- Hauptstadt und Regierungssitz des Departamento del Chocó in Nordwestkolumbien \n- liegt am Río Atrato",
+    vocHelp: "",
+    lng: -76.649812,
+    lat: 5.695633
+  },
+  {
+    name: 'Armenia',
+    description: "- Hauptstadt des Departamento Quindío \n- liegt südlich von Pereira und westlich von Ibagué",
+    vocHelp: '',
+    lng: -75.680833,
+    lat: 4.533889
+  },
+  {
+    name: 'Tunja',
+    description: "- Hauptstadt des Departamento Boyacá \n- liegt am Westrand der Ostkordillere der Anden \n- liegt nordöstlich von Bogotá und etwa südwestlich von Bucaramanga",
+    vocHelp: '-	der Rand - la periferia',
+    lng: -73.357557,
+    lat: 5.544642
+  },
+  {
+    name: 'Yopal',
+    description: "- Hauptstadt des Departamento Casanare \n- liegt etwa nordöstlich von Bogotá",
+    vocHelp: '',
+    lng: -72.400523,
+    lat: 5.348903
+  },
+  {
+    name: 'Puerto Carreño',
+    description: "- Hauptstadt des Departamento Vichada im Osten Kolumbiens \n- liegt etwa am Zusammenfluss der Flüsse Orinoco und Meta \n- liegt an der Grenze zu Venezuela",
+    vocHelp: '- der Zusammenfluss - la confluencia \n - die Grenze - la frontera',
+    lng: -67.488462,
+    lat: 6.184766
+  },
+  {
+    name: 'Popayán',
+    description: "- Hauptstadt des Departamento de Cauca in Südwestkolumbien \n- befindet sich im Valle de Pubenza zwischen der West- und Zentralkordillere der Anden",
+    vocHelp: '',
+    lng: -76.614739,
+    lat: 2.444814
+  },
+  {
+    name: 'Turbo',
+    description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
+    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
+    lng: -76.728056,
+    lat: 8.0925
+  },
+  {
+    name: 'Turbo',
+    description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
+    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
+    lng: -76.728056,
+    lat: 8.0925
+  },
+  {
+    name: 'Turbo',
+    description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
+    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
+    lng: -76.728056,
+    lat: 8.0925
+  },
+  {
+    name: 'Turbo',
+    description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
+    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
+    lng: -76.728056,
+    lat: 8.0925
+  },
+  {
+    name: 'Turbo',
+    description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
+    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
+    lng: -76.728056,
+    lat: 8.0925
+  },
+  {
+    name: 'Turbo',
+    description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
+    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
+    lng: -76.728056,
+    lat: 8.0925
+  },
   
 ]
 

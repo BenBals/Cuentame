@@ -20,12 +20,15 @@ export default (props) => {
   return (
     <div>
         {/*<h1 className="text-align-center">{lang.name}</h1>*/}
-        <div className='center-div'>
+        <div className="center-div">
             <img src="hero.png" />
             <br />
             <div className="center-div">
-             
                 {goOrReset()}
+                <br /> <br />
+                <div className="center-div">
+                    <a onClick={props.goToRules}>{lang.rules}</a>
+                </div>
             </div>
       </div>
 

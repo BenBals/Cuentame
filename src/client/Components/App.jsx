@@ -15,6 +15,7 @@ import WaitForAnswer from './WaitForAnswer.jsx'
 import RoundResults from './RoundResults.jsx'
 import EndResults from './EndResults.jsx'
 import RemovePlayer from './RemovePlayer.jsx'
+import Rules from './Rules.jsx'
 
 export default class App extends React.Component {
   render() {
@@ -22,7 +23,7 @@ export default class App extends React.Component {
     const getChild = () => {
       switch (this.props.state.screen) {
         case 'HELLO':
-          return <Hello goToNameScreen={this.props.goToNameScreen} status={this.props.state.status} reset={this.props.reset}/>
+          return <Hello goToNameScreen={this.props.goToNameScreen} status={this.props.state.status} reset={this.props.reset} goToRules={this.props.goToRules}/>
         case 'NAME':
           return <Name setName={this.props.setName}/>
         case 'WAIT_FOR_OTHER_PLAYERS':
@@ -39,6 +40,8 @@ export default class App extends React.Component {
           return <RoundResults players={this.props.state.players}/>
         case 'END_RESULTS':
           return <EndResults players={this.props.state.players} reset={this.props.reset}/>
+        case 'RULES':
+          return <Rules goToHello={this.props.goToHello} />
         default:
           return <div>{lang.randomError}</div>
       }

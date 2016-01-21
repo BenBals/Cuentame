@@ -73,7 +73,21 @@ export default (socket) => {
                   type: 'SET_REMOVE_PLAYER',
                   open: false
               })
-      }}
+          }}
+
+        goToHello={() => {
+            store.dispatch({
+                type: 'CHANGE_SCREEN',
+                target: 'HELLO'
+            })
+        }}
+
+        goToRules={() => { 
+            store.dispatch({
+                type: 'CHANGE_SCREEN',
+                target: 'RULES'
+            })
+        }}
 
       // RESET
       reset={() => {

@@ -29,5 +29,6 @@ export default {
   go: '¡vamos!',
   remove: 'remove',
     removePlayer: 'Remove player',
-    back: 'go back'
+    back: 'go back',
+    resetRoundWarning: 'Warning: The current round will be reseted'
 }

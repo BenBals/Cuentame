@@ -52,6 +52,10 @@ export default (socket) => {
 
       removePlayer={(playerName) => {
         socket.emit('remove player', playerName);
+              store.dispatch({
+                  type: 'SET_REMOVE_PLAYER',
+                  open: false
+              })
         if (playerName === store.getState().name) {
           window.location.reload();
         }

@@ -3,12 +3,23 @@ export default (socket, store) => {
 
   // getting new player data from the server
   socket.on('update players', (newPlayers) => {
-    console.log('i got new players')
-    store.dispatch({
-      type: 'UPDATE_PLAYERS',
-      newPlayers: newPlayers
-    })
-  })
+      console.log('i got new players');
+
+      const isStillIn = () => {
+          store.getState().players.reduce((acc, player) => {
+              return player === store.getState().name ? true : acc;
+          }, false);
+      };
+
+      store.dispatch({
+          type: 'UPDATE_PLAYERS',
+          newPlayers: newPlayers
+      });
+
+      if (!isStillIn()) {
+          window.location.reload();
+      }
+  });
 
   // getting all the data thats needed to do the set up
   socket.on('initial data', (initialData) => {

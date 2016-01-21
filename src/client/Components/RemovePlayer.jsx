@@ -36,6 +36,7 @@ export default class RemovePlayer extends React.Component {
                 <div className="center-div">
             <h1 className="text-align-center">{lang.removePlayer}</h1>
             <ol>{getLi()}</ol>
+            <p>{lang.resetRoundWarning}</p>
             <a className="btn" onClick={this.props.closeRemovePlayer}>{lang.back}</a>
                 </div>
     </div>

@@ -35575,7 +35575,7 @@
 	                }
 	            };
 	            // return an ordered list
-	            return _react2.default.createElement('div', { className: 'removePlayer' }, _react2.default.createElement('div', { className: 'center-div' }, _react2.default.createElement('h1', { className: 'text-align-center' }, _lang2.default.removePlayer), _react2.default.createElement('ol', null, getLi()), _react2.default.createElement('a', { className: 'btn', onClick: this.props.closeRemovePlayer }, _lang2.default.back)));
+	            return _react2.default.createElement('div', { className: 'removePlayer' }, _react2.default.createElement('div', { className: 'center-div' }, _react2.default.createElement('h1', { className: 'text-align-center' }, _lang2.default.removePlayer), _react2.default.createElement('ol', null, getLi()), _react2.default.createElement('p', null, _lang2.default.resetRoundWarning), _react2.default.createElement('a', { className: 'btn', onClick: this.props.closeRemovePlayer }, _lang2.default.back)));
 	        }
 	    }]);
 

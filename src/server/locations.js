@@ -23,7 +23,7 @@ const locations = [
   {
     name: 'Buenaventura',
     description: "- Lage: an der Pazifikküste \n - am Fuß der Anden",
-    vocHelp: 'die Pazifikküste - la costa del Océano Pacífico \n - am Fuß - al pie',
+    vocHelp: '- die Pazifikküste - la costa del Océano Pacífico \n - am Fuß - al pie',
     lng: -77.019721,
     lat: 3.883047
   },
@@ -37,14 +37,14 @@ const locations = [
   {
     name: 'Cúcuta',
     description: "- sechstgrößte Stadt Kolumbiens \n- liegt im Nordosten Kolumbiens an der Grenze zu Venezuela \n- Hauptstadt der Provinz Norte de Santander",
-    vocHelp: 'die Grenze - la frontera \n - sechstgrößte - sexta más grande',
+    vocHelp: '- die Grenze - la frontera \n - sechstgrößte - sexta más grande',
     lng: -72.49669,
     lat: 7.889097
   },
   {
     name: 'Cali',
     description: "- liegt im Westen Kolumbiens \n- Hauptstadt der Region Valle de Cauca \n- liegt am Río Cali",
-    vocHelp: 'am Ufer der/des...liegen - estar a orillas de...',
+    vocHelp: '- am Ufer der/des...liegen - estar a orillas de...',
     lng: -76.528333,
     lat: 3.457222
   },
@@ -78,7 +78,7 @@ const locations = [
   },
   {
     name: 'Ciudad Perdida',
-    description: "- liegt im Norden Kolumbiens in der Sierra Nevada de Santa Marta \n- neben Machu Picchu eine der größten Städte aus der Zeit vor Christoph Kolumbus",
+    description: "- liegt im Norden Kolumbiens in der Sierra Nevada de Santa Marta \n- neben Machu Picchu eine der größten Städte aus der Zeit vor Christoph Kolumbus \n- auf dt. „verlorene Stadt“",
     vocHelp: '- eine der größten... - una de las mayores...',
     lng: -73.925192,
     lat: 11.037997
@@ -93,7 +93,7 @@ const locations = [
   {
     name: 'Nevado del Ruiz',
     description: "- Vulkan in den Anden \n- liegt westlich von Bogotá",
-    vocHelp: 'der Vulkan - el volcán',
+    vocHelp: '- der Vulkan - el volcán',
     lng: -75.316667,
     lat: 4.883333
   },
@@ -163,14 +163,14 @@ const locations = [
   {
     name: 'Manizales',
     description: "- Hauptstadt des Departamento Caldas \n- liegt im Hauptkaffeeanbaugebiet Kolumbiens \n- befindet sich nordöstlich von Pereira",
-    vocHelp: 'Haupt-... - principal \n - das Anbaugebiet - el terreno de cultivo',
+    vocHelp: '- Haupt-... - principal \n - das Anbaugebiet - el terreno de cultivo',
     lng: -75.517222,
     lat: 5.068889
   },
   {
     name: 'Turbo',
     description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
-    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
+    vocHelp: '- die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
     lng: -76.728056,
     lat: 8.0925
   },
@@ -191,7 +191,7 @@ const locations = [
   {
     name: 'Montería',
     description: "- Hauptstadt des Departamentos Córdoba \n- liegt südwestlich von Sincelejo \n- liegt am Río Sinú",
-    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
+    vocHelp: '- am Ufer der/des...liegen - estar a orillas de...',
     lng: -75.878535,
     lat: 	8.750983
   },
@@ -386,7 +386,7 @@ const locations = [
   },
   {
     name: 'La Pedrera',
-    description: "- liegt in Südkolumbien am Río Caquetá",
+    description: "- liegt in Südkolumbien am Río Caquetá \n- auf dt.: „der Steinbruch“",
     vocHelp: '- am Ufer der/des...liegen - estar a orillas de...',
     lng: -69.566667,
     lat: -1.316667
@@ -470,7 +470,7 @@ const locations = [
   },
   {
     name: 'Sabanalarga',
-    description: "- befindet sich in Nordkolumbien nordwestlich von Medellín",
+    description: "- befindet sich in Nordkolumbien nordwestlich von Medellín \n- heißt auf dt.: „weite Ebene“",
     vocHelp: '',
     lng: -74.920163,
     lat: 10.632409

@@ -28,5 +28,6 @@ export default {
   nameTaken: 'El nombre no es possible.',
   go: '¡vamos!',
   remove: 'remove',
-  removePlayer: 'Remove player'
+    removePlayer: 'Remove player',
+    back: 'go back'
 }

@@ -59,9 +59,16 @@ export default (socket) => {
 
       goToRemovePlayer={() => {
           store.dispatch({
-            type: 'CHANGE_SCREEN',
-            target: 'REMOVE_PLAYER'
+            type: 'SET_REMOVE_PLAYER',
+            open: true
           })
+          }}
+
+      closeRemovePlayer={() => {
+              store.dispatch({
+                  type: 'SET_REMOVE_PLAYER',
+                  open: false
+              })
       }}
 
       // RESET

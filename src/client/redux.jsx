@@ -130,6 +130,11 @@ const reducer = (state = defaultState, action) => {
         screen: 'END_RESULTS',
         players: action.players
       })
+    case 'SET_REMOVE_PLAYER':
+        console.log('i am cool')
+        return assign({}, state, {
+          removePlayer: action.open
+        })
     // the fallback
     default:
       return state

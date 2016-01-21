@@ -39,8 +39,6 @@ export default class App extends React.Component {
           return <RoundResults players={this.props.state.players}/>
         case 'END_RESULTS':
           return <EndResults players={this.props.state.players} reset={this.props.reset}/>
-        case 'REMOVE_PLAYER':
-          return <RemovePlayer removePlayer={this.props.removePlayer} players={this.props.state.players}/>
         default:
           return <div>{lang.randomError}</div>
       }
@@ -52,12 +50,18 @@ export default class App extends React.Component {
     };
 
       const getRemovePlayerBtn = () => {
-          if (this.props.state.screen !== "REMOVE_PLAYER") {
+          if (!this.props.state.removePlayer) {
             return (<div>
-                <a className="btn-flat" onClick={this.props.goToRemovePlayer}>{lang.removePlayer}</a>
+                <a className="btn-flat bottom-left" onClick={this.props.goToRemovePlayer}>{lang.removePlayer}</a>
             </div>);
           }
       };
+
+      const getRemovePlayer = () => {
+          if (this.props.state.removePlayer) {
+              return <RemovePlayer removePlayer={this.props.removePlayer} players={this.props.state.players} closeRemovePlayer={this.props.closeRemovePlayer} />
+          }
+      }
 
     return (
       <div className="container">
@@ -68,7 +72,7 @@ export default class App extends React.Component {
         {/* and the screen */}
         {getChild()}
 
-
+        {getRemovePlayer()}
         {getRemovePlayerBtn()}
 
         {/* just in dev */}

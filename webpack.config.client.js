@@ -52,10 +52,13 @@ module.exports =
     // Makes sure errors in console map to the correct file
     // and line number
     name: 'client',
-    plugins: [new HtmlWebpackPlugin({
-        title: 'Adivinar',
-        template: './src/client/index.html'
-    })],
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Adivinar',
+            template: './src/client/index.html'
+        }),
+        new webpack.optimize.UglifyJsPlugin({minimize: true})
+    ],
     // devtool: 'eval',
     entry: [
         //'./bin/www.js',

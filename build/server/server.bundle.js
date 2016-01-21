@@ -360,7 +360,7 @@
 	const locations = [{
 	  name: 'Bogotá',
 	  description: "- Hauptstadt von Kolumbien",
-	  vocHelp: '- Hauptstadt - capital',
+	  vocHelp: '',
 	  lng: -74.075833,
 	  lat: 4.598056
 	}, {
@@ -574,41 +574,269 @@
 	  lng: -76.614739,
 	  lat: 2.444814
 	}, {
-	  name: 'Turbo',
-	  description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
-	  vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
-	  lng: -76.728056,
-	  lat: 8.0925
+	  name: 'Neiva',
+	  description: "- Hauptstadt des Departamento Huila in Südwestkolumbien \n- liegt etwa zwischen den Städten Ibagué im Norden und Florencia im Süden",
+	  vocHelp: '',
+	  lng: -75.2809,
+	  lat: 2.934484
 	}, {
-	  name: 'Turbo',
-	  description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
-	  vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
-	  lng: -76.728056,
-	  lat: 8.0925
+	  name: 'Villavicencio',
+	  description: "- Hauptstadt des Departamento del Meta in Zentralkolumbien \n- liegt südöstlich von Bogotá",
+	  vocHelp: '',
+	  lng: -73.63769,
+	  lat: 4.151382
 	}, {
-	  name: 'Turbo',
-	  description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
-	  vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
-	  lng: -76.728056,
-	  lat: 8.0925
+	  name: 'Inírida',
+	  description: "- Hauptstadt des Departamento Guainía in Ostkolumbien \n- liegt am Fluss Orinoco",
+	  vocHelp: '- am Ufer der/des...liegen - estar a orillas de...',
+	  lng: -67.923889,
+	  lat: 3.865278
 	}, {
-	  name: 'Turbo',
-	  description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
-	  vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
-	  lng: -76.728056,
-	  lat: 8.0925
+	  name: 'Mocoa',
+	  description: "- Hauptstadt des Departamento Putumayo in Südkolumbien \n- liegt südlich von Popayán und etwa auf der gleichen Breite wie Pasto \n- liegt nahe am Fluss Caquetá",
+	  vocHelp: 'die Breite - la latitud',
+	  lng: -76.651055,
+	  lat: 1.15234
 	}, {
-	  name: 'Turbo',
-	  description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
+	  name: 'San José del Guaviare',
+	  description: "- Hauptstadt des Departamento Guaviare in Zentralkolumbien \n- liegt südöstlich von Bogotá und Villavicencio am Fluss Guaviare",
 	  vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
-	  lng: -76.728056,
-	  lat: 8.0925
+	  lng: -72.633333,
+	  lat: 2.566667
 	}, {
-	  name: 'Turbo',
-	  description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
-	  vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
-	  lng: -76.728056,
-	  lat: 8.0925
+	  name: 'Mitú',
+	  description: "- Stadt in Südostkolumbien im Departamento Vaupés am Fluss Vaupés \n- liegt südostlich von San José del Guaviare",
+	  vocHelp: '',
+	  lng: -70.233618,
+	  lat: 1.252174
+	}, {
+	  name: 'Isla de Tierra Bomba',
+	  description: "- Insel an der kolumbianischen Karibikküste \n- grenzt die Bahía de Cartagena de Indias vom Meer ab",
+	  vocHelp: '- die Küste - la costa \n - abgrenzen von.../trennen von... - separar de...',
+	  lng: -75.575833,
+	  lat: 10.3525
+	}, {
+	  name: 'Villa de Leyva',
+	  description: "- liegt im Departamento Boyacá \n- liegt nordwestlich von Tunja und westlich vom Páramo de Iguaque",
+	  vocHelp: '',
+	  lng: -73.533333,
+	  lat: 5.633333
+	}, {
+	  name: 'Islas del Rosario',
+	  description: "- liegen südwestlich von der Isla de Tierra Bomba und Cartagena im karibischem Meer",
+	  vocHelp: '',
+	  lng: -75.766667,
+	  lat: 10.166667
+	}, {
+	  name: 'La Plata',
+	  description: "- liegt etwa im Mittelpunkt des Vierecks Cali-Popayán-Florencia-Neiv",
+	  vocHelp: '- das Viereck - el cuadrilátero',
+	  lng: -75.892222,
+	  lat: 2.393333
+	}, {
+	  name: 'Itagüí',
+	  description: "- grenzt im Nordosten an Medellín",
+	  vocHelp: '',
+	  lng: -75.598889,
+	  lat: 6.184444
+	}, {
+	  name: 'Barrancabermeja',
+	  description: "- liegt westlich von Bucaramanga und etwa auf der gleichen Breite \n- liegt am Río Magdalena am östlichen Ufer",
+	  vocHelp: '- die Breite - la latitud \n	am Ufer der/des...liegen - estar a orillas de...',
+	  lng: -73.854444,
+	  lat: 7.065278
+	}, {
+	  name: 'La Paz',
+	  description: "- gleicher Name wie der Regierungssitz in Bolivien \n- etwa auf der gleichen Breite wie Medellín; Río Magdalena wie Symmetrieachse",
+	  vocHelp: '- die Breite - la latitud \n- die Symmetrieachse - el eje de simetría \n- der Regierungssitz - la sede del Gobierno',
+	  lng: -73.173056,
+	  lat: 10.384167
+	}, {
+	  name: 'Tutunendó',
+	  description: "- Ortschaft in der Nähe von Quibdó: liegt nordöstlich von Quibdó",
+	  vocHelp: '',
+	  lng: -76.533333,
+	  lat: 5.75
+	}, {
+	  name: 'Palmira',
+	  description: "- befindet sich nordöstlich von Cali \n- hat fast den gleichen Namen wie eine syrische Stadt",
+	  vocHelp: '- syrisch - sirio',
+	  lng: -76.3036100,
+	  lat: 3.5394400
+	}, {
+	  name: 'Pitalito',
+	  description: "- befindet sich auf der Linie Popayán-Florencia in Westkolumbien",
+	  vocHelp: '- die Linie - la línea',
+	  lng: -76.0478500,
+	  lat: 1.8496600
+	}, {
+	  name: 'Gigante',
+	  description: "- liegt etwa auf der gleichen Breite und östlich von La Plata",
+	  vocHelp: '- die Breite - la latitud',
+	  lng: -75.5453100,
+	  lat: 2.3867700
+	}, {
+	  name: 'Ipiales',
+	  description: "- liegt im Südwesten Kolumbiens an der Grenze zu Ecuador \n- liegt südwestlich von Pasto",
+	  vocHelp: '- die Grenze - la frontera',
+	  lng: -77.6495900,
+	  lat: 0.8301800
+	}, {
+	  name: 'Puerto Asís',
+	  description: "- liegt in Südwestkolumbien \n- liegt sehr weit im Südosten von Pasto",
+	  vocHelp: 'weit - distante',
+	  lng: -76.50019099999997,
+	  lat: 0.504929
+	}, {
+	  name: 'La Pedrera',
+	  description: "- liegt in Südkolumbien am Río Caquetá",
+	  vocHelp: '- am Ufer der/des...liegen - estar a orillas de...',
+	  lng: -69.566667,
+	  lat: -1.316667
+	}, {
+	  name: 'Puerto Nariño',
+	  description: "- nach Leticia die südlichste Stadt Kolumbiens",
+	  vocHelp: '',
+	  lng: -70.35660000000001,
+	  lat: -3.79009
+	}, {
+	  name: 'Tarapacá',
+	  description: "- liegt in Südkolumbien am Río Putumayo",
+	  vocHelp: '- am Ufer der/des...liegen - estar a orillas de...',
+	  lng: -69.7442,
+	  lat: -2.87861
+	}, {
+	  name: 'Apartadó',
+	  description: "- liegt südöstlich von Turbo",
+	  vocHelp: '',
+	  lng: -76.6667,
+	  lat: 7.86667
+	}, {
+	  name: 'Luohu',
+	  description: "- nördlichste Stadt Kolumbiens",
+	  vocHelp: '',
+	  lng: -71.8,
+	  lat: 12.2833
+	}, {
+	  name: 'Soledad',
+	  description: "- befindet sich Nordkolumbien südlich von Barranquilla",
+	  vocHelp: '',
+	  lng: -74.76459,
+	  lat: 10.91843
+	}, {
+	  name: 'Pamplona',
+	  description: "- liegt in Nordostkolumbien \n- liegt südwestlich von Cúcuta und nordöstlich von Bucaramanga und Floridablanca",
+	  vocHelp: '',
+	  lng: -72.6479500,
+	  lat: 7.3756500
+	}, {
+	  name: 'Floridablanca',
+	  description: "- schließt sich südlich von Bucaramanga an \n- Name setzt sich zusammen aus dem Namen eines amerikan. Bundesstaates",
+	  vocHelp: '- sich anschließen - seguir a \n- sich zusammensetzen aus - componerse de',
+	  lng: -73.0864400,
+	  lat: 7.0622200
+	}, {
+	  name: 'Arauquita',
+	  description: "- liegt in Nordostkolumbien am Río Cutufi \n- liegt nahe der Grenze zu Venezuela",
+	  vocHelp: '- am Ufer der/des...liegen - estar a orillas de... \n- die Grenze - la frontera',
+	  lng: -71.4294759,
+	  lat: 7.029334
+	}, {
+	  name: 'Caucasia',
+	  description: "- befindet sich südöstlich von Montería und südlich von Sincelejo",
+	  vocHelp: '',
+	  lng: -75.19856290000001,
+	  lat: 7.979698
+	}, {
+	  name: 'Planeta Rica',
+	  description: "- befindet sich etwa auf der Mitte der Linie Montería-Caucasia",
+	  vocHelp: '- die Linie - la línea',
+	  lng: -75.584048,
+	  lat: 8.412749
+	}, {
+	  name: 'Aguachica',
+	  description: "- befindet sich in Nordostkolumbien \n- Name setzt sich zusammen aus „Wasser“ + „Mädchen“",
+	  vocHelp: '- sich zusammensetzen aus - componerse de',
+	  lng: -73.61166500000002,
+	  lat: 8.305925
+	}, {
+	  name: 'Sabanalarga',
+	  description: "- befindet sich in Nordkolumbien nordwestlich von Medellín",
+	  vocHelp: '',
+	  lng: -74.920163,
+	  lat: 10.632409
+	}, {
+	  name: 'Magangué',
+	  description: "- befindet sich in Nordkolumbien  \n- befindet sich östlich von Sincelejo und südöstlich von Cartagena",
+	  vocHelp: '',
+	  lng: -74.75275870000002,
+	  lat: 9.2414156
+	}, {
+	  name: 'El Carmen de Bolívar',
+	  description: "- liegt in Nordkolumbien \n- befindet sich südöstlich von Cartagena und nordöstlich von Sincelejo",
+	  vocHelp: '',
+	  lng: -75.1202300,
+	  lat: 9.7174000
+	}, {
+	  name: 'Sogamoso',
+	  description: "- liegt nordöstlich von Bogotá und Tunja",
+	  vocHelp: '',
+	  lng: -72.9339100,
+	  lat: 5.7143400
+	}, {
+	  name: 'Ocaña',
+	  description: "- liegt in Nordostkolumbien östlich von Aguachica",
+	  vocHelp: '',
+	  lng: -73.3560400,
+	  lat: 8.2377300
+	}, {
+	  name: 'Tumaco',
+	  description: "- liegt in Südwestkolumbien \n- Hafenstadt an der pazifischen Küste",
+	  vocHelp: '- der Pazifik - el Océano Pacífico \n- die Küste - la costa',
+	  lng: -78.80209400000001,
+	  lat: 1.80009
+	}, {
+	  name: 'Maicao',
+	  description: "- befindet sich südöstlich von Riohacha in Nordkolumbien",
+	  vocHelp: '',
+	  lng: -72.24851710000002,
+	  lat: 11.3789335
+	}, {
+	  name: 'Fundación',
+	  description: "- befindet sich südlich von Santa Marta und südöstlich von Barranquilla",
+	  vocHelp: '',
+	  lng: -74.1819979,
+	  lat: 10.517179
+	}, {
+	  name: 'Ciénaga',
+	  description: "- liegt in Nordkolumbien \n- liegt südlich von Santa Marta und östlich von Barranquilla",
+	  vocHelp: '',
+	  lng: -74.2476500,
+	  lat: 11.0070300
+	}, {
+	  name: 'El Banco',
+	  description: "- liegt südöstlich von Magangué und Sincelejo",
+	  vocHelp: '',
+	  lng: -73.97386399999999,
+	  lat: 9.003506999999999
+	}, {
+	  name: 'Plato',
+	  description: "- liegt in Nordkolumbien \n- liegt östlich von El Carmen de Bolívar und Sincelejo",
+	  vocHelp: '',
+	  lng: -74.7824400,
+	  lat: 9.790290
+	}, {
+	  name: 'Duitama',
+	  description: "- liegt nordöstlich von Tunja und nordwestlich von Sogamoso",
+	  vocHelp: '',
+	  lng: -73.03292729999998,
+	  lat: 5.8268951
+	}, {
+	  name: 'La Dorada',
+	  description: "- heißt auf dt.: „die Goldbrasse“ \n- liegt südöstlich von Medellín und nordwestlich von Bogotá",
+	  vocHelp: '',
+	  lng: -74.66798399999999,
+	  lat: 5.472709
 	}];
 
 	module.exports.default = locations;

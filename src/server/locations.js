@@ -2,7 +2,7 @@ const locations = [
   {
     name: 'Bogotá',
     description: "- Hauptstadt von Kolumbien",
-    vocHelp: '- Hauptstadt - capital',
+    vocHelp: '',
     lng: -74.075833,
     lat: 4.598056
   },
@@ -455,33 +455,110 @@ const locations = [
     lat: 7.979698
   },
   {
-    name: 'Turbo',
-    description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
-    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
-    lng: -76.728056,
-    lat: 8.0925
+    name: 'Planeta Rica',
+    description: "- befindet sich etwa auf der Mitte der Linie Montería-Caucasia",
+    vocHelp: '- die Linie - la línea',
+    lng: -75.584048,
+    lat: 8.412749
   },
   {
-    name: 'Turbo',
-    description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
-    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
-    lng: -76.728056,
-    lat: 8.0925
+    name: 'Aguachica',
+    description: "- befindet sich in Nordostkolumbien \n- Name setzt sich zusammen aus „Wasser“ + „Mädchen“",
+    vocHelp: '- sich zusammensetzen aus - componerse de',
+    lng: -73.61166500000002,
+    lat: 8.305925
   },
   {
-    name: 'Turbo',
-    description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
-    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
-    lng: -76.728056,
-    lat: 8.0925
+    name: 'Sabanalarga',
+    description: "- befindet sich in Nordkolumbien nordwestlich von Medellín",
+    vocHelp: '',
+    lng: -74.920163,
+    lat: 10.632409
   },
   {
-    name: 'Turbo',
-    description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
-    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
-    lng: -76.728056,
-    lat: 8.0925
+    name: 'Magangué',
+    description: "- befindet sich in Nordkolumbien  \n- befindet sich östlich von Sincelejo und südöstlich von Cartagena",
+    vocHelp: '',
+    lng: -74.75275870000002,
+    lat: 9.2414156
   },
+  {
+    name: 'El Carmen de Bolívar',
+    description: "- liegt in Nordkolumbien \n- befindet sich südöstlich von Cartagena und nordöstlich von Sincelejo",
+    vocHelp: '',
+    lng: -75.1202300,
+    lat: 9.7174000
+  },
+  {
+    name: 'Sogamoso',
+    description: "- liegt nordöstlich von Bogotá und Tunja",
+    vocHelp: '',
+    lng: -72.9339100,
+    lat: 5.7143400
+  },
+  {
+    name: 'Ocaña',
+    description: "- liegt in Nordostkolumbien östlich von Aguachica",
+    vocHelp: '',
+    lng: -73.3560400,
+    lat: 8.2377300
+  },
+  {
+    name: 'Tumaco',
+    description: "- liegt in Südwestkolumbien \n- Hafenstadt an der pazifischen Küste",
+    vocHelp: '- der Pazifik - el Océano Pacífico \n- die Küste - la costa',
+    lng: -78.80209400000001,
+    lat: 1.80009
+  },
+  {
+    name: 'Maicao',
+    description: "- befindet sich südöstlich von Riohacha in Nordkolumbien",
+    vocHelp: '',
+    lng: -72.24851710000002,
+    lat: 11.3789335
+  },
+  {
+    name: 'Fundación',
+    description: "- befindet sich südlich von Santa Marta und südöstlich von Barranquilla",
+    vocHelp: '',
+    lng: -74.1819979,
+    lat: 10.517179
+  },
+  {
+    name: 'Ciénaga',
+    description: "- liegt in Nordkolumbien \n- liegt südlich von Santa Marta und östlich von Barranquilla",
+    vocHelp: '',
+    lng: -74.2476500,
+    lat: 11.0070300
+  },
+  {
+    name: 'El Banco',
+    description: "- liegt südöstlich von Magangué und Sincelejo",
+    vocHelp: '',
+    lng: -73.97386399999999,
+    lat: 9.003506999999999
+  },
+  {
+    name: 'Plato',
+    description: "- liegt in Nordkolumbien \n- liegt östlich von El Carmen de Bolívar und Sincelejo",
+    vocHelp: '',
+    lng: -74.7824400,
+    lat: 9.790290
+  },
+  {
+    name: 'Duitama',
+    description: "- liegt nordöstlich von Tunja und nordwestlich von Sogamoso",
+    vocHelp: '',
+    lng: -73.03292729999998,
+    lat: 5.8268951
+  },
+  {
+    name: 'La Dorada',
+    description: "- heißt auf dt.: „die Goldbrasse“ \n- liegt südöstlich von Medellín und nordwestlich von Bogotá",
+    vocHelp: '',
+    lng: -74.66798399999999,
+    lat: 5.472709
+  }
   
 ]
 

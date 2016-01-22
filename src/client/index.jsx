@@ -8,7 +8,7 @@ import {socket} from './redux.jsx'
 var style = require('./sass/main.sass')
 
 
-console.log('golden giraffe')
+console.log('horny HANS')
 
 // setup the rendering
 renderToPage(socket)
@@ -16,10 +16,10 @@ renderToPage(socket)
 
     window.cheat = () => {
         window.store.dispatch({
-            type: 'SET_MARKER',
+            type: 'PLACE_MARKER',
             latLng: {
-                lat: window.store.getState().location.lat,
-                lng: window.store.getState().location.lng + 0.00000001
+                lat: () => window.store.getState().location.lat,
+                lng: () => window.store.getState().location.lng + 0.00000001
             }
         })
     }

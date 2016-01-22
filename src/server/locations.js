@@ -199,8 +199,8 @@ const locations = [
     name: 'Valledupar',
     description: "- Hauptstadt des Departamento del Cesar im Norden Kolumbiens \n- auch interrnational als „Welt-Hauptstadt des Vallenato“ bekannt",
     vocHelp: '',
-    lng: -73.243633,
-    lat: 10.474245
+    lng: -73.259147,
+    lat: 10.4647705
   },
   {
     name: 'Arauca',

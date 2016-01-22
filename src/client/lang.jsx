@@ -31,5 +31,5 @@ export default {
     removePlayer: 'Remove player',
     back: 'go back',
     resetRoundWarning: 'Warning: The current round will be reseted',
-    rules: 'reglas de jugeo'
+    rules: 'reglas de juego'
 }

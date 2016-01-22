@@ -7,7 +7,7 @@ export default (socket, store) => {
 
       const isStillIn = () => {
           store.getState().players.reduce((acc, player) => {
-              return player === store.getState().name ? true : acc;
+              return player.name === store.getState().name ? true : acc;
           }, false);
       };
 
@@ -16,7 +16,7 @@ export default (socket, store) => {
           newPlayers: newPlayers
       });
 
-      if (!isStillIn()) {
+      if (!isStillIn() && store.getState().status === 'PLAYING') {
           window.location.reload();
       }
   });

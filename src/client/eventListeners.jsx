@@ -6,7 +6,7 @@ export default (socket, store) => {
       console.log('i got new players');
 
       const isStillIn = () => {
-          store.getState().players.reduce((acc, player) => {
+          return store.getState().players.reduce((acc, player) => {
               return player.name === store.getState().name ? true : acc;
           }, false);
       };
@@ -16,8 +16,12 @@ export default (socket, store) => {
           newPlayers: newPlayers
       });
 
-      if (!isStillIn() && store.getState().status === 'PLAYING') {
+      if ((!isStillIn()) && (store.getState().status === 'PLAYING')) {
+          alert('I am not in')
+          alert(isStillIn())
+          alert(JSON.stringify(store.getState()))
           window.location.reload();
+
       }
   });
 

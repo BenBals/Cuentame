@@ -5,7 +5,7 @@ import React from 'react'
 export default ({ players }) => {
   // return an ordered list
   return (
-    <ol>
+    <ol className="winner-table">
       {
         // dont modify the origional array
         [].concat(players)

@@ -3,6 +3,7 @@ import React from 'react'
 
 // process markdown
 import marked from 'marked'
+window.marked = marked
 
 // lang files
 import lang from '../lang.jsx'
@@ -50,7 +51,7 @@ export default class Write extends React.Component {
         {/* the textarea with the ref*/}
         <textarea defaultValue={lang.yourDescriptionHere} ref={(ref) => this.text = ref}></textarea>
         {/* tell them what they need to describe*/}
-        <h3>{lang.youDescribe} {this.props.location.name}</h3>
+        <h3>{lang.youDescribe}: {this.props.location.name}</h3>
         {/* german description*/}
         <div dangerouslySetInnerHTML={{__html: marked(this.props.location.description)}}>
         </div>

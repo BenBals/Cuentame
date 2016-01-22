@@ -63,7 +63,10 @@ const reset = () => {
     console.log('=        reset      =')
     console.log('=====================')
     // reset the state
-    state = _.assign({}, defaultState, {players: []})
+    state = _.assign({}, defaultState, {
+        players: [],
+        locations: _.shuffle(locations.default)
+    })
     // tell all clients to reload
     io.emit('reset')
     // and redo the setup
@@ -89,7 +92,7 @@ const startNewRound = () => {
   // increment the round counter
   state.round = state.round + 1
   // select a new location randomly
-    state.currentLocation = state.locations[(state.round - 1)]
+  state.currentLocation = state.locations[(state.round - 1)]
   // reset/init guesses
   state.guesses = {}
   // the next guy is the writer now
@@ -231,7 +234,7 @@ io.on('connection', function(socket) {
             if (state.players.length >= 2) {
                 io.emit('update players', state.players);
                 startNewRound();
-            } else {
+            } else if (state.status === 'PLAYING'){
                 reset();
             }
         } else {

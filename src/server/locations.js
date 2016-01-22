@@ -9,27 +9,27 @@ const locations = [
   {
     name: 'Medellín',
     description: "- Hauptstadt des Departamento Antioquia in Kolumbien \n- zweitgrößte Stadt Kolumbiens \n- Geburtsort von Juanes",
-    vocHelp: '- die Geburt - el nacimiento \n - zweitgrößte - segunda más grande',
+    vocHelp: '- die Geburt - el nacimiento \n- zweitgrößte - segunda más grande',
     lng: -75.564574,
     lat: 6.253041
   },
   {
     name: 'Barranquilla',
     description: "- Hauptstadt des Departamento Atlántico in Kolumbien \n- viertgrößte Stadt Kolumbiens \n- Geburtsort von Shakira",
-    vocHelp: '- die Geburt - el nacimiento \n - viertgrößte - cuarta más grande',
+    vocHelp: '- die Geburt - el nacimiento \n- viertgrößte - cuarta más grande',
     lng: -74.797044,
     lat: 10.96421
   },
   {
     name: 'Buenaventura',
-    description: "- Lage: an der Pazifikküste \n - am Fuß der Anden",
-    vocHelp: '- die Pazifikküste - la costa del Océano Pacífico \n - am Fuß - al pie',
+    description: "- Lage: an der Pazifikküste \n- am Fuß der Anden",
+    vocHelp: '- die Pazifikküste - la costa del Océano Pacífico \n- am Fuß - al pie',
     lng: -77.019721,
     lat: 3.883047
   },
   {
     name: 'Cartagena',
-    description: "- liegt südwestlich von Barranquilla \n - Stadt an der Karibikküste Kolumbiens",
+    description: "- liegt südwestlich von Barranquilla \n- Stadt an der Karibikküste Kolumbiens",
     vocHelp: '',
     lng: -75.514167,
     lat: 10.399444
@@ -37,7 +37,7 @@ const locations = [
   {
     name: 'Cúcuta',
     description: "- sechstgrößte Stadt Kolumbiens \n- liegt im Nordosten Kolumbiens an der Grenze zu Venezuela \n- Hauptstadt der Provinz Norte de Santander",
-    vocHelp: '- die Grenze - la frontera \n - sechstgrößte - sexta más grande',
+    vocHelp: '- die Grenze - la frontera \n- sechstgrößte - sexta más grande',
     lng: -72.49669,
     lat: 7.889097
   },
@@ -50,7 +50,7 @@ const locations = [
   },
   {
     name: 'Ibagué',
-    description: "- westlich von Bogotá \n	- Hauptstadt der Region Tolima",
+    description: "- westlich von Bogotá \n- Hauptstadt der Region Tolima",
     vocHelp: '',
     lng: -75.233333,
     lat: 4.45 
@@ -121,14 +121,14 @@ const locations = [
   {
     name: 'Lago de Tota',
     description: "- größter Süßwassersee Kolumbiens \n- liegt ungefähr in halber Verlängerung Cali -> Bogotá",
-    vocHelp: '- das Süßwasser - la agua dulce \n - ungefähr - más o menos \n - die Verlängerung - el alargamiento',
+    vocHelp: '- das Süßwasser - la agua dulce \n- ungefähr - más o menos \n- die Verlängerung - el alargamiento',
     lng: -72.92,
     lat: 5.54
   },
   {
     name: 'Acevedo',
     description: "- Quelle des Rio Magdalena (dieser mündet in Barranquilla) \n- liegt im Süden der Anden, südwestlich von Popayán",
-    vocHelp: '- die Quelle - la fuente \n - münden in... - desembocar en...',
+    vocHelp: '- die Quelle - la fuente \n- münden in... - desembocar en...',
     lng: -75.612778,
     lat: 1.613889
   },
@@ -142,14 +142,14 @@ const locations = [
   {
     name: 'Bucaramanga',
     description: "- Hauptstadt des Departamento Santander in Kolumbien \n- liegt nordöstlich von Bogotá \n- besitzt eine der renommiertesten technischen Universitäten in der Region",
-    vocHelp: '- renommiert - prestigioso/-a \n - technisch - técnico/-a',
+    vocHelp: '- renommiert - prestigioso/-a \n- technisch - técnico/-a',
     lng: -73.122742,
     lat: 7.119349
   },
   {
     name: 'Pereira',
     description: "- Stadt, liegt am westlichen Fuß der Zentral-Kordilleren \n- etwa Mittelpunkt des „Goldenen Dreiecks“ Bogotá-Medellín-Cali",
-    vocHelp: '- das Gold - el oro \n - das Dreieck - el triángulo \n - am Fuß - al pie',
+    vocHelp: '- das Gold - el oro \n- das Dreieck - el triángulo \n- am Fuß - al pie',
     lng: -75.695833,
     lat: 4.813056
   },
@@ -163,14 +163,14 @@ const locations = [
   {
     name: 'Manizales',
     description: "- Hauptstadt des Departamento Caldas \n- liegt im Hauptkaffeeanbaugebiet Kolumbiens \n- befindet sich nordöstlich von Pereira",
-    vocHelp: '- Haupt-... - principal \n - das Anbaugebiet - el terreno de cultivo',
+    vocHelp: '- Haupt-... - principal \n- das Anbaugebiet - el terreno de cultivo',
     lng: -75.517222,
     lat: 5.068889
   },
   {
     name: 'Turbo',
-    description: "- Stadt und Gemeinde im Norden Kolumbiens \n - liegt am Golf von Urabá am Karibischen Meer \n - Hafenstadt und Grenzstadt nach Panamá",
-    vocHelp: '- die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
+    description: "- Stadt und Gemeinde im Norden Kolumbiens \n- liegt am Golf von Urabá am Karibischen Meer \n- Hafenstadt und Grenzstadt nach Panamá",
+    vocHelp: '- die Gemeinde - el municipio \n- der Golf - el golfo \n- die Hafenstadt - la ciudad portuaria',
     lng: -76.728056,
     lat: 8.0925
   },
@@ -240,7 +240,7 @@ const locations = [
   {
     name: 'Puerto Carreño',
     description: "- Hauptstadt des Departamento Vichada im Osten Kolumbiens \n- liegt etwa am Zusammenfluss der Flüsse Orinoco und Meta \n- liegt an der Grenze zu Venezuela",
-    vocHelp: '- der Zusammenfluss - la confluencia \n - die Grenze - la frontera',
+    vocHelp: '- der Zusammenfluss - la confluencia \n- die Grenze - la frontera',
     lng: -67.488462,
     lat: 6.184766
   },
@@ -282,7 +282,7 @@ const locations = [
   {
     name: 'San José del Guaviare',
     description: "- Hauptstadt des Departamento Guaviare in Zentralkolumbien \n- liegt südöstlich von Bogotá und Villavicencio am Fluss Guaviare",
-    vocHelp: 'die Gemeinde - el municipio \n - der Golf - el golfo \n - die Hafenstadt - la ciudad portuaria',
+    vocHelp: 'die Gemeinde - el municipio \n- der Golf - el golfo \n- die Hafenstadt - la ciudad portuaria',
     lng: -72.633333,
     lat: 2.566667
   },
@@ -296,7 +296,7 @@ const locations = [
   {
     name: 'Isla de Tierra Bomba',
     description: "- Insel an der kolumbianischen Karibikküste \n- grenzt die Bahía de Cartagena de Indias vom Meer ab",
-    vocHelp: '- die Küste - la costa \n - abgrenzen von.../trennen von... - separar de...',
+    vocHelp: '- die Küste - la costa \n- abgrenzen von.../trennen von... - separar de...',
     lng: -75.575833,
     lat: 10.3525
   },
@@ -331,7 +331,7 @@ const locations = [
   {
     name: 'Barrancabermeja',
     description: "- liegt westlich von Bucaramanga und etwa auf der gleichen Breite \n- liegt am Río Magdalena am östlichen Ufer",
-    vocHelp: '- die Breite - la latitud \n	am Ufer der/des...liegen - estar a orillas de...',
+    vocHelp: '- die Breite - la latitud \n- am Ufer der/des...liegen - estar a orillas de...',
     lng: -73.854444,
     lat: 7.065278
   },

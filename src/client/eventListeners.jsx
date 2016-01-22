@@ -18,6 +18,8 @@ export default (socket, store) => {
 
       if ((!isStillIn()) && (store.getState().status === 'PLAYING')) {
           window.location.reload();
+      } else if ((!isStillIn) && store.getState().screen === 'WAITING_FOR_OTHER_PLAYERS') {
+          window.location.reload()
       }
   });
 

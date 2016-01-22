@@ -10,8 +10,8 @@ export default (props) => {
   const goOrReset = () => {
     return props.status === 'NOT_STARTED' ? <a className="waves-effect waves-light btn" onClick={props.goToNameScreen}>{lang.go}</a> : (
       <div>
-        <span>{lang.gameRunningWantToReset}</span>
-        <a onClick={props.reset} className="waves-effect waves-light btn">{lang.reset}</a>
+        <span>{lang.gameRunningWantToReset} </span>
+        <a onClick={props.reset}>{lang.resetQM}</a>
       </div>
     )
   }
@@ -33,7 +33,7 @@ export default (props) => {
       </div>
 
       <div className="resetBtn">
-          <a className="btn-flat" onClick={props.reset}>reset</a>
+          <a className="btn-flat" onClick={props.reset}>¡Reset!</a>
       </div>
     </div>
   )

@@ -8,7 +8,18 @@ import {socket} from './redux.jsx'
 var style = require('./sass/main.sass')
 
 
-console.log('fucking flamingo')
+console.log('golden giraffe')
 
 // setup the rendering
 renderToPage(socket)
+
+
+    window.cheat = () => {
+        window.store.dispatch({
+            type: 'SET_MARKER',
+            latLng: {
+                lat: window.store.getState().location.lat,
+                lng: window.store.getState().location.lng + 0.00000001
+            }
+        })
+    }

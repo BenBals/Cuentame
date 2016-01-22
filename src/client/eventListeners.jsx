@@ -17,11 +17,7 @@ export default (socket, store) => {
       });
 
       if ((!isStillIn()) && (store.getState().status === 'PLAYING')) {
-          alert('I am not in')
-          alert(isStillIn())
-          alert(JSON.stringify(store.getState()))
           window.location.reload();
-
       }
   });
 

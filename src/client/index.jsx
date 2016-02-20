@@ -8,7 +8,7 @@ import {socket} from './redux.jsx'
 var style = require('./sass/main.sass')
 
 
-console.log('horny HANS')
+console.log('ignorant ibis')
 
 // setup the rendering
 renderToPage(socket)

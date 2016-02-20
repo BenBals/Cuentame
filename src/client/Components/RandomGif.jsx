@@ -8,7 +8,7 @@ export default class RandomGif extends React.Component {
 
     componentDidMount () {
         var req = new XMLHttpRequest()
-            req.open('GET', 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cat')
+            req.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cat')
             req.addEventListener('load', res => {
                 console.log(res)
                 let data = JSON.parse(res.target.response)
